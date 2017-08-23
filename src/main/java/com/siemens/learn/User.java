@@ -6,7 +6,7 @@ public class User
 {
 	private String username;
 	private List<Target> targets;
-	private float sliderValue;
+	private float risk;
 
 	public String getUsername() 
 	{
@@ -28,13 +28,13 @@ public class User
 		this.targets = targets;
 	}
 
-	public float getSliderValue() 
+	public float getRisk() 
 	{
-		return sliderValue;
+		return risk;
 	}
 
-	public void setSliderValue(float sliderValue) 
+	public void setRisk(float risk) 
 	{
-		this.sliderValue = sliderValue;
+		this.risk = risk;
 	}
 }

@@ -6,6 +6,13 @@ public class Target
 	private String category;
 	private float completionPercent;
 
+	public Target(String target, String category, float completionPercent)
+	{
+		this.targetName = target;
+		this.category = category;
+		this.completionPercent = completionPercent;
+	}
+	
 	public String getTargetName() 
 	{
 		return targetName;
@@ -36,4 +43,10 @@ public class Target
 		this.completionPercent = completionPercent;
 	}
 
+	@Override
+	public String toString() 
+	{
+		return "Target [targetName=" + targetName + ", category=" + category + ", completionPercent="
+				+ completionPercent + "]";
+	}
 }
