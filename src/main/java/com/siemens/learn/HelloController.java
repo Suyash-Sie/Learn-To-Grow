@@ -15,10 +15,9 @@ public class HelloController
 		return "hello";
 	}
 
-	@RequestMapping(value = "/hello", method = RequestMethod.POST)
+	@RequestMapping(value = "/login", method = RequestMethod.POST)
 	public String login(ModelMap model) 
 	{
-		model.addAttribute("message", "Welcome to the learning app!");
-		return "userscreen";
+		return "redirect:userscreen";
 	}
 }

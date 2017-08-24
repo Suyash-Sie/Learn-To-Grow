@@ -20,9 +20,8 @@ public class UserController
 		targets.add(new Target("Target 3", "Category 3", 42F));
 		targets.add(new Target("Target 4", "Category 4", 11F));
 		targets.add(new Target("Target 5", "Category 5", 19F));
-		System.out.println(targets.get(0));
 		model.addAttribute("targets", targets);
 		
-		return "user";
+		return "userscreen";
 	}
 }
