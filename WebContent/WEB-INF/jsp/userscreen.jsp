@@ -10,7 +10,7 @@
 		<h2>USER SCREEN</h2>
 		<h2>Space for risk indicator</h2>
 		<h3>Your Targets:</h3>
-		<form method="POST">
+		<form method="POST" action="userscreen/submit">
 			<table>
 				<thead>
         			<tr>
