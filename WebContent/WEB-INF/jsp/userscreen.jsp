@@ -233,6 +233,7 @@ function selectTab(evt, quarter) {
 renderCore();
 function renderCore() {
 	"use strict";
+	var optimizationBarV4 = new OptimizationBar();
 	optimizationBarV4.setLeftLabel("HIGH RISK");
 	optimizationBarV4.setRightLabel("LOW RISK");
 	optimizationBarV4.setDomain(0,100);
