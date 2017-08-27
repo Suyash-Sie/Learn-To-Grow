@@ -1,9 +1,13 @@
+<%@page import="java.util.List"%>
+<%@page import="com.siemens.learn.Target"%>
 <%@ page contentType="text/html; charset = UTF-8"%>
 <%@taglib uri="http://www.springframework.org/tags/form" prefix="form"%>
 <%@taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <html>
 <head>
 <title>Hello World</title>
+<script src="https://d3js.org/d3.v4.min.js"></script>
+<script type="text/javascript" src="<c:url value="/resources/js/optimizationBar.js" />"></script>
 </head>
 <style>
 .dls-comp-table {
@@ -221,8 +225,50 @@ function selectTab(evt, quarter) {
 	} */
 </script> -->
 <body>
-	<h2>USER SCREEN</h2>
-	<h2>Space for risk indicator</h2>
+	<div
+		style="position: relative; width: 100%; height: 250px; overflow: hidden;"
+		id="user_riskIndicator">
+	</div>
+	<script>
+renderCore();
+function renderCore() {
+	"use strict";
+	optimizationBarV4.setLeftLabel("HIGH RISK");
+	optimizationBarV4.setRightLabel("LOW RISK");
+	optimizationBarV4.setDomain(0,100);
+	optimizationBarV4.setColors(["rgb(255,0,0)", "rgb(255,194,12)", "rgb(160,215,44)"]);
+       
+    // To control the layout of opti bar inside riskindicator.
+    //optimizationBarV4.setMargin(0,0,0,0);
+    optimizationBarV4.setChartMultipliers(0.1, 0.5);
+    var apendee = d3.select("#user_riskIndicator").node().getBoundingClientRect();
+    optimizationBarV4.setDimension(apendee.height, apendee.width);
+    var test = {};
+    <%
+    List<Target> targets = ((List<Target>)request.getAttribute("targets"));
+    float completed = 0;
+    for(Target target: targets)
+    {
+    	completed+=target.getCompletionPercent();
+    }
+    %>
+    var i = <%=completed/targets.size()%>
+	
+		try {
+			console.log(i)
+				optimizationBarV4.setSliderPosition(i);
+				 optimizationBarV4.setSliderText(""); 
+		} catch(err) {
+			optimizationBarV4.setSliderPosition(Number.NaN);
+			console.error(err);
+			console.error(err.stack);
+		}
+		
+	    //Draws the risk indicator
+	    optimizationBarV4.draw("#user_riskIndicator");
+}
+</script>
+<div>
 	<h3>Your Targets:</h3>
 	
 	<!-- <div id="tab1" onClick="JavaScript:selectTab(1);">Quarter 1</div>
@@ -403,6 +449,7 @@ function selectTab(evt, quarter) {
 			</div>
       </section>
     </div>
-</form>	
+</form>
+</div>
 </body>
 </html>
