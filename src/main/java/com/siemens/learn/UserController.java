@@ -15,6 +15,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 public class UserController 
 {
 	private DBService dbService;
+    private String user;
 
 	public UserController()
 	{
@@ -24,7 +25,8 @@ public class UserController
 	@RequestMapping(value = "/userscreen", method = RequestMethod.GET)
 	public String welcome(ModelMap model, @ModelAttribute("user") String user) 
 	{
-		List<Target> targets = new TargetService(dbService).getTargetsForUser(user);
+		this.user = user;
+        List<Target> targets = new TargetService(dbService).getTargetsForUser(user);
 		int currentMonth = Calendar.getInstance().get(Calendar.MONTH);
 		if(currentMonth > 9)
 		{
@@ -51,9 +53,18 @@ public class UserController
 	}
 
 	@RequestMapping(value = "userscreen/submit", method = RequestMethod.POST)
-	public String submit(ModelMap model, @RequestParam String quarter) 
+	public String submit(ModelMap model, @RequestParam String targetName, @RequestParam String category, @RequestParam String tabbed1, 
+	    @RequestParam String completionPercent) 
 	{
 		List<Target> targets = new ArrayList<>();
+		Target target = new Target();
+		target.setTargetName(targetName);
+		target.setCategory(category);
+		target.setCompletionPercent(completionPercent);
+		target.setQuarter(tabbed1);
+		targets.add(target);
+		
+		new TargetService(dbService).updateTargets(user, targets);
 //		targets.add(new Target("Target 1", "Category 1", 25F));
 //		targets.add(new Target("Target 2", "Category 2", 31F));
 //		targets.add(new Target("Target 3", "Category 3", 42F));

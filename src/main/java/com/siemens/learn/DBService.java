@@ -145,15 +145,14 @@ public class DBService
 //		dbService.submit("z0024dzv", targets, "100");
 		
 		DBService dbService = new DBService();
-		dbService.getRiskForGroup("R8");
-//		List<Map<String, String>> targets2 = dbService.getTargets("z0024dzv");
-//		for (Map<String, String> map : targets2) 
-//		{
-//			for (Entry<String, String> entry : map.entrySet()) 
-//			{
-//				System.out.println(entry.getKey() + ": " + entry.getValue());
-//			}
-//		}
+		List<Map<String, String>> targets2 = dbService.getTargets("z0024dzv");
+		for (Map<String, String> map : targets2) 
+		{
+			for (Entry<String, String> entry : map.entrySet()) 
+			{
+				System.out.println(entry.getKey() + ": " + entry.getValue());
+			}
+		}
 		
 	}
 }
