@@ -4,6 +4,9 @@ import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.List;
 
+import javax.servlet.http.HttpServletRequest;
+
+import org.springframework.http.HttpRequest;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.ModelAttribute;
@@ -52,10 +55,37 @@ public class UserController
 		return "userscreen";
 	}
 
-	@RequestMapping(value = "userscreen/submit", method = RequestMethod.POST)
-	public String submit(ModelMap model, @RequestParam String targetName, @RequestParam String category, @RequestParam String tabbed1, 
-	    @RequestParam String completionPercent) 
+	@RequestMapping(value = "userscreen/submit", method = RequestMethod.POST, params="add")
+	public String submit(HttpServletRequest request, ModelMap model, @RequestParam String tabbed1) 
 	{
+		String targetName = request.getParameter("targetName");
+		String category = request.getParameter("category");
+		if(targetName.isEmpty() || category.isEmpty())
+			return "userscreen";
+			
+		List<Target> targets = new ArrayList<>();
+		Target target = new Target();
+		target.setTargetName(targetName);
+		target.setCategory(category);
+		target.setCompletionPercent("0");
+		target.setQuarter(tabbed1);
+		targets.add(target);
+		
+		new TargetService(dbService).submitTargets(user, targets);
+		model.addAttribute("targets", targets);
+		
+		return "userscreen";
+	}
+
+	@RequestMapping(value = "userscreen/submit", params="update", method = RequestMethod.POST)
+	public String update(HttpServletRequest request, ModelMap model, @RequestParam String tabbed1) 
+	{
+		String targetName = request.getParameter("targetName");
+		String category = request.getParameter("category");
+		String completionPercent = request.getParameter("completionPercent");
+		if(targetName.isEmpty() || category.isEmpty() || Integer.parseInt(completionPercent) > 100 
+				|| Integer.parseInt(completionPercent) < 0)
+			return "userscreen";
 		List<Target> targets = new ArrayList<>();
 		Target target = new Target();
 		target.setTargetName(targetName);
@@ -65,12 +95,6 @@ public class UserController
 		targets.add(target);
 		
 		new TargetService(dbService).submitTargets(user, targets);
-//		targets.add(new Target("Target 1", "Category 1", 25F));
-//		targets.add(new Target("Target 2", "Category 2", 31F));
-//		targets.add(new Target("Target 3", "Category 3", 42F));
-//		targets.add(new Target("Target 4", "Category 4", 11F));
-//		targets.add(new Target("Target 5", "Category 5", 19F));
-//		targets.add(new Target("Target 6", "Category 6", 27F));
 		model.addAttribute("targets", targets);
 		
 		return "userscreen";

@@ -298,7 +298,7 @@ function insertRow(){
 	<br /> -->
 	<form method="POST" action="userscreen/submit">
 	<div class="tabbed">
-      <input name="tabbed1" id="tabbed1"  type="radio" checked>
+      <input name="tabbed1" id="tabbed1" type="radio" checked>
       <section>
         <h1>
           <label for="tabbed1">Quarter 1</label>
@@ -319,14 +319,14 @@ function insertRow(){
 				<c:forEach var="target" items="${targets}">
 					<div class="dls-comp-tableDataRow">
 						<div class="dls-comp-table-row" id="myRow">
-							<div contenteditable="false" id="targetName" name="targetName" class="dls-comp-tableDataCell">
+							<div contenteditable="false" id="targetName" class="dls-comp-tableDataCell">
 								<span style='margin: 5px; text-align: left'>${target.targetName}</span>
 							</div>
-							<div contenteditable="false" id="category" name="category" class="dls-comp-tableDataCell">					
+							<div contenteditable="false" id="category" class="dls-comp-tableDataCell">					
 							
 								<span style='margin: 5px; text-align: left'>${target.category}</span>
 							</div>
-							<div contenteditable="true" id="completionPercent" name="completionPercent" class="dls-comp-tableDataCell">
+							<div contenteditable="true" id="completionPercent" class="dls-comp-tableDataCell">
 								<span style='margin: 5px; text-align: left'>${target.completionPercent}</span>
 							</div>
 						</div>
@@ -350,7 +350,7 @@ function insertRow(){
 					            <option value="Project Management">Project Management</option>
 					    	</datalist>
 							</div>
-							<div contenteditable="true" id="completionPercent" name="completionPercent" class="dls-comp-tableDataCell">
+							<div contenteditable="true" id="completionPercent" class="dls-comp-tableDataCell">
 							<input name="completionPercent" type="text" style="height:35px; width: calc(100% - 3px);background: #ADD8E6; opacity: 0.7;"/>
 								<span style='margin: 5px; text-align: left'></span>
 							</div>
@@ -359,9 +359,8 @@ function insertRow(){
 			</div>
 			<button id="btnAdd" style="margin-top: 5px;" type="button" onclick="insertRow();">Add New Row</button>
 			<div style='text-align: center; margin-top: 10px;'>
-				<input type="submit" />
-				<button type="button">Update</button>
-				<button type="reset">Cancel</button>
+				<input type="submit" name="add" value="Submit New Targets"/>
+				<input type="submit" name="update" value="Update completion percentage"/>
 			</div>
 			</div>
       </section>

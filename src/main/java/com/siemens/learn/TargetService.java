@@ -32,8 +32,10 @@ public class TargetService
 					target.setTargetName(entry.getValue());
 				else if(entry.getKey().equals("category"))
 					target.setCategory(entry.getValue());
-				else
+				else if(entry.getKey().equals("completed"))
 					target.setCompletionPercent(entry.getValue());
+				else
+					target.setQuarter(entry.getValue());
 			}
 			targets.add(target);
 		}
@@ -49,9 +51,9 @@ public class TargetService
 			Map<String, String> targetDetails = new HashMap<>();
 			targetDetails.put("name", target.getTargetName());
 			targetDetails.put("category", target.getCategory());
-			targetDetails.put("completed", "0");
+			targetDetails.put("completed", target.getCompletionPercent());
 			quarter = target.getQuarter();
-			targetDetails.put("quarter", quarter);
+			targetDetails.put("quarter", "Q1");
 			
 			targetsToBeAddded.add(targetDetails);
 		}
