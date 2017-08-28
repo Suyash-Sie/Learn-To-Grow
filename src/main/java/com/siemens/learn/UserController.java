@@ -64,7 +64,7 @@ public class UserController
 		target.setQuarter(tabbed1);
 		targets.add(target);
 		
-		new TargetService(dbService).updateTargets(user, targets);
+		new TargetService(dbService).submitTargets(user, targets);
 //		targets.add(new Target("Target 1", "Category 1", 25F));
 //		targets.add(new Target("Target 2", "Category 2", 31F));
 //		targets.add(new Target("Target 3", "Category 3", 42F));

@@ -1,7 +1,0 @@
-u,target 1,cat 1, 26
-u,target 2,cat 1, 30
-u,target 3,cat 1, 40
-u,target 4,cat 1, 29
-u,target 5,cat 1, 70
-u1,target 1,cat 1, 10
-u1,target 2,cat 1, 90

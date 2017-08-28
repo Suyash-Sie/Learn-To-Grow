@@ -6,6 +6,9 @@ import java.util.List;
 import java.util.Map;
 import java.util.Map.Entry;
 
+import org.joda.time.DateTime;
+import org.joda.time.Days;
+
 public class TargetService 
 {
 	private DBService dbService;
@@ -37,28 +40,31 @@ public class TargetService
 		return targets;
 	}
 	
-	public void updateTargets(String gid, List<Target> targets)
+	public void submitTargets(String gid, List<Target> targets)
 	{
 		List<Map<String, String>> targetsToBeAddded = dbService.getTargets(gid);
-		
+		String quarter = "";
 		for (Target target : targets) 
 		{
 			Map<String, String> targetDetails = new HashMap<>();
 			targetDetails.put("name", target.getTargetName());
 			targetDetails.put("category", target.getCategory());
-			targetDetails.put("completed", target.getCompletionPercent());
-			targetDetails.put("quarter", target.getQuarter());
+			targetDetails.put("completed", "0");
+			quarter = target.getQuarter();
+			targetDetails.put("quarter", quarter);
 			
 			targetsToBeAddded.add(targetDetails);
 		}
 		
-		String risk = calculateRisk(targetsToBeAddded);
+		String risk = calculateRisk(targetsToBeAddded, quarter);
+		
 		dbService.submit(gid, targetsToBeAddded, risk);
 	}
 
-	private String calculateRisk(List<Map<String, String>> targetsToBeAddded) 
+	private String calculateRisk(List<Map<String, String>> targetsToBeAddded, String quarter) 
 	{
 		float risk = 0;
+		float remaining = 0;
 		for (Map<String, String> map : targetsToBeAddded) 
 		{
 			for (Entry<String, String> entry : map.entrySet()) 
@@ -66,7 +72,7 @@ public class TargetService
 				try
 				{
 					if(entry.getKey().equals("completed"))
-						risk += Float.parseFloat(entry.getValue());
+						remaining += 100 - Float.parseFloat(entry.getValue());
 				}
 				catch(NumberFormatException ex)
 				{
@@ -74,7 +80,39 @@ public class TargetService
 				}
 			}
 		}
-		risk = risk/targetsToBeAddded.size();
+		
+		remaining /= targetsToBeAddded.size();
+		int noOfDaysLeftInQuarter = calculateDaysLeftInQuarter(quarter);
+		risk = remaining/noOfDaysLeftInQuarter;
 		return String.valueOf(risk);
+	}
+
+	private int calculateDaysLeftInQuarter(String quarter) 
+	{
+		int noOfDaysLeftInQuarter = 0;
+		
+		DateTime currentDay = DateTime.now();
+		DateTime qEnd;
+		if(quarter.equals("Q1"))
+		{
+			qEnd = new DateTime(currentDay.getYear()+1, 1, 1, 0, 0, 0);
+			noOfDaysLeftInQuarter = Days.daysBetween(currentDay.toLocalDate(), qEnd.toLocalDate()).getDays();
+		}
+		else if(quarter.equals("Q2"))
+		{
+			qEnd = new DateTime(currentDay.getYear(), 4, 1, 0, 0, 0);
+			noOfDaysLeftInQuarter = Days.daysBetween(currentDay.toLocalDate(), qEnd.toLocalDate()).getDays();
+		}
+		else if(quarter.equals("Q3"))
+		{
+			qEnd = new DateTime(currentDay.getYear(), 7, 1, 0, 0, 0);
+			noOfDaysLeftInQuarter = Days.daysBetween(currentDay.toLocalDate(), qEnd.toLocalDate()).getDays();
+		}
+		else
+		{
+			qEnd = new DateTime(currentDay.getYear(), 10, 1, 0, 0, 0);
+			noOfDaysLeftInQuarter = Days.daysBetween(currentDay.toLocalDate(), qEnd.toLocalDate()).getDays();
+		}
+		return noOfDaysLeftInQuarter;
 	}
 }
