@@ -1,35 +1,80 @@
 package com.siemens.learn;
 
-import java.io.BufferedReader;
-import java.io.FileReader;
-import java.io.IOException;
-import java.net.URL;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
+import java.util.Map.Entry;
 
 public class TargetService 
 {
-	public List<Target> getTargetsForUser(String username)
+	private DBService dbService;
+	
+	public TargetService(DBService dbService)
 	{
-		URL resource = getClass().getClassLoader().getResource("targets.txt");
-		String fileName = resource.getFile();
-
+		this.dbService = dbService;
+		
+	}
+	
+	public List<Target> getTargetsForUser(String gid)
+	{
 		List<Target> targets = new ArrayList<>();
-		try (BufferedReader br = new BufferedReader(new FileReader(fileName))) 
+		List<Map<String, String>> targetsFromDb = dbService.getTargets(gid);
+		for (Map<String, String> map : targetsFromDb) 
 		{
-			String line;
-			while ((line = br.readLine()) != null) 
+			Target target = new Target();
+			for (Entry<String, String> entry : map.entrySet()) 
 			{
-				String[] contents = line.split(",");
-				if(username.equals(contents[0]))
-					targets.add(new Target(contents[1], contents[2], Float.parseFloat(contents[3])));
+				if(entry.getKey().equals("name"))
+					target.setTargetName(entry.getValue());
+				else if(entry.getKey().equals("category"))
+					target.setCategory(entry.getValue());
+				else
+					target.setCompletionPercent(entry.getValue());
 			}
-		} 
-		catch (IOException e) 
-		{
-			e.printStackTrace();
+			targets.add(target);
 		}
 		return targets;
 	}
 	
+	public void updateTargets(String gid, List<Target> targets)
+	{
+		List<Map<String, String>> targetsToBeAddded = dbService.getTargets(gid);
+		
+		for (Target target : targets) 
+		{
+			Map<String, String> targetDetails = new HashMap<>();
+			targetDetails.put("name", target.getTargetName());
+			targetDetails.put("category", target.getCategory());
+			targetDetails.put("completed", target.getCompletionPercent());
+			targetDetails.put("quarter", target.getQuarter());
+			
+			targetsToBeAddded.add(targetDetails);
+		}
+		
+		String risk = calculateRisk(targetsToBeAddded);
+		dbService.submit(gid, targetsToBeAddded, risk);
+	}
+
+	private String calculateRisk(List<Map<String, String>> targetsToBeAddded) 
+	{
+		float risk = 0;
+		for (Map<String, String> map : targetsToBeAddded) 
+		{
+			for (Entry<String, String> entry : map.entrySet()) 
+			{
+				try
+				{
+					if(entry.getKey().equals("completed"))
+						risk += Float.parseFloat(entry.getValue());
+				}
+				catch(NumberFormatException ex)
+				{
+					continue;
+				}
+			}
+		}
+		risk = risk/targetsToBeAddded.size();
+		return String.valueOf(risk);
+	}
 }

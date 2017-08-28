@@ -4,18 +4,18 @@ import java.util.List;
 
 public class User 
 {
-	private String username;
+	private String gid;
 	private List<Target> targets;
 	private float risk;
 
-	public String getUsername() 
+	public String getGid() 
 	{
-		return username;
+		return gid;
 	}
 
-	public void setUsername(String username) 
+	public void setGid(String gid) 
 	{
-		this.username = username;
+		this.gid = gid;
 	}
 
 	public List<Target> getTargets() 

@@ -4,15 +4,17 @@ public class Target
 {
 	private String targetName;
 	private String category;
-	private float completionPercent;
+	private String completionPercent;
+	private String quarter;
 
-	public Target(String target, String category, float completionPercent)
-	{
-		this.targetName = target;
-		this.category = category;
-		this.completionPercent = completionPercent;
+	public String getQuarter() {
+		return quarter;
 	}
-	
+
+	public void setQuarter(String quarter) {
+		this.quarter = quarter;
+	}
+
 	public String getTargetName() 
 	{
 		return targetName;
@@ -33,12 +35,12 @@ public class Target
 		this.category = category;
 	}
 
-	public float getCompletionPercent() 
+	public String getCompletionPercent() 
 	{
 		return completionPercent;
 	}
 
-	public void setCompletionPercent(float completionPercent) 
+	public void setCompletionPercent(String completionPercent) 
 	{
 		this.completionPercent = completionPercent;
 	}

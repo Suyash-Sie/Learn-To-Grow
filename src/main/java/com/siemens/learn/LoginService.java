@@ -1,32 +1,23 @@
 package com.siemens.learn;
 
-import java.io.BufferedReader;
-import java.io.FileReader;
-import java.io.IOException;
-import java.net.URL;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 
 public class LoginService 
 {
-	public boolean userValidated(String username, String password)
+	private DBService dbService;
+	private BCryptPasswordEncoder bCryptPasswordEncoder;
+	
+	public LoginService(DBService dbService, BCryptPasswordEncoder bCryptPasswordEncoder)
 	{
-		URL resource = getClass().getClassLoader().getResource("user.txt");
-		String fileName = resource.getFile();
-
-		try (BufferedReader br = new BufferedReader(new FileReader(fileName))) 
-		{
-			String line;
-			while ((line = br.readLine()) != null) 
-			{
-				String[] contents = line.split(",");
-				if(username.equals(contents[0]) && password.equals(contents[1]))
-					return true;
-			}
-		} 
-		catch (IOException e) 
-		{
-			e.printStackTrace();
-		}
-		return false;
+		this.dbService = dbService;
+		this.bCryptPasswordEncoder = bCryptPasswordEncoder;
 	}
 	
+	public boolean userValidated(String gid, String password)
+	{
+		String passInDb = dbService.getPassword(gid);
+		if(null != passInDb && bCryptPasswordEncoder.matches(password, passInDb))
+			return true;
+		return false;
+	}
 }

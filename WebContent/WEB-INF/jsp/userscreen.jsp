@@ -250,7 +250,7 @@ function renderCore() {
     float completed = 0;
     for(Target target: targets)
     {
-    	completed+=target.getCompletionPercent();
+    	completed+=Float.parseFloat(target.getCompletionPercent());
     }
     %>
     var i = <%=completed/targets.size()%>
