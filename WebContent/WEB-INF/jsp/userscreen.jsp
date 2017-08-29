@@ -349,7 +349,7 @@ function selectTab(evt, quarter) {
 								<div contenteditable="false" id="completionPercent"
 									class="dls-comp-tableDataCell">
 									<input name="completion3" type="text"
-										style="height: 35px; width: calc(100% - 3px); background: #ADD8E6; opacity: 0.7;" />
+										style="height: 35px; width: calc(100% - 3px); background: #ADD8E6; opacity: 0.7;" value="0"/>
 									<span style='margin: 5px; text-align: left'></span>
 								</div>
 							</div>
@@ -488,8 +488,7 @@ function selectTab(evt, quarter) {
 			<button id="btnAdd" style="margin-top: 5px;" type="button"
 				onclick="insertRow();">Add New Row</button>
 			<div style='text-align: center; margin-top: 10px;'>
-				<input type="submit" name="add" value="Submit New Targets" /> <input
-					type="submit" name="update" value="Update completion percentage" />
+				<input type="submit" name="add" value="Submit New Targets" />
 			</div>
 			</main>
 		</form>
