@@ -20,4 +20,9 @@ public class LoginService
 			return true;
 		return false;
 	}
+	
+	public String getUserRole(String gid)
+	{
+		return dbService.getRole(gid);
+	}
 }

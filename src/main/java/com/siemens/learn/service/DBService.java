@@ -140,6 +140,25 @@ public class DBService
 		return risks;
 	}
 	
+	public String getRole(String gid)
+	{
+		GetItemSpec spec = new GetItemSpec().withPrimaryKey("GID", gid);
+
+        try 
+        {
+            System.out.println("Attempting to read the item...");
+            Item outcome = table.getItem(spec);
+            System.out.println("GetItem succeeded: ");
+            return outcome.getString("role");
+        }
+        catch (Exception e) 
+        {
+            System.err.println("Unable to read item: " + gid);
+            System.err.println(e.getMessage());
+        }
+        return null;
+	}
+	
 	public static void main(String[] args) 
 	{
 //		List<Target> targets = new ArrayList<>();

@@ -37,9 +37,13 @@ public class HelloController
 		
 		if(!loginService.userValidated(gid, password))
 			return "hello";
-		
+			
 		redirectAttributes.addFlashAttribute("user", gid);
 		redirectAttributes.addFlashAttribute("quarter", "Quarter 1");
+		
+		if(loginService.getUserRole(gid).equals("manager"))
+			return "userscreen_admin";
+		
 		return "redirect:userscreen";
 	}
 }

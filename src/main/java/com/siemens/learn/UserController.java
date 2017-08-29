@@ -58,7 +58,7 @@ public class UserController
 		return "userscreen";
 	}
 
-	@RequestMapping(value = "userscreen/submit", method = RequestMethod.POST, params="add")
+	@RequestMapping(value = "submit", method = RequestMethod.POST, params="add")
 	public String submit(HttpServletRequest request, ModelMap model) 
 	{
 		String quarter = request.getParameter("tab");
@@ -97,7 +97,7 @@ public class UserController
 			new TargetService(dbService).submitTargets(user, targets);
 		model.addAttribute("targets", targets);
 		
-		return "/userscreen";
+		return "redirect:userscreen";
 	}
 
 	private Target createTarget(String targetName, String category, String completion, String tabbed1) 
