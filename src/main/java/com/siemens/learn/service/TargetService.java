@@ -46,7 +46,7 @@ public class TargetService
 	
 	public void submitTargets(String gid, List<Target> targets)
 	{
-		List<Map<String, String>> targetsToBeAddded = dbService.getTargets(gid, "Q1");
+		List<Map<String, String>> targetsToBeAddded = dbService.getTargets(gid, "Quarter 1");
 		String quarter = "";
 		for (Target target : targets) 
 		{
@@ -55,7 +55,7 @@ public class TargetService
 			targetDetails.put("category", target.getCategory());
 			targetDetails.put("completed", target.getCompletionPercent());
 			quarter = target.getQuarter();
-			targetDetails.put("quarter", "Q1");
+			targetDetails.put("quarter", quarter);
 			
 			targetsToBeAddded.add(targetDetails);
 		}
@@ -97,17 +97,17 @@ public class TargetService
 		
 		DateTime currentDay = DateTime.now();
 		DateTime qEnd;
-		if(quarter.equals("Q1"))
+		if(quarter.equals("Quarter 1"))
 		{
 			qEnd = new DateTime(currentDay.getYear()+1, 1, 1, 0, 0, 0);
 			noOfDaysLeftInQuarter = Days.daysBetween(currentDay.toLocalDate(), qEnd.toLocalDate()).getDays();
 		}
-		else if(quarter.equals("Q2"))
+		else if(quarter.equals("Quarter 2"))
 		{
 			qEnd = new DateTime(currentDay.getYear(), 4, 1, 0, 0, 0);
 			noOfDaysLeftInQuarter = Days.daysBetween(currentDay.toLocalDate(), qEnd.toLocalDate()).getDays();
 		}
-		else if(quarter.equals("Q3"))
+		else if(quarter.equals("Quarter 3"))
 		{
 			qEnd = new DateTime(currentDay.getYear(), 7, 1, 0, 0, 0);
 			noOfDaysLeftInQuarter = Days.daysBetween(currentDay.toLocalDate(), qEnd.toLocalDate()).getDays();

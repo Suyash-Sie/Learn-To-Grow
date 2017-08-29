@@ -100,7 +100,7 @@ public class Dynamo
 	private List<Map<String, String>> addTargetsForFirst() 
 	{
 		List<Map<String, String>> targets1 = new ArrayList<>();
-		Map<String, String> target1 = createTarget("t1", "c1", "0", "Q1");
+		Map<String, String> target1 = createTarget("t1", "c1", "0", "Quarte1");
 		targets1.add(target1);
 
 		Map<String, String> target2 = createTarget("t2", "c2", "0", "Q2");

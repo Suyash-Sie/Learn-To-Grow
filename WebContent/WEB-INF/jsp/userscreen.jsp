@@ -261,7 +261,7 @@ function insertRow(){
 	<br/>
 	<form method="POST" action="userscreen/submit">
 	<main>
-	<input style="display: none;" id="tab1" type="radio" name="tab" value="Q1" checked>
+	<input style="display: none;" id="tab1" type="radio" name="tab" value="Quarter 1" checked>
     <label for="tab1">Quarter 1</label>
     
     <input style="display: none;" id="tab2" type="radio" name="tab" value="Quarter 2">
@@ -288,6 +288,7 @@ function insertRow(){
 						<span style='margin-left: 5px'>%Completion</span>
 					</div>
 				</div>
+				<c:set var="count" value="0"/>
 				<c:forEach var="target" items="${targets}">
 					<div class="dls-comp-tableDataRow">
 						<div class="dls-comp-table-row" id="myRow">
@@ -298,21 +299,22 @@ function insertRow(){
 								<input name="category${count}" type="text" value="${target.category}" style="margin: 5px; text-align: left;height:35px; width: calc(100% - 3px);background: #ADD8E6; opacity: 0.7;"/>
 							</div>
 							<div contenteditable="true" id="completionPercent" class="dls-comp-tableDataCell">
-								<input name="completion${completionPercent}" type="text" value="${target.completionPercent}" style="margin: 5px; text-align: left;height:35px; width: calc(100% - 3px);background: #ADD8E6; opacity: 0.7;"/>
+								<input name="completion${count}" type="text" value="${target.completionPercent}" style="margin: 5px; text-align: left;height:35px; width: calc(100% - 3px);background: #ADD8E6; opacity: 0.7;"/>
 							</div>
 						</div>
 					</div>
+				<c:set var="count" value="${count + 1}"/>
 				</c:forEach>
 				<div class="dls-comp-tableDataRow">
 						<div class="dls-comp-table-row" id="myRow">
 							<div contenteditable="true" id="targetName" class="dls-comp-tableDataCell">
-							<input name="targetName" type="text" style="height:35px; width: calc(100% - 3px);background: #ADD8E6; opacity: 0.7;"/>
+							<input name="targetName3" type="text" style="height:35px; width: calc(100% - 3px);background: #ADD8E6; opacity: 0.7;"/>
 								<span style='margin: 5px; text-align: left'></span>
 							</div>
 							<div contenteditable="true" id="category" class="dls-comp-tableDataCell">
 								<span style='margin: 5px; text-align: left'></span>
 								<input style="height:35px; width: calc(100% - 3px);background: #ADD8E6;
-	opacity: 0.7;" id="Category_list" name="category" type="text" list="Category" />
+	opacity: 0.7;" id="Category_list" name="category3" type="text" list="Category" />
 							<datalist  id="Category">       
 					            <option value="Tools">Tools</option>
 					            <option value="Technology">Technology</option>
@@ -321,8 +323,8 @@ function insertRow(){
 					            <option value="Project Management">Project Management</option>
 					    	</datalist>
 							</div>
-							<div contenteditable="true" id="completionPercent" class="dls-comp-tableDataCell">
-							<input name="completionPercent" type="text" style="height:35px; width: calc(100% - 3px);background: #ADD8E6; opacity: 0.7;"/>
+							<div contenteditable="false" id="completionPercent" class="dls-comp-tableDataCell">
+							<input name="completion3" type="text" style="height:35px; width: calc(100% - 3px);background: #ADD8E6; opacity: 0.7;"/>
 								<span style='margin: 5px; text-align: left'></span>
 							</div>
 					 </div>

@@ -32,7 +32,7 @@ public class UserController
 	public String welcome(ModelMap model, @ModelAttribute("user") String user) 
 	{
 		this.user = user;
-        List<Target> targets = new TargetService(dbService).getTargetsForUser(user, "Q1");
+        List<Target> targets = new TargetService(dbService).getTargetsForUser(user, "Quarter 1");
 		int currentMonth = Calendar.getInstance().get(Calendar.MONTH);
 		if(currentMonth > 9)
 		{
@@ -97,7 +97,7 @@ public class UserController
 			new TargetService(dbService).submitTargets(user, targets);
 		model.addAttribute("targets", targets);
 		
-		return "redirect:userscreen";
+		return "/userscreen";
 	}
 
 	private Target createTarget(String targetName, String category, String completion, String tabbed1) 
@@ -117,8 +117,7 @@ public class UserController
 	private boolean targetValid(String name, String category, String completion)
 	{
 		boolean valid = false;
-		if(null != name && !name.isEmpty() && null != category && !category.isEmpty() 
-				&& null != completion && !completion.isEmpty() && Float.parseFloat(completion) > 0 && Float.parseFloat(completion) < 100)
+		if(null != name && !name.isEmpty() && null != category && !category.isEmpty())
 			valid = true;
 		return valid;
 	}

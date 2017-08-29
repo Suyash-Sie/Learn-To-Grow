@@ -39,6 +39,7 @@ public class HelloController
 			return "hello";
 		
 		redirectAttributes.addFlashAttribute("user", gid);
+		redirectAttributes.addFlashAttribute("quarter", "Quarter 1");
 		return "redirect:userscreen";
 	}
 }
