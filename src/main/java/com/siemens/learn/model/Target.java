@@ -1,4 +1,4 @@
-package com.siemens.learn;
+package com.siemens.learn.model;
 
 public class Target 
 {

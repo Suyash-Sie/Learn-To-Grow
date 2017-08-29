@@ -1,4 +1,4 @@
-package com.siemens.learn;
+package com.siemens.learn.service;
 
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 

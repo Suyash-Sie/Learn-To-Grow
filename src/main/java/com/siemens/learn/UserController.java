@@ -6,13 +6,16 @@ import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
 
-import org.springframework.http.HttpRequest;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
+
+import com.siemens.learn.model.Target;
+import com.siemens.learn.service.DBService;
+import com.siemens.learn.service.TargetService;
 
 @Controller
 public class UserController 
@@ -83,8 +86,8 @@ public class UserController
 		String targetName = request.getParameter("targetName");
 		String category = request.getParameter("category");
 		String completionPercent = request.getParameter("completionPercent");
-		if(targetName.isEmpty() || category.isEmpty() || Integer.parseInt(completionPercent) > 100 
-				|| Integer.parseInt(completionPercent) < 0)
+		if(targetName.isEmpty() || category.isEmpty() || Float.parseFloat(completionPercent) > 100 
+				|| Float.parseFloat(completionPercent) < 0)
 			return "userscreen";
 		List<Target> targets = new ArrayList<>();
 		Target target = new Target();

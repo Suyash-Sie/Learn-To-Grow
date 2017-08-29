@@ -1,4 +1,4 @@
-package com.siemens.learn;
+package com.siemens.learn.service;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -8,6 +8,8 @@ import java.util.Map.Entry;
 
 import org.joda.time.DateTime;
 import org.joda.time.Days;
+
+import com.siemens.learn.model.Target;
 
 public class TargetService 
 {
