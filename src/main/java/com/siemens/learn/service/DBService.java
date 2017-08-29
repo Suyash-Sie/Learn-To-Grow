@@ -58,8 +58,9 @@ public class DBService
         return null;
     }
 
-	public List<Map<String, String>> getTargets(String gid)
+	public List<Map<String, String>> getTargets(String gid, String quarter)
 	{
+		List<Map<String, String>> targets = new ArrayList<>();
 		GetItemSpec spec = new GetItemSpec().withPrimaryKey("GID", gid);
 		
 		try 
@@ -67,14 +68,22 @@ public class DBService
 			System.out.println("Attempting to read the item...");
 			Item outcome = table.getItem(spec);
 			System.out.println("GetItem succeeded: ");
-			return outcome.getList("targets");
+			List<Map<String, String>> list = outcome.getList("targets");
+			for (Map<String, String> map : list) 
+			{
+				for (Entry<String, String> entry : map.entrySet()) 
+				{
+					if(entry.getKey().equals("quarter") && entry.getValue().equals(quarter))
+						targets.add(map);
+				}
+			}
 		}
 		catch (Exception e) 
 		{
 			System.err.println("Unable to read item: " + gid);
 			System.err.println(e.getMessage());
 		}
-		return new ArrayList<>();
+		return targets;
 	}
 	
 	public void submit(String gid, List<Map<String, String>> targetsToBeAddded, String risk)
@@ -143,7 +152,7 @@ public class DBService
 //		dbService.submit("z0024dzv", targets, "100");
 		
 		DBService dbService = new DBService();
-		List<Map<String, String>> targets2 = dbService.getTargets("z0024dzv");
+		List<Map<String, String>> targets2 = dbService.getTargets("z0024dzv", "Q1");
 		for (Map<String, String> map : targets2) 
 		{
 			for (Entry<String, String> entry : map.entrySet()) 

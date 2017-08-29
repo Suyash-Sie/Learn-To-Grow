@@ -21,10 +21,10 @@ public class TargetService
 		
 	}
 	
-	public List<Target> getTargetsForUser(String gid)
+	public List<Target> getTargetsForUser(String gid, String quarter)
 	{
 		List<Target> targets = new ArrayList<>();
-		List<Map<String, String>> targetsFromDb = dbService.getTargets(gid);
+		List<Map<String, String>> targetsFromDb = dbService.getTargets(gid, quarter);
 		for (Map<String, String> map : targetsFromDb) 
 		{
 			Target target = new Target();
@@ -46,7 +46,7 @@ public class TargetService
 	
 	public void submitTargets(String gid, List<Target> targets)
 	{
-		List<Map<String, String>> targetsToBeAddded = dbService.getTargets(gid);
+		List<Map<String, String>> targetsToBeAddded = dbService.getTargets(gid, "Q1");
 		String quarter = "";
 		for (Target target : targets) 
 		{

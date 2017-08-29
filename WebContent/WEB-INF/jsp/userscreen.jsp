@@ -62,141 +62,103 @@
 body {
 	font-family: "Lato", sans-serif;
 }
+@import url('https://fonts.googleapis.com/css?family=Open+Sans:400,600,700');
+@import url('https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css');
 
-/* Style the tab */
-div.tab {
-	overflow: hidden;
-	border: 1px solid #ccc;
-	background-color: #f1f1f1;
+*, *:before, *:after {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
 }
 
-/* Style the buttons inside the tab */
-div.tab button {
-	background-color: inherit;
-	float: left;
-	border: none;
-	outline: none;
-	cursor: pointer;
-	padding: 14px 16px;
-	transition: 0.3s;
-	font-size: 17px;
+html, body {
+  height: 100vh;
 }
 
-/* Change background color of buttons on hover */
-div.tab button:hover {
-	background-color: #ddd;
+body {
+  font: 14px/1 'Open Sans', sans-serif;
+  color: #555;
+  background: #eee;
 }
 
-/* Create an active/current tablink class */
-div.tab button.active {
-	background-color: #ccc;
+h1 {
+  padding: 50px 0;
+  font-weight: 400;
+  text-align: center;
 }
 
-/* Style the tab content */
-.tabcontent {
-	display: none;
-	padding: 6px 12px;
-	border: 1px solid #ccc;
-	border-top: none;
-}
-/* .tablinks {
-	float: left;
-	padding: 5px 10px 5px 10px;
-	border: 1px solid #ccc;
-	background-color: #f1f1f1;
-	margin: 0px 5px 0px 5px;
-} */
-
-#tab1, #tab2, #tab3, #tab4 {
-	float: left;
-	padding: 5px 10px 5px 10px;
-	border: 1px solid #ccc;
-	background-color: #f1f1f1;
-	margin: 0px 5px 0px 5px;
+p {
+  margin: 0 0 20px;
+  line-height: 1.5;
 }
 
-#tab1:hover, #tab2:hover, #tab3:hover, #tab4:hover {
-	background-color: #ddd;
+main {
+  width: 100%;
+  padding: 20px;
+  margin: 0 auto;
+  background: #fff;
 }
 
-#tab1Content, #tab2Content, #tab3Content, #tab4Content {
-	padding: 20px;
-	border: none;
+section {
+  display: none;
+  padding: 20px 0 0;
+  border-top: 1px solid #ddd;
 }
 
-#tab1Content {
-	display: block;
+label {
+  display: inline-block;
+  margin: 0 0 -1px;
+  padding: 15px 25px;
+  font-weight: 600;
+  text-align: center;
+  color: #bbb;
+  border: 1px solid transparent;
 }
 
-#tab2Content, #tab3Content, #tab4Content {
-	display: none;
-}
-body{
-  padding     : 1.5em;
-  background  : #f8f8f8;
-  font-family : sans-serif;
-  line-height : 1.5;
+label:before {
+  font-family: fontawesome;
+  font-weight: normal;
+  margin-right: 10px;
 }
 
-.tabbed{
-  float : left;
-  width : 100%;
+label[for*='1']:before { content: '\f1cb'; }
+label[for*='2']:before { content: '\f17d'; }
+label[for*='3']:before { content: '\f16b'; }
+label[for*='4']:before { content: '\f1a9'; }
+
+label:hover {
+  color: #888;
+  cursor: pointer;
 }
 
-.tabbed > input{
-  display : none;
+input:checked + label {
+  color: #555;
+  border: 1px solid #ddd;
+  border-top: 2px solid orange;
+  border-bottom: 1px solid #fff;
 }
 
-.tabbed > section > h1{
-  float       : left;
-  box-sizing  : border-box;
-  margin      : 0;
-  padding     : 0.5em 0.5em 0;
-  overflow    : hidden;
-  font-size   : 1em;
-  font-weight : normal;
+#tab1:checked ~ #content1,
+#tab2:checked ~ #content2,
+#tab3:checked ~ #content3,
+#tab4:checked ~ #content4 {
+  display: block;
 }
 
-.tabbed > input:first-child + section > h1{
-  padding-left : 1em;
+@media screen and (max-width: 650px) {
+  label {
+    font-size: 0;
+  }
+  label:before {
+    margin: 0;
+    font-size: 18px;
+  }
 }
 
-.tabbed > section > h1 > label{
-  display                 : block;
-  padding                 : 0.25em 0.75em;
-  border                  : 1px solid #ddd;
-  border-bottom           : none;
-  border-top-left-radius  : 4px;
-  border-top-right-radius : 4px;
-  box-shadow              : 0 0 0.5em rgba(0,0,0,0.0625);
-  background              : #fff;
-  cursor                  : pointer;
-     -moz-user-select     : none;
-      -ms-user-select     : none;
-  -webkit-user-select     : none;
-}
-
-.tabbed > section > div{
-  position      : relative;
-  z-index       : 1;
-  float         : right;
-  box-sizing    : border-box;
-  width         : 100%;
-  margin        : 2.5em 0 0 -100%;
-  padding       : 0.5em 0.75em;
-  border        : 1px solid #ddd;
-  border-radius : 4px;
-  box-shadow    : 0 0 0.5em rgba(0,0,0,0.0625);
-  background    : #fff;
-}
-
-.tabbed > input:checked + section > h1{
-  position : auto;
-  z-index  : 2;
-}
-
-.tabbed > input:not(:checked) + section > div{
-  display : none;
+@media screen and (max-width: 400px) {
+  label {
+    padding: 15px;
+  }
 }
 </style>
 <!-- <script>
@@ -296,13 +258,23 @@ function insertRow(){
   		<button class="tablinks" onClick="JavaScript:selectTab(event,'Quarter4');">Quarter4</button>
 	</div>
 	<br /> -->
+	<br/>
 	<form method="POST" action="userscreen/submit">
-	<div class="tabbed">
-      <input name="tabbed1" id="tabbed1" type="radio" checked>
-      <section>
-        <h1>
-          <label for="tabbed1">Quarter 1</label>
-        </h1>
+	<main>
+	<input style="display: none;" id="tab1" type="radio" name="tab" value="Q1" checked>
+    <label for="tab1">Quarter 1</label>
+    
+    <input style="display: none;" id="tab2" type="radio" name="tab" value="Quarter 2">
+    <label for="tab2">Quarter 2</label>
+    
+    <input style="display: none;" id="tab3" type="radio" name="tab" value="Quarter 3">
+    <label for="tab3">Quarter 3</label>
+    
+    <input style="display: none;" id="tab4" type="radio" name="tab" value="Quarter 4">
+    <label for="tab4">Quarter 4</label>
+	
+      
+      <section id="content1">
         <div>
           <div class="obs-comp-table" id="myTable">
 				<div class="dls-comp-tableHeader">
@@ -320,14 +292,13 @@ function insertRow(){
 					<div class="dls-comp-tableDataRow">
 						<div class="dls-comp-table-row" id="myRow">
 							<div contenteditable="false" id="targetName" class="dls-comp-tableDataCell">
-								<span style='margin: 5px; text-align: left'>${target.targetName}</span>
+								<input name="targetName${count}" type="text" value="${target.targetName}" style="margin: 5px; text-align: left;height:35px; width: calc(100% - 3px);background: #ADD8E6; opacity: 0.7;"/>
 							</div>
 							<div contenteditable="false" id="category" class="dls-comp-tableDataCell">					
-							
-								<span style='margin: 5px; text-align: left'>${target.category}</span>
+								<input name="category${count}" type="text" value="${target.category}" style="margin: 5px; text-align: left;height:35px; width: calc(100% - 3px);background: #ADD8E6; opacity: 0.7;"/>
 							</div>
 							<div contenteditable="true" id="completionPercent" class="dls-comp-tableDataCell">
-								<span style='margin: 5px; text-align: left'>${target.completionPercent}</span>
+								<input name="completion${completionPercent}" type="text" value="${target.completionPercent}" style="margin: 5px; text-align: left;height:35px; width: calc(100% - 3px);background: #ADD8E6; opacity: 0.7;"/>
 							</div>
 						</div>
 					</div>
@@ -357,18 +328,10 @@ function insertRow(){
 					 </div>
 				</div>
 			</div>
-			<button id="btnAdd" style="margin-top: 5px;" type="button" onclick="insertRow();">Add New Row</button>
-			<div style='text-align: center; margin-top: 10px;'>
-				<input type="submit" name="add" value="Submit New Targets"/>
-				<input type="submit" name="update" value="Update completion percentage"/>
-			</div>
 			</div>
       </section>
-      <input name="tabbed2" id="tabbed2" type="radio">	
-      <section>
-        <h1>
-          <label for="tabbed2">Quarter 2</label>
-        </h1>
+      
+      <section id="content2">
         <div>
         <div class="obs-comp-table">
 				<div class="dls-comp-tableHeader">
@@ -411,19 +374,15 @@ function insertRow(){
 					 </div>
 				</div>
 			</div>
-			<button id="btnAdd" style="margin-top: 5px;" type="button" onclick="insertRow();">Add New Row</button>
+			<!-- <button id="btnAdd" style="margin-top: 5px;" type="button" onclick="insertRow();">Add New Row</button>
 			<div style='text-align: center; margin-top: 10px;'>
 				<input type="submit" />
 				<button type="button">Update</button>
 				<button type="reset">Cancel</button>
-			</div>
+			</div> -->
 			</div>
       </section>
-      <input name="tabbed3" id="tabbed3" type="radio">
-      <section>
-        <h1>
-          <label for="tabbed3">Quarter 3</label>
-        </h1>
+      <section id="content3">
         <div>
         <div class="obs-comp-table">
 				<div class="dls-comp-tableHeader">
@@ -453,19 +412,15 @@ function insertRow(){
 					</div>
 				</c:forEach>
 			</div>
-			<button id="btnAdd" style="margin-top: 5px;" type="button" onclick="insertRow();">Add New Row</button>
+			<!-- <button id="btnAdd" style="margin-top: 5px;" type="button" onclick="insertRow();">Add New Row</button>
 			<div style='text-align: center; margin-top: 10px;'>
 				<input type="submit" />
 				<button type="button">Update</button>
 				<button type="reset">Cancel</button>
-			</div>
+			</div> -->
 			</div>
       </section>
-      <input name="tabbed4" id="tabbed4" type="radio">
-      <section>
-        <h1>
-          <label for="tabbed4">Quarter 4</label>
-        </h1>
+      <section id="content4">
         <div>
         <div class="obs-comp-table">
 				<div class="dls-comp-tableHeader">
@@ -495,16 +450,23 @@ function insertRow(){
 					</div>
 				</c:forEach>
 			</div>
-			<button id="btnAdd" style="margin-top: 5px;" type="button" onclick="insertRow();">Add New Row</button>
+			<!-- <button id="btnAdd" style="margin-top: 5px;" type="button" onclick="insertRow();">Add New Row</button>
 			<div style='text-align: center; margin-top: 10px;'>
 				<input type="submit" />
 				<button type="button">Update</button>
 				<button type="reset">Cancel</button>
-			</div>
+			</div> -->
 			</div>
       </section>
-    </div>
+      <button id="btnAdd" style="margin-top: 5px;" type="button" onclick="insertRow();">Add New Row</button>
+			<div style='text-align: center; margin-top: 10px;'>
+				<input type="submit" name="add" value="Submit New Targets"/>
+				<input type="submit" name="update" value="Update completion percentage"/>
+			</div>
+    </main>
 </form>
+    
+
 </div>
 </body>
 </html>
