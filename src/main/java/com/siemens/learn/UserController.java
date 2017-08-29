@@ -97,7 +97,7 @@ public class UserController
 		
 		if(targets.size() != 0)
 			new TargetService(dbService).submitTargets(user, targets);
-		model.addAttribute("targets", targets);
+		model.addAttribute("targets", new TargetService(dbService).getTargetsForUser(user, quarter));
 		
 		redirectAttributes.addFlashAttribute("user", user);
 		redirectAttributes.addFlashAttribute("quarter", quarter);
