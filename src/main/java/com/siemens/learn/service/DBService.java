@@ -159,6 +159,16 @@ public class DBService
         return null;
 	}
 	
+	public List<String> getGroups()
+	{
+	    return null;
+	}
+	
+	public List<String> getUsers(String grp)
+    {
+        return null;
+    }
+	
 	public static void main(String[] args) 
 	{
 //		List<Target> targets = new ArrayList<>();
