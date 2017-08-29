@@ -161,31 +161,6 @@ input:checked + label {
   }
 }
 </style>
-<!-- <script>
-function selectTab(evt, quarter) {
-    var i, tabcontent, tablinks;
-    tabcontent = document.getElementsByClassName("tabcontent");
-    for (i = 0; i < tabcontent.length; i++) {
-        tabcontent[i].style.display = "none";
-    }
-    tablinks = document.getElementsByClassName("tablinks");
-    for (i = 0; i < tablinks.length; i++) {
-        tablinks[i].className = tablinks[i].className.replace(" active", "");
-    }
-    document.getElementById(quarter).style.display = "block";
-    evt.currentTarget.className += " active";
-}
-	/* function selectTab(tabIndex) {
-		//Hide All Tabs
-		document.getElementById('tab1Content').style.display = "none";
-		document.getElementById('tab2Content').style.display = "none";
-		document.getElementById('tab3Content').style.display = "none";
-		document.getElementById('tab4Content').style.display = "none";
-
-		//Show the Selected Tab
-		document.getElementById('tab' + tabIndex + 'Content').style.display = "block";
-	} */
-</script> -->
 <body>
 	<div
 		style="position: relative; width: 100%; height: 250px; overflow: hidden;"
@@ -231,33 +206,26 @@ function renderCore() {
 	    optimizationBarV4.draw("#user_riskIndicator");
 }
 
-function insertRow(){
-	var row = document.getElementById("myRow");
-	var i=document.getElementsByClassName("dls-comp-table-row").length;
-	var max=6;
-	if (i < max + 1) {
+function insertRow(id, contentId){
+	var table = document.getElementById(id);
+	var row = table.getElementsByClassName("empty");
+	var i=row.length;
+	var max=4;
+	if (i < max) {
 		i++;
-		var row1 = row.cloneNode(true); // "deep" clone
+		var row1 = row[0].cloneNode(true); // "deep" clone
 		row1.id = "myRow" + i; // there can only be one element with an ID
-        row.parentNode.appendChild(row1);
-        if (i > max) document.getElementById('btnAdd').disabled = true;
+        row[0].parentNode.appendChild(row1);
     }
+     if (i === max)
+     {
+     	var contentSec = document.getElementById(contentId);
+     	contentSec.getElementsByClassName('insertRow')[0].disabled = true;
+     }
 }
 </script>
 <div>
 	<h3 style="text-align: center">Your Targets:</h3>
-	
-	<!-- <div id="tab1" onClick="JavaScript:selectTab(1);">Quarter 1</div>
-	<div id="tab2" onClick="JavaScript:selectTab(2);">Quarter 2</div>
-	<div id="tab3" onClick="JavaScript:selectTab(3);">Quarter 3</div>
-	<div id="tab4" onClick="JavaScript:selectTab(4);">Quarter 4</div> -->
-	<!-- <div class="tab">
-  		<button class="tablinks" onClick="JavaScript:selectTab(event,'Quarter1');">Quarter1</button>
-  		<button class="tablinks" onClick="JavaScript:selectTab(event,'Quarter2');">Quarter2</button>
-  		<button class="tablinks" onClick="JavaScript:selectTab(event,'Quarter3');">Quarter3</button>
-  		<button class="tablinks" onClick="JavaScript:selectTab(event,'Quarter4');">Quarter4</button>
-	</div>
-	<br /> -->
 	<br/>
 	<form method="POST" action="submit">
 	<main>
@@ -276,13 +244,16 @@ function insertRow(){
       
       <section id="content1">
         <div>
-          <div class="obs-comp-table" id="myTable">
+          <div class="obs-comp-table" id="myTable1">
 				<div class="dls-comp-tableHeader">
 					<div class="dls-comp-tableHeaderCell">
 						<span style='margin-left: 5px'>Target</span>
 					</div>
 					<div class="dls-comp-tableHeaderCell">
 						<span style='margin-left: 5px'>Category</span>
+					</div>
+					<div class="dls-comp-tableHeaderCell">
+						<span style='margin-left: 5px'>Competency Level</span>
 					</div>
 					<div class="dls-comp-tableHeaderCell">
 						<span style='margin-left: 5px'>%Completion</span>
@@ -298,6 +269,9 @@ function insertRow(){
 							<div contenteditable="false" id="category" class="dls-comp-tableDataCell">					
 								<input name="category${count}" type="text" value="${target.category}" style="margin: 5px; text-align: left;height:35px; width: calc(100% - 3px);background: #ADD8E6; opacity: 0.7;"/>
 							</div>
+							<div contenteditable="true" id="level" class="dls-comp-tableDataCell">
+								<input name="level${count}" type="text" value="${target.level}" style="margin: 5px; text-align: left;height:35px; width: calc(100% - 3px);background: #ADD8E6; opacity: 0.7;"/>
+							</div>
 							<div contenteditable="true" id="completionPercent" class="dls-comp-tableDataCell">
 								<input name="completion${count}" type="text" value="${target.completionPercent}" style="margin: 5px; text-align: left;height:35px; width: calc(100% - 3px);background: #ADD8E6; opacity: 0.7;"/>
 							</div>
@@ -306,7 +280,7 @@ function insertRow(){
 				<c:set var="count" value="${count + 1}"/>
 				</c:forEach>
 				<div class="dls-comp-tableDataRow">
-						<div class="dls-comp-table-row" id="myRow">
+						<div class="dls-comp-table-row empty">
 							<div contenteditable="true" id="targetName" class="dls-comp-tableDataCell">
 							<input name="targetName3" type="text" style="height:35px; width: calc(100% - 3px);background: #ADD8E6; opacity: 0.7;"/>
 								<span style='margin: 5px; text-align: left'></span>
@@ -321,6 +295,16 @@ function insertRow(){
 					            <option value="Domain">Domain</option>
 					            <option value="Process">Process</option>
 					            <option value="Project Management">Project Management</option>
+					    	</datalist>
+							</div>
+							<div contenteditable="true" id="level" class="dls-comp-tableDataCell">
+								<input style="height:35px; width: calc(100% - 3px);background: #ADD8E6;
+	opacity: 0.7;" id="Level_list" name="level3" type="text" list="Level" />
+								<span style='margin: 5px; text-align: left'></span>
+							<datalist  id="Level">       
+					            <option value="Basic">Basic</option>
+					            <option value="Intermediate">Intermediate</option>
+					            <option value="Advanced">Advanced</option>
 					    	</datalist>
 							</div>
 							<div contenteditable="false" id="completionPercent" class="dls-comp-tableDataCell">
@@ -331,18 +315,21 @@ function insertRow(){
 				</div>
 			</div>
 			</div>
-			<button id="btnAdd" style="margin-top: 5px;" type="button" onclick="insertRow();">Add New Row</button>
+			<button id="btnAdd" class="insertRow" style="margin-top: 5px;" type="button" onclick="insertRow('myTable1','content1');">Add New Row</button>
       </section>
       
       <section id="content2">
         <div>
-          <div class="obs-comp-table" id="myTable">
+          <div class="obs-comp-table" id="myTable2">
 				<div class="dls-comp-tableHeader">
 					<div class="dls-comp-tableHeaderCell">
 						<span style='margin-left: 5px'>Target</span>
 					</div>
 					<div class="dls-comp-tableHeaderCell">
 						<span style='margin-left: 5px'>Category</span>
+					</div>
+					<div class="dls-comp-tableHeaderCell">
+						<span style='margin-left: 5px'>Competency Level</span>
 					</div>
 					<div class="dls-comp-tableHeaderCell">
 						<span style='margin-left: 5px'>%Completion</span>
@@ -358,6 +345,9 @@ function insertRow(){
 							<div contenteditable="false" id="category" class="dls-comp-tableDataCell">					
 								<input name="category${count}" type="text" value="${target.category}" style="margin: 5px; text-align: left;height:35px; width: calc(100% - 3px);background: #ADD8E6; opacity: 0.7;"/>
 							</div>
+							<div contenteditable="true" id="level" class="dls-comp-tableDataCell">
+								<input name="level${count}" type="text" value="${target.level}" style="margin: 5px; text-align: left;height:35px; width: calc(100% - 3px);background: #ADD8E6; opacity: 0.7;"/>
+							</div>
 							<div contenteditable="true" id="completionPercent" class="dls-comp-tableDataCell">
 								<input name="completion${count}" type="text" value="${target.completionPercent}" style="margin: 5px; text-align: left;height:35px; width: calc(100% - 3px);background: #ADD8E6; opacity: 0.7;"/>
 							</div>
@@ -366,7 +356,7 @@ function insertRow(){
 				<c:set var="count" value="${count + 1}"/>
 				</c:forEach>
 				<div class="dls-comp-tableDataRow">
-						<div class="dls-comp-table-row" id="myRow">
+						<div class="dls-comp-table-row empty">
 							<div contenteditable="true" id="targetName" class="dls-comp-tableDataCell">
 							<input name="targetName3" type="text" style="height:35px; width: calc(100% - 3px);background: #ADD8E6; opacity: 0.7;"/>
 								<span style='margin: 5px; text-align: left'></span>
@@ -374,7 +364,7 @@ function insertRow(){
 							<div contenteditable="true" id="category" class="dls-comp-tableDataCell">
 								<input style="height:35px; width: calc(100% - 3px);background: #ADD8E6;
 	opacity: 0.7;" id="Category_list" name="category3" type="text" list="Category" />
-	<span style='margin: 5px; text-align: left'></span>
+								<span style='margin: 5px; text-align: left'></span>
 							<datalist  id="Category">       
 					            <option value="Tools">Tools</option>
 					            <option value="Technology">Technology</option>
@@ -383,25 +373,38 @@ function insertRow(){
 					            <option value="Project Management">Project Management</option>
 					    	</datalist>
 							</div>
+							<div contenteditable="true" id="level" class="dls-comp-tableDataCell">
+								<input style="height:35px; width: calc(100% - 3px);background: #ADD8E6;
+	opacity: 0.7;" id="Level_list" name="level3" type="text" list="Level" />
+								<span style='margin: 5px; text-align: left'></span>
+							<datalist  id="Level">       
+					            <option value="Basic">Basic</option>
+					            <option value="Intermediate">Intermediate</option>
+					            <option value="Advanced">Advanced</option>
+					    	</datalist>
+							</div>
 							<div contenteditable="false" id="completionPercent" class="dls-comp-tableDataCell">
-							<input name="completion3" type="text" style="height:35px; width: calc(100% - 3px);background: #ADD8E6; opacity: 0.7;"/>
+							<input name="completion3" type="text" style="height:35px; width: calc(100% - 3px);background: #ADD8E6; opacity: 0.7;" disabled/>
 								<span style='margin: 5px; text-align: left'></span>
 							</div>
 					 </div>
 				</div>
 			</div>
 			</div>
-			<button id="btnAdd" style="margin-top: 5px;" type="button" onclick="insertRow();">Add New Row</button>
+			<button id="btnAdd" class="insertRow" style="margin-top: 5px;" type="button" onclick="insertRow('myTable2','content2');">Add New Row</button>
       </section>
       <section id="content3">
         <div>
-          <div class="obs-comp-table" id="myTable">
+          <div class="obs-comp-table" id="myTable3">
 				<div class="dls-comp-tableHeader">
 					<div class="dls-comp-tableHeaderCell">
 						<span style='margin-left: 5px'>Target</span>
 					</div>
 					<div class="dls-comp-tableHeaderCell">
 						<span style='margin-left: 5px'>Category</span>
+					</div>
+					<div class="dls-comp-tableHeaderCell">
+						<span style='margin-left: 5px'>Competency Level</span>
 					</div>
 					<div class="dls-comp-tableHeaderCell">
 						<span style='margin-left: 5px'>%Completion</span>
@@ -417,6 +420,9 @@ function insertRow(){
 							<div contenteditable="false" id="category" class="dls-comp-tableDataCell">					
 								<input name="category${count}" type="text" value="${target.category}" style="margin: 5px; text-align: left;height:35px; width: calc(100% - 3px);background: #ADD8E6; opacity: 0.7;"/>
 							</div>
+							<div contenteditable="true" id="level" class="dls-comp-tableDataCell">
+								<input name="level${count}" type="text" value="${target.level}" style="margin: 5px; text-align: left;height:35px; width: calc(100% - 3px);background: #ADD8E6; opacity: 0.7;"/>
+							</div>
 							<div contenteditable="true" id="completionPercent" class="dls-comp-tableDataCell">
 								<input name="completion${count}" type="text" value="${target.completionPercent}" style="margin: 5px; text-align: left;height:35px; width: calc(100% - 3px);background: #ADD8E6; opacity: 0.7;"/>
 							</div>
@@ -425,7 +431,7 @@ function insertRow(){
 				<c:set var="count" value="${count + 1}"/>
 				</c:forEach>
 				<div class="dls-comp-tableDataRow">
-						<div class="dls-comp-table-row" id="myRow">
+						<div class="dls-comp-table-row empty">
 							<div contenteditable="true" id="targetName" class="dls-comp-tableDataCell">
 							<input name="targetName3" type="text" style="height:35px; width: calc(100% - 3px);background: #ADD8E6; opacity: 0.7;"/>
 								<span style='margin: 5px; text-align: left'></span>
@@ -433,7 +439,7 @@ function insertRow(){
 							<div contenteditable="true" id="category" class="dls-comp-tableDataCell">
 								<input style="height:35px; width: calc(100% - 3px);background: #ADD8E6;
 	opacity: 0.7;" id="Category_list" name="category3" type="text" list="Category" />
-	<span style='margin: 5px; text-align: left'></span>
+								<span style='margin: 5px; text-align: left'></span>
 							<datalist  id="Category">       
 					            <option value="Tools">Tools</option>
 					            <option value="Technology">Technology</option>
@@ -442,25 +448,38 @@ function insertRow(){
 					            <option value="Project Management">Project Management</option>
 					    	</datalist>
 							</div>
+							<div contenteditable="true" id="level" class="dls-comp-tableDataCell">
+								<input style="height:35px; width: calc(100% - 3px);background: #ADD8E6;
+	opacity: 0.7;" id="Level_list" name="level3" type="text" list="Level" />
+								<span style='margin: 5px; text-align: left'></span>
+							<datalist  id="Level">       
+					            <option value="Basic">Basic</option>
+					            <option value="Intermediate">Intermediate</option>
+					            <option value="Advanced">Advanced</option>
+					    	</datalist>
+							</div>
 							<div contenteditable="false" id="completionPercent" class="dls-comp-tableDataCell">
-							<input name="completion3" type="text" style="height:35px; width: calc(100% - 3px);background: #ADD8E6; opacity: 0.7;"/>
+							<input name="completion3" type="text" style="height:35px; width: calc(100% - 3px);background: #ADD8E6; opacity: 0.7;" disabled/>
 								<span style='margin: 5px; text-align: left'></span>
 							</div>
 					 </div>
 				</div>
 			</div>
 			</div>
-			<button id="btnAdd" style="margin-top: 5px;" type="button" onclick="insertRow();">Add New Row</button>
+			<button id="btnAdd" class="insertRow" style="margin-top: 5px;" type="button" onclick="insertRow('myTable3', 'content3');">Add New Row</button>
       </section>
       <section id="content4">
         <div>
-          <div class="obs-comp-table" id="myTable">
+          <div class="obs-comp-table" id="myTable4">
 				<div class="dls-comp-tableHeader">
 					<div class="dls-comp-tableHeaderCell">
 						<span style='margin-left: 5px'>Target</span>
 					</div>
 					<div class="dls-comp-tableHeaderCell">
 						<span style='margin-left: 5px'>Category</span>
+					</div>
+					<div class="dls-comp-tableHeaderCell">
+						<span style='margin-left: 5px'>Competency Level</span>
 					</div>
 					<div class="dls-comp-tableHeaderCell">
 						<span style='margin-left: 5px'>%Completion</span>
@@ -476,6 +495,9 @@ function insertRow(){
 							<div contenteditable="false" id="category" class="dls-comp-tableDataCell">					
 								<input name="category${count}" type="text" value="${target.category}" style="margin: 5px; text-align: left;height:35px; width: calc(100% - 3px);background: #ADD8E6; opacity: 0.7;"/>
 							</div>
+							<div contenteditable="true" id="level" class="dls-comp-tableDataCell">
+								<input name="level${count}" type="text" value="${target.level}" style="margin: 5px; text-align: left;height:35px; width: calc(100% - 3px);background: #ADD8E6; opacity: 0.7;"/>
+							</div>
 							<div contenteditable="true" id="completionPercent" class="dls-comp-tableDataCell">
 								<input name="completion${count}" type="text" value="${target.completionPercent}" style="margin: 5px; text-align: left;height:35px; width: calc(100% - 3px);background: #ADD8E6; opacity: 0.7;"/>
 							</div>
@@ -484,7 +506,7 @@ function insertRow(){
 				<c:set var="count" value="${count + 1}"/>
 				</c:forEach>
 				<div class="dls-comp-tableDataRow">
-						<div class="dls-comp-table-row" id="myRow">
+						<div class="dls-comp-table-row empty">
 							<div contenteditable="true" id="targetName" class="dls-comp-tableDataCell">
 							<input name="targetName3" type="text" style="height:35px; width: calc(100% - 3px);background: #ADD8E6; opacity: 0.7;"/>
 								<span style='margin: 5px; text-align: left'></span>
@@ -492,7 +514,7 @@ function insertRow(){
 							<div contenteditable="true" id="category" class="dls-comp-tableDataCell">
 								<input style="height:35px; width: calc(100% - 3px);background: #ADD8E6;
 	opacity: 0.7;" id="Category_list" name="category3" type="text" list="Category" />
-	<span style='margin: 5px; text-align: left'></span>
+								<span style='margin: 5px; text-align: left'></span>
 							<datalist  id="Category">       
 					            <option value="Tools">Tools</option>
 					            <option value="Technology">Technology</option>
@@ -501,15 +523,25 @@ function insertRow(){
 					            <option value="Project Management">Project Management</option>
 					    	</datalist>
 							</div>
+							<div contenteditable="true" id="level" class="dls-comp-tableDataCell">
+								<input style="height:35px; width: calc(100% - 3px);background: #ADD8E6;
+	opacity: 0.7;" id="Level_list" name="level3" type="text" list="Level" />
+								<span style='margin: 5px; text-align: left'></span>
+							<datalist  id="Level">       
+					            <option value="Basic">Basic</option>
+					            <option value="Intermediate">Intermediate</option>
+					            <option value="Advanced">Advanced</option>
+					    	</datalist>
+							</div>
 							<div contenteditable="false" id="completionPercent" class="dls-comp-tableDataCell">
-							<input name="completion3" type="text" style="height:35px; width: calc(100% - 3px);background: #ADD8E6; opacity: 0.7;"/>
+							<input name="completion3" type="text" style="height:35px; width: calc(100% - 3px);background: #ADD8E6; opacity: 0.7;" disabled/>
 								<span style='margin: 5px; text-align: left'></span>
 							</div>
 					 </div>
 				</div>
 			</div>
 			</div>
-			<button id="btnAdd" style="margin-top: 5px;" type="button" onclick="insertRow();">Add New Row</button>
+			<button id="btnAdd" class="insertRow" style="margin-top: 5px;" type="button" onclick="insertRow('myTable4','content4');">Add New Row</button>
       </section>
 			<div style='text-align: center; margin-top: 10px;'>
 				<input type="submit" name="add" value="Submit New Targets" />
