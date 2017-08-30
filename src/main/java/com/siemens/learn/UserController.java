@@ -97,6 +97,7 @@ public class UserController
 		
 		redirectAttributes.addFlashAttribute("user", user);
 		redirectAttributes.addFlashAttribute("quarter", quarter);
+		model.addAttribute("quarter", quarter);
 		return new ModelAndView("redirect:userscreen");
 	}
 
