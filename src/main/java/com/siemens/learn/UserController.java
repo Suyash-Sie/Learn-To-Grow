@@ -9,11 +9,13 @@ import javax.servlet.http.HttpServletRequest;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
+import com.siemens.learn.model.Tab;
 import com.siemens.learn.model.Target;
 import com.siemens.learn.service.DBService;
 import com.siemens.learn.service.TargetService;
@@ -215,10 +217,10 @@ public class UserController
 		return valid;
 	}
 	
-	@RequestMapping(value = "submit", method = RequestMethod.POST, params="tab")
-	public ModelAndView tacbChanged(HttpServletRequest request, ModelMap model, final RedirectAttributes redirectAttributes) 
+	@RequestMapping(value = "/radio", method = RequestMethod.POST)
+	public ModelAndView tacbChanged(@ModelAttribute(value="tab") Tab tab, final RedirectAttributes redirectAttributes) 
 	{
-		String quarter = request.getParameter("tab");
+		String quarter = tab.getTab();
 		redirectAttributes.addFlashAttribute("user", user);
 		redirectAttributes.addFlashAttribute("quarter", quarter);
 		return new ModelAndView("redirect:userscreen");
