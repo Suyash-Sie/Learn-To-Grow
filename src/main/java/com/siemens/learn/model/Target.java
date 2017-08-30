@@ -6,12 +6,15 @@ public class Target
 	private String category;
 	private String completionPercent;
 	private String quarter;
+	private String level;
 
-	public String getQuarter() {
+	public String getQuarter() 
+	{
 		return quarter;
 	}
 
-	public void setQuarter(String quarter) {
+	public void setQuarter(String quarter) 
+	{
 		this.quarter = quarter;
 	}
 
@@ -45,11 +48,21 @@ public class Target
 		this.completionPercent = completionPercent;
 	}
 
+	public String getLevel() 
+	{
+		return level;
+	}
+	
+	public void setLevel(String level) 
+	{
+		this.level = level;
+	}
+	
 	@Override
 	public String toString() 
 	{
 		return "Target [targetName=" + targetName + ", category=" + category + ", completionPercent="
-				+ completionPercent + "]";
+				+ completionPercent + ", quarter=" + quarter + ", level=" + level + "]";
 	}
 	
 	@Override

@@ -100,10 +100,10 @@ public class Dynamo
 	private List<Map<String, String>> addTargetsForFirst() 
 	{
 		List<Map<String, String>> targets1 = new ArrayList<>();
-		Map<String, String> target1 = createTarget("t1", "c1", "0", "Quarte1");
+		Map<String, String> target1 = createTarget("t1", "c1", "l1", "0", "Quarte1");
 		targets1.add(target1);
 
-		Map<String, String> target2 = createTarget("t2", "c2", "0", "Q2");
+		Map<String, String> target2 = createTarget("t2", "c2", "l2", "0", "Q2");
 		targets1.add(target2);
 		return targets1;
 	}
@@ -111,19 +111,20 @@ public class Dynamo
 	private List<Map<String, String>> addTargetsForSecond() 
 	{
 		List<Map<String, String>> targets2 = new ArrayList<>();
-		Map<String, String> target3 = createTarget("t3", "c3", "0", "Q3");
+		Map<String, String> target3 = createTarget("t3", "c3", "l3", "0", "Q3");
 		targets2.add(target3);
 		
-		Map<String, String> target4 = createTarget("t4", "c4", "0", "Q3");
+		Map<String, String> target4 = createTarget("t4", "c4", "l3", "0", "Q3");
 		targets2.add(target4);
 		return targets2;
 	}
 
-	private Map<String, String> createTarget(String name, String cat, String comp, String quart) 
+	private Map<String, String> createTarget(String name, String cat, String level, String comp, String quart) 
 	{
 		Map<String, String> target1 = new HashMap<>();
 		target1.put("name", name);
 		target1.put("category", cat);
+		target1.put("level", level);
 		target1.put("completed", comp);
 		target1.put("quarter", quart);
 		return target1;

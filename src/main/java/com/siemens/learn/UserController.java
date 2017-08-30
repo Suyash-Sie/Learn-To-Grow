@@ -11,7 +11,6 @@ import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
@@ -66,32 +65,27 @@ public class UserController
 		String quarter = request.getParameter("tab");
 		List<Target> targetsInDb = new TargetService(dbService).getTargetsForUser(user, quarter);
 		
-		String targetName0 = request.getParameter("targetName0");
-		String targetName1 = request.getParameter("targetName1");
-		String targetName2 = request.getParameter("targetName2");
-		String targetName3 = request.getParameter("targetName3");
-		
-		String category0 = request.getParameter("category0");
-		String category1 = request.getParameter("category1");
-		String category2 = request.getParameter("category2");
-		String category3 = request.getParameter("category3");
-
-		String completion0 = request.getParameter("completion0");
-		String completion1 = request.getParameter("completion1");
-		String completion2 = request.getParameter("completion2");
-		String completion3 = request.getParameter("completion3");
+		List<String> targetDetails = new ArrayList<>();
+		if(quarter.equals("Quarter 1"))
+			populateDataForQ1(request, targetDetails);
+		else if(quarter.equals("Quarter 2"))
+			populateDataForQ2(request, targetDetails);
+		else if(quarter.equals("Quarter 3"))
+			populateDataForQ3(request, targetDetails);
+		else
+			populateDataForQ4(request, targetDetails);
 		
 		List<Target> targets = new ArrayList<>();
-		Target target1 = createTarget(targetName0, category0, completion0, quarter);
+		Target target1 = createTarget(targetDetails.get(0), targetDetails.get(1), targetDetails.get(2), targetDetails.get(3), quarter);
 		if(target1 != null && !targetsInDb.contains(target1))
 			targets.add(target1);
-		Target target2 = createTarget(targetName1, category1, completion1, quarter);
+		Target target2 = createTarget(targetDetails.get(4), targetDetails.get(5), targetDetails.get(6), targetDetails.get(7), quarter);
 		if(target2 != null && !targetsInDb.contains(target2))
 			targets.add(target2);
-		Target target3 = createTarget(targetName2, category2, completion2, quarter);
+		Target target3 = createTarget(targetDetails.get(8), targetDetails.get(9), targetDetails.get(10), targetDetails.get(11), quarter);
 		if(target3 != null && !targetsInDb.contains(target3))
 			targets.add(target3);
-		Target target4 = createTarget(targetName3, category3, completion3, quarter);
+		Target target4 = createTarget(targetDetails.get(12), targetDetails.get(13), targetDetails.get(14), targetDetails.get(15), quarter);
 		if(target4 != null && !targetsInDb.contains(target4))
 			targets.add(target4);
 		
@@ -104,13 +98,106 @@ public class UserController
 		return new ModelAndView("redirect:userscreen");
 	}
 
-	private Target createTarget(String targetName, String category, String completion, String quarter) 
+	private void populateDataForQ1(HttpServletRequest request, List<String> targetDetails) 
 	{
-		if(targetValid(targetName, category))
+		targetDetails.add(request.getParameter("targetName0"));
+		targetDetails.add(request.getParameter("category0"));
+		targetDetails.add(request.getParameter("level0"));
+		targetDetails.add(request.getParameter("completion0"));
+		
+		targetDetails.add(request.getParameter("targetName1"));
+		targetDetails.add(request.getParameter("category1"));
+		targetDetails.add(request.getParameter("level1"));
+		targetDetails.add(request.getParameter("completion1"));
+
+		targetDetails.add(request.getParameter("targetName2"));
+		targetDetails.add(request.getParameter("category2"));
+		targetDetails.add(request.getParameter("level2"));
+		targetDetails.add(request.getParameter("completion2"));
+
+		targetDetails.add(request.getParameter("targetName3"));
+		targetDetails.add(request.getParameter("category3"));
+		targetDetails.add(request.getParameter("level3"));
+		targetDetails.add(request.getParameter("completion3"));
+	}
+
+	private void populateDataForQ2(HttpServletRequest request, List<String> targetDetails) 
+	{
+		targetDetails.add(request.getParameter("targetName4"));
+		targetDetails.add(request.getParameter("category4"));
+		targetDetails.add(request.getParameter("level4"));
+		targetDetails.add(request.getParameter("completion4"));
+
+		targetDetails.add(request.getParameter("targetName5"));
+		targetDetails.add(request.getParameter("category5"));
+		targetDetails.add(request.getParameter("level5"));
+		targetDetails.add(request.getParameter("completion5"));
+
+		targetDetails.add(request.getParameter("targetName6"));
+		targetDetails.add(request.getParameter("category6"));
+		targetDetails.add(request.getParameter("level6"));
+		targetDetails.add(request.getParameter("completion6"));
+
+		targetDetails.add(request.getParameter("targetName7"));
+		targetDetails.add(request.getParameter("category7"));
+		targetDetails.add(request.getParameter("level7"));
+		targetDetails.add(request.getParameter("completion7"));
+	}
+
+	private void populateDataForQ3(HttpServletRequest request, List<String> targetDetails) 
+	{
+		targetDetails.add(request.getParameter("targetName8"));
+		targetDetails.add(request.getParameter("category8"));
+		targetDetails.add(request.getParameter("level8"));
+		targetDetails.add(request.getParameter("completion8"));
+		
+		targetDetails.add(request.getParameter("targetName9"));
+		targetDetails.add(request.getParameter("category9"));
+		targetDetails.add(request.getParameter("level9"));
+		targetDetails.add(request.getParameter("completion9"));
+		
+		targetDetails.add(request.getParameter("targetName10"));
+		targetDetails.add(request.getParameter("category10"));
+		targetDetails.add(request.getParameter("level10"));
+		targetDetails.add(request.getParameter("completion10"));
+		
+		targetDetails.add(request.getParameter("targetName11"));
+		targetDetails.add(request.getParameter("category11"));
+		targetDetails.add(request.getParameter("level11"));
+		targetDetails.add(request.getParameter("completion11"));
+	}
+
+	private void populateDataForQ4(HttpServletRequest request, List<String> targetDetails) 
+	{
+		targetDetails.add(request.getParameter("targetName12"));
+		targetDetails.add(request.getParameter("category12"));
+		targetDetails.add(request.getParameter("level12"));
+		targetDetails.add(request.getParameter("completion12"));
+		
+		targetDetails.add(request.getParameter("targetName13"));
+		targetDetails.add(request.getParameter("category13"));
+		targetDetails.add(request.getParameter("level13"));
+		targetDetails.add(request.getParameter("completion13"));
+		
+		targetDetails.add(request.getParameter("targetName14"));
+		targetDetails.add(request.getParameter("category14"));
+		targetDetails.add(request.getParameter("level14"));
+		targetDetails.add(request.getParameter("completion14"));
+		
+		targetDetails.add(request.getParameter("targetName15"));
+		targetDetails.add(request.getParameter("category15"));
+		targetDetails.add(request.getParameter("completion15"));
+		targetDetails.add(request.getParameter("level15"));
+	}
+
+	private Target createTarget(String targetName, String category, String level, String completion, String quarter) 
+	{
+		if(targetValid(targetName, category, level))
 		{
 			Target target = new Target();
 			target.setTargetName(targetName);
 			target.setCategory(category);
+			target.setLevel(level);
 			if(null == completion || completion.isEmpty())
 				completion = "0";
 			target.setCompletionPercent(completion);
@@ -120,34 +207,20 @@ public class UserController
 		return null;
 	}
 
-	private boolean targetValid(String name, String category)
+	private boolean targetValid(String name, String category, String level)
 	{
 		boolean valid = false;
-		if(null != name && !name.isEmpty() && null != category && !category.isEmpty())
+		if(null != name && !name.isEmpty() && null != category && !category.isEmpty() && null != level && !level.isEmpty())
 			valid = true;
 		return valid;
 	}
 	
-	@RequestMapping(value = "userscreen/submit", params="update", method = RequestMethod.POST)
-	public String update(HttpServletRequest request, ModelMap model, @RequestParam String tabbed1) 
+	@RequestMapping(value = "submit", method = RequestMethod.POST, params="tab")
+	public ModelAndView tacbChanged(HttpServletRequest request, ModelMap model, final RedirectAttributes redirectAttributes) 
 	{
-		String targetName = request.getParameter("targetName");
-		String category = request.getParameter("category");
-		String completionPercent = request.getParameter("completionPercent");
-		if(targetName.isEmpty() || category.isEmpty() || Float.parseFloat(completionPercent) > 100 
-				|| Float.parseFloat(completionPercent) < 0)
-			return "userscreen";
-		List<Target> targets = new ArrayList<>();
-		Target target = new Target();
-		target.setTargetName(targetName);
-		target.setCategory(category);
-		target.setCompletionPercent(completionPercent);
-		target.setQuarter(tabbed1);
-		targets.add(target);
-		
-		new TargetService(dbService).submitTargets(user, targets);
-		model.addAttribute("targets", targets);
-		
-		return "userscreen";
+		String quarter = request.getParameter("tab");
+		redirectAttributes.addFlashAttribute("user", user);
+		redirectAttributes.addFlashAttribute("quarter", quarter);
+		return new ModelAndView("redirect:userscreen");
 	}
 }

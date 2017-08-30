@@ -34,6 +34,8 @@ public class TargetService
 					target.setTargetName(entry.getValue());
 				else if(entry.getKey().equals("category"))
 					target.setCategory(entry.getValue());
+				else if(entry.getKey().equals("level"))
+					target.setLevel(entry.getValue());
 				else if(entry.getKey().equals("completed"))
 					target.setCompletionPercent(entry.getValue());
 				else
@@ -53,6 +55,7 @@ public class TargetService
 			Map<String, String> targetDetails = new HashMap<>();
 			targetDetails.put("name", target.getTargetName());
 			targetDetails.put("category", target.getCategory());
+			targetDetails.put("level", target.getLevel());
 			targetDetails.put("completed", target.getCompletionPercent());
 			quarter = target.getQuarter();
 			targetDetails.put("quarter", quarter);
@@ -62,7 +65,7 @@ public class TargetService
 		
 		String risk = calculateRisk(targetsToBeAddded, quarter);
 		
-		dbService.submit(gid, targetsToBeAddded, risk);
+		dbService.submit(gid, targetsToBeAddded, risk, quarter);
 	}
 
 	private String calculateRisk(List<Map<String, String>> targetsToBeAddded, String quarter) 

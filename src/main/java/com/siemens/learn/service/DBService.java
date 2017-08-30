@@ -86,14 +86,24 @@ public class DBService
 		return targets;
 	}
 	
-	public void submit(String gid, List<Map<String, String>> targetsToBeAddded, String risk)
+	public void submit(String gid, List<Map<String, String>> targetsToBeAddded, String risk, String quarter)
 	{
 		Map<String, Object> expressionAttributeValues = new HashMap<>();
 		expressionAttributeValues.put(":val1", targetsToBeAddded);
 		expressionAttributeValues.put(":val2", risk);
 		
+		String updateExpr = "";
+		if(quarter.equals("Quarter 1"))
+			updateExpr = "set targets = :val1, q1risk = :val2";
+		else if(quarter.equals("Quarter 2"))
+			updateExpr = "set targets = :val1, q2risk = :val2";
+		else if(quarter.equals("Quarter 3"))
+			updateExpr = "set targets = :val1, q3risk = :val2";
+		else if(quarter.equals("Quarter 4"))
+			updateExpr = "set targets = :val1, q4risk = :val2";
+		
 		UpdateItemSpec updateItemSpec = new UpdateItemSpec().withPrimaryKey("GID", gid)
-	            .withUpdateExpression("set targets = :val1, risk = :val2")
+	            .withUpdateExpression(updateExpr)
 	            .withValueMap(expressionAttributeValues)
 	            .withReturnValues(ReturnValue.UPDATED_NEW);
         try 
@@ -110,16 +120,21 @@ public class DBService
         }
 	}
 	
-	public List<String> getRiskForGroup(String groupName)
+	public List<List<String>> getRiskForGroup(String groupName)
 	{
-		List<String> risks = new ArrayList<>();
+		List<List<String>> allRisks = new ArrayList<>();
+		List<String> q1Risk = new ArrayList<>();
+		List<String> q2Risk = new ArrayList<>();
+		List<String> q3Risk = new ArrayList<>();
+		List<String> q4Risk = new ArrayList<>();
+		
 		ScanSpec scanSpec;
 		if(!groupName.equals("*"))
-			scanSpec = new ScanSpec().withProjectionExpression("#gr, risk")
+			scanSpec = new ScanSpec().withProjectionExpression("#gr, q1risk, q2risk, q3risk, q4risk")
 	            .withFilterExpression("#gr = :gname").withNameMap(new NameMap().with("#gr", "group"))
 	            .withValueMap(new ValueMap().withString(":gname", groupName));
 		else
-			scanSpec = new ScanSpec().withProjectionExpression("risk");
+			scanSpec = new ScanSpec().withProjectionExpression("q1risk, q2risk, q3risk, q4risk");
 
         try 
         {
@@ -129,7 +144,10 @@ public class DBService
             while (iter.hasNext()) 
             {
                 Item item = iter.next();
-                risks.add(item.getString("risk"));
+                q1Risk.add(item.getString("q1risk"));
+                q2Risk.add(item.getString("q2risk"));
+                q3Risk.add(item.getString("q3risk"));
+                q4Risk.add(item.getString("q4risk"));
             }
         }
         catch (Exception e) 
@@ -137,7 +155,11 @@ public class DBService
             System.err.println("Unable to scan the table:");
             System.err.println(e.getMessage());
         }
-		return risks;
+        allRisks.add(q1Risk);
+        allRisks.add(q2Risk);
+        allRisks.add(q3Risk);
+        allRisks.add(q4Risk);
+		return allRisks;
 	}
 	
 	public String getRole(String gid)
@@ -181,7 +203,7 @@ public class DBService
 //		dbService.submit("z0024dzv", targets, "100");
 		
 		DBService dbService = new DBService();
-		List<Map<String, String>> targets2 = dbService.getTargets("z0024dzv", "Q1");
+		List<Map<String, String>> targets2 = dbService.getTargets("z003cv8z", "Quarter 1");
 		for (Map<String, String> map : targets2) 
 		{
 			for (Entry<String, String> entry : map.entrySet()) 
