@@ -5,15 +5,21 @@ import java.util.Calendar;
 import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 
+import org.springframework.http.HttpRequest;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
+import com.fasterxml.jackson.core.JsonProcessingException;
+import com.fasterxml.jackson.databind.ObjectMapper;
 import com.siemens.learn.model.Tab;
 import com.siemens.learn.model.Target;
 import com.siemens.learn.service.DBService;
@@ -31,33 +37,35 @@ public class UserController
 	}
 	
 	@RequestMapping(value = "/userscreen", method = RequestMethod.GET)
-	public String welcome(ModelMap model, @ModelAttribute("user") String user, @ModelAttribute("quarter") String quarter) 
+	public ModelAndView welcome(ModelAndView modelAndView, @ModelAttribute("user") String user, @ModelAttribute("quarter") String quarter) 
 	{
 		this.user = user;
         List<Target> targets = new TargetService(dbService).getTargetsForUser(user, quarter);
 		int currentMonth = Calendar.getInstance().get(Calendar.MONTH);
 		if(currentMonth > 9)
 		{
-			model.addAttribute("tab1", "true");
+			modelAndView.addObject("tab1", "true");
 		}
 		else if(currentMonth < 4)
 		{
-			model.addAttribute("tab1", "false");
-			model.addAttribute("tab2", "true");
+			modelAndView.addObject("tab1", "false");
+			modelAndView.addObject("tab2", "true");
 		}
 		else if(currentMonth < 7)
 		{
-			model.addAttribute("tab2", "false");
-			model.addAttribute("tab3", "true");
+			modelAndView.addObject("tab2", "false");
+			modelAndView.addObject("tab3", "true");
 		}
 		else if(currentMonth < 10)
 		{
-			model.addAttribute("tab3", "false");
-			model.addAttribute("tab4", "true");
+			modelAndView.addObject("tab3", "false");
+			modelAndView.addObject("tab4", "true");
 		}	
-		model.addAttribute("targets", targets);
+		modelAndView.addObject("targets", targets);
 		
-		return "userscreen";
+		modelAndView.setViewName("userscreen");
+		
+		return modelAndView;
 	}
 
 	@RequestMapping(value = "submit", method = RequestMethod.POST, params="add")
@@ -218,12 +226,25 @@ public class UserController
 		return valid;
 	}
 	
-	@RequestMapping(value = "/radio", method = RequestMethod.POST)
-	public ModelAndView tacbChanged(@ModelAttribute(value="tab") Tab tab, final RedirectAttributes redirectAttributes) 
+	@RequestMapping(value = "/radio",  method = RequestMethod.GET)
+	@ResponseBody
+	public String tacbChanged(Model model, HttpServletResponse res, HttpServletRequest req) 
 	{
-		String quarter = tab.getTab();
-		redirectAttributes.addFlashAttribute("user", user);
-		redirectAttributes.addFlashAttribute("quarter", quarter);
-		return new ModelAndView("redirect:userscreen");
+		String quarter = (String)req.getParameter("tab");
+		
+		List<Target> targets = new TargetService(dbService).getTargetsForUser(user, quarter);
+		ObjectMapper mapper = new ObjectMapper();
+
+		String jsonInString = "";
+		try 
+		{
+			jsonInString = mapper.writeValueAsString(targets);
+		} 
+		catch (JsonProcessingException e) 
+		{
+			e.printStackTrace();
+		}
+		
+		return jsonInString;
 	}
 }
