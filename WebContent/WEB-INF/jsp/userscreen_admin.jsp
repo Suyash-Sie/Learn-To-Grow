@@ -27,6 +27,31 @@ function renderCore(idSelector, slider) {
 	//Draws the risk indicator
 	optimizationBarV4.draw(idSelector);
 }
+
+var checkClicked = function(checkIndex){
+	//var json = {"index" : tabIndex};
+	//console.log(json + ': ' + tabIndex);
+	if(checkIndex === "1")
+		var check = $('#check1').val();
+	//if(checkIndex === "2")
+		//var tab = $('#tab2').val();
+	//if(checkIndex === "3")
+		//var tab = $('#tab3').val();
+	//if(checkIndex === "4")
+		//var tab = $('#tab4').val();
+	$.ajax({
+		   	type: 'POST',
+			url : '/LearnApp/checkbox',
+			//contentType: 'application/json; charset=utf-8',
+		   	data: "check=" + check,
+		   //	dataType: 'json',
+		   	async: false,
+		   	success: function(data) {
+		    	console.log('success',data);
+		},
+		error:function(exception){console.log(exception);}
+	});
+};
 </script>
 </head>
 
@@ -63,12 +88,12 @@ function selectTab(evt, quarter) {
 </div>
 <div style="float: right; width: calc(25% - 1px); height: 25%; position: relative; border-left:1px solid black; border-bottom:1px solid black;">
 <form action="">
-<input type="checkbox" name="r7" value="r7">R7<br>
+<input type="checkbox" id="check1" name="r7" value="r7" onclick="checkClicked('1')">R7<br>
 <input type="checkbox" name="r8" value="r8">R8<br>
-<input type="checkbox" name="vehicle" value="Bike">SIT<br>
-<input type="checkbox" name="vehicle" value="Car">SYSTEC<br>
-<input type="checkbox" name="vehicle" value="Bike">TDOC<br>
-<input type="checkbox" name="vehicle" value="Car">LOB<br>
+<input type="checkbox" name="sit" value="Bike">SIT<br>
+<input type="checkbox" name="sys" value="Car">SYSTEC<br>
+<input type="checkbox" name="tdoc" value="Bike">TDOC<br>
+<input type="checkbox" name="lob" value="Car">LOB<br>
 </form>
 </div>
 <div style="float: left; width: 75%; height: 75%; position: relative;">

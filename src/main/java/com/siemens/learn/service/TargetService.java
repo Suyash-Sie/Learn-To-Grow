@@ -18,7 +18,6 @@ public class TargetService
 	public TargetService(DBService dbService)
 	{
 		this.dbService = dbService;
-		
 	}
 	
 	public List<Target> getTargetsForUser(String gid, String quarter)

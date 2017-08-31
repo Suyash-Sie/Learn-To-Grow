@@ -4,6 +4,7 @@
 <%@taglib uri="http://www.springframework.org/tags/form" prefix="form"%>
 <%@taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
+<%@ page session="true" %>
 <html>
 <head>
 <title>Hello World</title>
@@ -171,7 +172,6 @@ input:checked + label {
 	</div>
 	<script>
 renderCore();
-
 function renderCore() {
 	"use strict";
 	var optimizationBarV4 = new OptimizationBar();
@@ -225,7 +225,7 @@ function insertRow(id, contentId){
 	var table = document.getElementById(id);
 	var row = table.getElementsByClassName("dls-comp-table-row");
 	var i=row.length;
-	var max=3;
+	var max=4;
 	if (i < max) {
 		var row1 = row[i-1].cloneNode(true); // "deep" clone
 		i++;
@@ -258,10 +258,13 @@ var tabChange = function(tabIndex){
 		   //	dataType: 'json',
 		   	async: false,
 		   	success: function(data) {
-		    	console.log('success',data);
+		    	
 		},
 		error:function(exception){console.log(exception);}
 	});
+	
+	<%-- var i = '<%=(request.getAttribute("targets"))%>';
+	console.log(i) --%>
 };
 
 </script>
@@ -306,16 +309,16 @@ var tabChange = function(tabIndex){
 				<c:forEach var="target" items="${targets}">
 					<div class="dls-comp-tableDataRow">
 						<div class="dls-comp-table-row" id="myRow">
-							<div contenteditable="false" id="targetName" class="dls-comp-tableDataCell">
-								<input name="targetName${count}" type="text" value="${target.targetName}" contenteditable="false" style="margin: 5px; text-align: left;height:35px; width: calc(100% - 3px);background: #ADD8E6; opacity: 0.7;"/>
+							<div id="targetName" class="dls-comp-tableDataCell">
+								<input name="targetName${count}" type="text" value="${target.targetName}" style="margin: 5px; text-align: left;height:35px; width: calc(100% - 3px);background: #ADD8E6; opacity: 0.7;" readonly/>
 							</div>
-							<div contenteditable="false" id="category" class="dls-comp-tableDataCell">					
-								<input name="category${count}" type="text" value="${target.category}" contenteditable="false" style="margin: 5px; text-align: left;height:35px; width: calc(100% - 3px);background: #ADD8E6; opacity: 0.7;"/>
+							<div id="category" class="dls-comp-tableDataCell">					
+								<input name="category${count}" type="text" value="${target.category}" style="margin: 5px; text-align: left;height:35px; width: calc(100% - 3px);background: #ADD8E6; opacity: 0.7;" readonly/>
 							</div>
-							<div contenteditable="false" id="level" class="dls-comp-tableDataCell">
-								<input name="level${count}" type="text" value="${target.level}" contenteditable="false" style="margin: 5px; text-align: left;height:35px; width: calc(100% - 3px);background: #ADD8E6; opacity: 0.7;"/>
+							<div id="level" class="dls-comp-tableDataCell">
+								<input name="level${count}" type="text" value="${target.level}" style="margin: 5px; text-align: left;height:35px; width: calc(100% - 3px);background: #ADD8E6; opacity: 0.7;" readonly/>
 							</div>
-							<div contenteditable="false" id="completionPercent" class="dls-comp-tableDataCell">
+							<div id="completionPercent" class="dls-comp-tableDataCell">
 								<input name="completion${count}" type="text" value="${target.completionPercent}" style="margin: 5px; text-align: left;height:35px; width: calc(100% - 3px);background: #ADD8E6; opacity: 0.7;"/>
 							</div>
 						</div>
@@ -348,14 +351,14 @@ var tabChange = function(tabIndex){
 	opacity: 0.7;" id="Level_list" name="level3" type="text" list="Level" /> -->
 							<select style="height:35px; width: calc(100% - 3px);background: #ADD8E6;
 	opacity: 0.7;" id="Level_list" name="level3">       
-								<span style='margin: 5px; text-align: left'></span>
 					            <option value="Basic">Basic</option>
 					            <option value="Intermediate">Intermediate</option>
 					            <option value="Advanced">Advanced</option>
 					    	</select>
+								<span style='margin: 5px; text-align: left'></span>
 							</div>
 							<div contenteditable="false" id="completionPercent" class="dls-comp-tableDataCell">
-							<input name="completion3" type="text" style="height:35px; width: calc(100% - 3px);background: #ADD8E6; opacity: 0.7;" disabled/>
+							<input name="completion3" type="text" style="height:35px; width: calc(100% - 3px);background: #ADD8E6; opacity: 0.7;" readonly/>
 								<span style='margin: 5px; text-align: left'></span>
 							</div>
 					 </div>
@@ -394,16 +397,16 @@ var tabChange = function(tabIndex){
 				<c:forEach var="target" items="${targets}">
 					<div class="dls-comp-tableDataRow">
 						<div class="dls-comp-table-row" id="myRow">
-							<div contenteditable="false" id="targetName" class="dls-comp-tableDataCell">
-								<input name="targetName${count}" type="text" value="${target.targetName}" contenteditable="false" style="margin: 5px; text-align: left;height:35px; width: calc(100% - 3px);background: #ADD8E6; opacity: 0.7;"/>
+							<div id="targetName" class="dls-comp-tableDataCell">
+								<input name="targetName${count}" type="text" value="${target.targetName}" style="margin: 5px; text-align: left;height:35px; width: calc(100% - 3px);background: #ADD8E6; opacity: 0.7;" readonly/>
 							</div>
-							<div contenteditable="false" id="category" class="dls-comp-tableDataCell">					
-								<input name="category${count}" type="text" value="${target.category}" contenteditable="false" style="margin: 5px; text-align: left;height:35px; width: calc(100% - 3px);background: #ADD8E6; opacity: 0.7;"/>
+							<div id="category" class="dls-comp-tableDataCell">					
+								<input name="category${count}" type="text" value="${target.category}" style="margin: 5px; text-align: left;height:35px; width: calc(100% - 3px);background: #ADD8E6; opacity: 0.7;" readonly/>
 							</div>
-							<div contenteditable="false" id="level" class="dls-comp-tableDataCell">
-								<input name="level${count}" type="text" value="${target.level}" contenteditable="false" style="margin: 5px; text-align: left;height:35px; width: calc(100% - 3px);background: #ADD8E6; opacity: 0.7;"/>
+							<div id="level" class="dls-comp-tableDataCell">
+								<input name="level${count}" type="text" value="${target.level}" style="margin: 5px; text-align: left;height:35px; width: calc(100% - 3px);background: #ADD8E6; opacity: 0.7;" readonly/>
 							</div>
-							<div contenteditable="false" id="completionPercent" class="dls-comp-tableDataCell">
+							<div id="completionPercent" class="dls-comp-tableDataCell">
 								<input name="completion${count}" type="text" value="${target.completionPercent}" style="margin: 5px; text-align: left;height:35px; width: calc(100% - 3px);background: #ADD8E6; opacity: 0.7;"/>
 							</div>
 						</div>
@@ -411,6 +414,7 @@ var tabChange = function(tabIndex){
 				<c:set var="count" value="${count + 1}"/>
 				</c:forEach>
 				</c:if>
+				<c:if test = "${fn:length(targets)<4}">
 				<div class="dls-comp-tableDataRow">
 						<div class="dls-comp-table-row empty">
 							<div contenteditable="false" id="targetName" class="dls-comp-tableDataCell">
@@ -418,26 +422,26 @@ var tabChange = function(tabIndex){
 								<span style='margin: 5px; text-align: left'></span>
 							</div>
 							<div contenteditable="false" id="category" class="dls-comp-tableDataCell">
-								<input style="height:35px; width: calc(100% - 3px);background: #ADD8E6;
-	opacity: 0.7;" id="Category_list" name="category7" type="text" list="Category" />
-								<span style='margin: 5px; text-align: left'></span>
-							<datalist  id="Category">       
+								<select style="height:35px; width: calc(100% - 3px);background: #ADD8E6;
+	opacity: 0.7;" id="Category_list" name="category7">       
 					            <option value="Tools">Tools</option>
 					            <option value="Technology">Technology</option>
 					            <option value="Domain">Domain</option>
 					            <option value="Process">Process</option>
 					            <option value="Project Management">Project Management</option>
-					    	</datalist>
+					    	</select>
+								<span style='margin: 5px; text-align: left'></span>
 							</div>
 							<div contenteditable="false" id="level" class="dls-comp-tableDataCell">
-								<input style="height:35px; width: calc(100% - 3px);background: #ADD8E6;
-	opacity: 0.7;" id="Level_list" name="level7" type="text" list="Level" />
-								<span style='margin: 5px; text-align: left'></span>
-							<datalist  id="Level">       
+								<!-- <input style="height:35px; width: calc(100% - 3px);background: #ADD8E6;
+	opacity: 0.7;" id="Level_list" name="level3" type="text" list="Level" /> -->
+							<select style="height:35px; width: calc(100% - 3px);background: #ADD8E6;
+	opacity: 0.7;" id="Level_list" name="level7">       
 					            <option value="Basic">Basic</option>
 					            <option value="Intermediate">Intermediate</option>
 					            <option value="Advanced">Advanced</option>
-					    	</datalist>
+					    	</select>
+								<span style='margin: 5px; text-align: left'></span>
 							</div>
 							<div contenteditable="false" id="completionPercent" class="dls-comp-tableDataCell">
 							<input name="completion7" type="text" style="height:35px; width: calc(100% - 3px);background: #ADD8E6; opacity: 0.7;" disabled/>
@@ -445,9 +449,15 @@ var tabChange = function(tabIndex){
 							</div>
 					 </div>
 				</div>
+				</c:if>
 			</div>
 			</div>
+			<c:if test = "${fn:length(targets)==4}">
+			<button id="btnAdd" style="margin-top: 5px;" type="button" disabled="disabled">Add New Row</button>
+			</c:if>
+			<c:if test = "${fn:length(targets)<4}">
 			<button id="btnAdd" class="insertRow" style="margin-top: 5px;" type="button" onclick="insertRow('myTable2','content2');">Add New Row</button>
+			</c:if>
       </section>
       <section id="content3">
         <div>
@@ -472,16 +482,16 @@ var tabChange = function(tabIndex){
 				<c:forEach var="target" items="${targets}">
 					<div class="dls-comp-tableDataRow">
 						<div class="dls-comp-table-row" id="myRow">
-							<div contenteditable="false" id="targetName" class="dls-comp-tableDataCell">
-								<input name="targetName${count}" type="text" value="${target.targetName}" contenteditable="false" style="margin: 5px; text-align: left;height:35px; width: calc(100% - 3px);background: #ADD8E6; opacity: 0.7;"/>
+							<div id="targetName" class="dls-comp-tableDataCell">
+								<input name="targetName${count}" type="text" value="${target.targetName}" style="margin: 5px; text-align: left;height:35px; width: calc(100% - 3px);background: #ADD8E6; opacity: 0.7;" readonly/>
 							</div>
-							<div contenteditable="false" id="category" class="dls-comp-tableDataCell">					
-								<input name="category${count}" type="text" value="${target.category}" contenteditable="false" style="margin: 5px; text-align: left;height:35px; width: calc(100% - 3px);background: #ADD8E6; opacity: 0.7;"/>
+							<div id="category" class="dls-comp-tableDataCell">					
+								<input name="category${count}" type="text" value="${target.category}" style="margin: 5px; text-align: left;height:35px; width: calc(100% - 3px);background: #ADD8E6; opacity: 0.7;" readonly/>
 							</div>
-							<div contenteditable="false" id="level" class="dls-comp-tableDataCell">
-								<input name="level${count}" type="text" value="${target.level}" contenteditable="false" style="margin: 5px; text-align: left;height:35px; width: calc(100% - 3px);background: #ADD8E6; opacity: 0.7;"/>
+							<div id="level" class="dls-comp-tableDataCell">
+								<input name="level${count}" type="text" value="${target.level}" style="margin: 5px; text-align: left;height:35px; width: calc(100% - 3px);background: #ADD8E6; opacity: 0.7;" readonly/>
 							</div>
-							<div contenteditable="false" id="completionPercent" class="dls-comp-tableDataCell">
+							<div id="completionPercent" class="dls-comp-tableDataCell">
 								<input name="completion${count}" type="text" value="${target.completionPercent}" style="margin: 5px; text-align: left;height:35px; width: calc(100% - 3px);background: #ADD8E6; opacity: 0.7;"/>
 							</div>
 						</div>
@@ -489,6 +499,7 @@ var tabChange = function(tabIndex){
 				<c:set var="count" value="${count + 1}"/>
 				</c:forEach>
 				</c:if>
+				<c:if test = "${fn:length(targets)<4}">
 				<div class="dls-comp-tableDataRow">
 						<div class="dls-comp-table-row empty">
 							<div contenteditable="false" id="targetName" class="dls-comp-tableDataCell">
@@ -496,26 +507,26 @@ var tabChange = function(tabIndex){
 								<span style='margin: 5px; text-align: left'></span>
 							</div>
 							<div contenteditable="false" id="category" class="dls-comp-tableDataCell">
-								<input style="height:35px; width: calc(100% - 3px);background: #ADD8E6;
-	opacity: 0.7;" id="Category_list" name="category11" type="text" list="Category" />
-								<span style='margin: 5px; text-align: left'></span>
-							<datalist  id="Category">       
+								<select style="height:35px; width: calc(100% - 3px);background: #ADD8E6;
+	opacity: 0.7;" id="Category_list" name="category11">       
 					            <option value="Tools">Tools</option>
 					            <option value="Technology">Technology</option>
 					            <option value="Domain">Domain</option>
 					            <option value="Process">Process</option>
 					            <option value="Project Management">Project Management</option>
-					    	</datalist>
+					    	</select>
+								<span style='margin: 5px; text-align: left'></span>
 							</div>
 							<div contenteditable="false" id="level" class="dls-comp-tableDataCell">
-								<input style="height:35px; width: calc(100% - 3px);background: #ADD8E6;
-	opacity: 0.7;" id="Level_list" name="level11" type="text" list="Level" />
-								<span style='margin: 5px; text-align: left'></span>
-							<datalist  id="Level">       
+								<!-- <input style="height:35px; width: calc(100% - 3px);background: #ADD8E6;
+	opacity: 0.7;" id="Level_list" name="level3" type="text" list="Level" /> -->
+							<select style="height:35px; width: calc(100% - 3px);background: #ADD8E6;
+	opacity: 0.7;" id="Level_list" name="level11">       
 					            <option value="Basic">Basic</option>
 					            <option value="Intermediate">Intermediate</option>
 					            <option value="Advanced">Advanced</option>
-					    	</datalist>
+					    	</select>
+								<span style='margin: 5px; text-align: left'></span>
 							</div>
 							<div contenteditable="false" id="completionPercent" class="dls-comp-tableDataCell">
 							<input name="completion11" type="text" style="height:35px; width: calc(100% - 3px);background: #ADD8E6; opacity: 0.7;" disabled/>
@@ -523,9 +534,15 @@ var tabChange = function(tabIndex){
 							</div>
 					 </div>
 				</div>
+				</c:if>
 			</div>
 			</div>
+			<c:if test = "${fn:length(targets)==4}">
+			<button id="btnAdd" style="margin-top: 5px;" type="button" disabled="disabled">Add New Row</button>
+			</c:if>
+			<c:if test = "${fn:length(targets)<4}">
 			<button id="btnAdd" class="insertRow" style="margin-top: 5px;" type="button" onclick="insertRow('myTable3', 'content3');">Add New Row</button>
+			</c:if>
       </section>
       <section id="content4">
         <div>
@@ -550,16 +567,16 @@ var tabChange = function(tabIndex){
 				<c:forEach var="target" items="${targets}">
 					<div class="dls-comp-tableDataRow">
 						<div class="dls-comp-table-row" id="myRow">
-							<div contenteditable="false" id="targetName" class="dls-comp-tableDataCell">
-								<input name="targetName${count}" type="text" value="${target.targetName}" contenteditable="false" style="margin: 5px; text-align: left;height:35px; width: calc(100% - 3px);background: #ADD8E6; opacity: 0.7;"/>
+							<div id="targetName" class="dls-comp-tableDataCell">
+								<input name="targetName${count}" type="text" value="${target.targetName}" style="margin: 5px; text-align: left;height:35px; width: calc(100% - 3px);background: #ADD8E6; opacity: 0.7;" readonly/>
 							</div>
-							<div contenteditable="false" id="category" class="dls-comp-tableDataCell">					
-								<input name="category${count}" type="text" value="${target.category}" contenteditable="false" style="margin: 5px; text-align: left;height:35px; width: calc(100% - 3px);background: #ADD8E6; opacity: 0.7;"/>
+							<div id="category" class="dls-comp-tableDataCell">					
+								<input name="category${count}" type="text" value="${target.category}" style="margin: 5px; text-align: left;height:35px; width: calc(100% - 3px);background: #ADD8E6; opacity: 0.7;" readonly/>
 							</div>
-							<div contenteditable="false" id="level" class="dls-comp-tableDataCell">
-								<input name="level${count}" type="text" value="${target.level}" contenteditable="false" style="margin: 5px; text-align: left;height:35px; width: calc(100% - 3px);background: #ADD8E6; opacity: 0.7;"/>
+							<div id="level" class="dls-comp-tableDataCell">
+								<input name="level${count}" type="text" value="${target.level}" style="margin: 5px; text-align: left;height:35px; width: calc(100% - 3px);background: #ADD8E6; opacity: 0.7;" readonly/>
 							</div>
-							<div contenteditable="false" id="completionPercent" class="dls-comp-tableDataCell">
+							<div id="completionPercent" class="dls-comp-tableDataCell">
 								<input name="completion${count}" type="text" value="${target.completionPercent}" style="margin: 5px; text-align: left;height:35px; width: calc(100% - 3px);background: #ADD8E6; opacity: 0.7;"/>
 							</div>
 						</div>
@@ -567,6 +584,7 @@ var tabChange = function(tabIndex){
 				<c:set var="count" value="${count + 1}"/>
 				</c:forEach>
 				</c:if>
+				<c:if test = "${fn:length(targets)<4}">
 				<div class="dls-comp-tableDataRow">
 						<div class="dls-comp-table-row empty">
 							<div contenteditable="false" id="targetName" class="dls-comp-tableDataCell">
@@ -574,26 +592,26 @@ var tabChange = function(tabIndex){
 								<span style='margin: 5px; text-align: left'></span>
 							</div>
 							<div contenteditable="false" id="category" class="dls-comp-tableDataCell">
-								<input style="height:35px; width: calc(100% - 3px);background: #ADD8E6;
-	opacity: 0.7;" id="Category_list" name="category15" type="text" list="Category" />
-								<span style='margin: 5px; text-align: left'></span>
-							<datalist  id="Category">       
+								<select style="height:35px; width: calc(100% - 3px);background: #ADD8E6;
+	opacity: 0.7;" id="Category_list" name="category15">       
 					            <option value="Tools">Tools</option>
 					            <option value="Technology">Technology</option>
 					            <option value="Domain">Domain</option>
 					            <option value="Process">Process</option>
 					            <option value="Project Management">Project Management</option>
-					    	</datalist>
+					    	</select>
+								<span style='margin: 5px; text-align: left'></span>
 							</div>
 							<div contenteditable="false" id="level" class="dls-comp-tableDataCell">
-								<input style="height:35px; width: calc(100% - 3px);background: #ADD8E6;
-	opacity: 0.7;" id="Level_list" name="level15" type="text" list="Level" />
-								<span style='margin: 5px; text-align: left'></span>
-							<datalist  id="Level">       
+								<!-- <input style="height:35px; width: calc(100% - 3px);background: #ADD8E6;
+	opacity: 0.7;" id="Level_list" name="level3" type="text" list="Level" /> -->
+							<select style="height:35px; width: calc(100% - 3px);background: #ADD8E6;
+	opacity: 0.7;" id="Level_list" name="level15">       
 					            <option value="Basic">Basic</option>
 					            <option value="Intermediate">Intermediate</option>
 					            <option value="Advanced">Advanced</option>
-					    	</datalist>
+					    	</select>
+								<span style='margin: 5px; text-align: left'></span>
 							</div>
 							<div contenteditable="false" id="completionPercent" class="dls-comp-tableDataCell">
 							<input name="completion15" type="text" style="height:35px; width: calc(100% - 3px);background: #ADD8E6; opacity: 0.7;" disabled/>
@@ -601,12 +619,22 @@ var tabChange = function(tabIndex){
 							</div>
 					 </div>
 				</div>
+				</c:if>
 			</div>
 			</div>
-			<button id="btnAdd" class="insertRow" style="margin-top: 5px;" type="button" onclick="insertRow('myTable4','content4');">Add New Row</button>
+			<c:if test = "${fn:length(targets)==4}">
+			<button id="btnAdd" style="margin-top: 5px;" type="button" disabled="disabled">Add New Row</button>
+			</c:if>
+			<c:if test = "${fn:length(targets)<4}">
+			<button id="btnAdd" class="insertRow" style="margin-top: 5px;" type="button" onclick="insertRow('myTable4', 'content4');">Add New Row</button>
+			</c:if>
       </section>
+      <%-- <c:out value = "${quarter}">
+      </c:out>
+      <c:out value = "${currentQuarter}">
+      </c:out> --%>
 			<div style='text-align: center; margin-top: 10px;'>
-				<input type="submit" name="add" value="Submit New Targets" />
+				<input id="formSubmit" type="submit" name="add" value="Submit New Targets" />
 			</div>
     </main>
 </form>

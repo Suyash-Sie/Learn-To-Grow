@@ -42,7 +42,7 @@ public class HelloController
 		redirectAttributes.addFlashAttribute("quarter", "Quarter 1");
 		
 		if(loginService.getUserRole(gid).equals("manager"))
-			return "userscreen_admin";
+			return "redirect:userscreen_admin";
 		
 		return "redirect:userscreen";
 	}
