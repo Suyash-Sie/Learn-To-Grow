@@ -5,18 +5,18 @@ public class Target
 	private String targetName;
 	private String category;
 	private String completionPercent;
-	private String quarter;
+//	private String quarter;
 	private String level;
 
-	public String getQuarter() 
-	{
-		return quarter;
-	}
-
-	public void setQuarter(String quarter) 
-	{
-		this.quarter = quarter;
-	}
+//	public String getQuarter() 
+//	{
+//		return quarter;
+//	}
+//
+//	public void setQuarter(String quarter) 
+//	{
+//		this.quarter = quarter;
+//	}
 
 	public String getTargetName() 
 	{
@@ -62,7 +62,7 @@ public class Target
 	public String toString() 
 	{
 		return "Target [targetName=" + targetName + ", category=" + category + ", completionPercent="
-				+ completionPercent + ", quarter=" + quarter + ", level=" + level + "]";
+				+ completionPercent + ", level=" + level + "]";
 	}
 	
 	@Override
@@ -71,7 +71,7 @@ public class Target
 		final int prime = 31;
 		int result = 1;
 		result = prime * result + ((category == null) ? 0 : category.hashCode());
-		result = prime * result + ((quarter == null) ? 0 : quarter.hashCode());
+//		result = prime * result + ((quarter == null) ? 0 : quarter.hashCode());
 		result = prime * result + ((targetName == null) ? 0 : targetName.hashCode());
 		result = prime * result + ((completionPercent == null) ? 0 : completionPercent.hashCode());
 		return result;
@@ -94,13 +94,13 @@ public class Target
 		} 
 		else if (!category.equals(other.category))
 			return false;
-		if (quarter == null) 
-		{
-			if (other.quarter != null)
-				return false;
-		} 
-		else if (!quarter.equals(other.quarter))
-			return false;
+//		if (quarter == null) 
+//		{
+//			if (other.quarter != null)
+//				return false;
+//		} 
+//		else if (!quarter.equals(other.quarter))
+//			return false;
 		if (targetName == null) 
 		{
 			if (other.targetName != null)

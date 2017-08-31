@@ -75,7 +75,10 @@ public class Dynamo
             		.withString("q2risk", "NaN")
             		.withString("q3risk", "NaN")
             		.withString("q4risk", "NaN")
-            		.withList("targets", targets1));
+            		.withList("q1targets", targets1)
+		            .withList("q2targets", targets1)
+		            .withList("q3targets", targets1)
+		            .withList("q4targets", targets1));
             System.out.println("First PutItem succeeded: ");
 
             table.putItem(new Item().withPrimaryKey("GID", "z003cv8z")
@@ -87,7 +90,10 @@ public class Dynamo
             		.withString("q2risk", "NaN")
             		.withString("q3risk", "NaN")
             		.withString("q4risk", "NaN")
-            		.withList("targets", targets2));
+            		.withList("q1targets", targets2)
+            		.withList("q2targets", targets2)
+            		.withList("q3targets", targets2)
+            		.withList("q4targets", targets2));
             System.out.println("Second PutItem succeeded: ");
         }
         catch (Exception e) 

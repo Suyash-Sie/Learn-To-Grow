@@ -9,7 +9,6 @@ import javax.servlet.http.HttpServletRequest;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.ModelAttribute;
-import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.servlet.ModelAndView;
@@ -65,7 +64,7 @@ public class UserController
 	public ModelAndView submit(HttpServletRequest request, ModelMap model, final RedirectAttributes redirectAttributes) 
 	{
 		String quarter = request.getParameter("tab");
-		List<Target> targetsInDb = new TargetService(dbService).getTargetsForUser(user, quarter);
+//		List<Target> targetsInDb = new TargetService(dbService).getTargetsForUser(user, quarter);
 		
 		List<String> targetDetails = new ArrayList<>();
 		if(quarter.equals("Quarter 1"))
@@ -79,20 +78,21 @@ public class UserController
 		
 		List<Target> targets = new ArrayList<>();
 		Target target1 = createTarget(targetDetails.get(0), targetDetails.get(1), targetDetails.get(2), targetDetails.get(3), quarter);
-		if(target1 != null && !targetsInDb.contains(target1))
+//		if(target1 != null && !targetsInDb.contains(target1))
+		if(target1 != null)
 			targets.add(target1);
 		Target target2 = createTarget(targetDetails.get(4), targetDetails.get(5), targetDetails.get(6), targetDetails.get(7), quarter);
-		if(target2 != null && !targetsInDb.contains(target2))
+		if(target2 != null)
 			targets.add(target2);
 		Target target3 = createTarget(targetDetails.get(8), targetDetails.get(9), targetDetails.get(10), targetDetails.get(11), quarter);
-		if(target3 != null && !targetsInDb.contains(target3))
+		if(target3 != null)
 			targets.add(target3);
 		Target target4 = createTarget(targetDetails.get(12), targetDetails.get(13), targetDetails.get(14), targetDetails.get(15), quarter);
-		if(target4 != null && !targetsInDb.contains(target4))
+		if(target4 != null)
 			targets.add(target4);
 		
 		if(targets.size() != 0)
-			new TargetService(dbService).submitTargets(user, targets);
+			new TargetService(dbService).submitTargets(user, targets, quarter);
 		model.addAttribute("targets", new TargetService(dbService).getTargetsForUser(user, quarter));
 		
 		redirectAttributes.addFlashAttribute("user", user);
@@ -189,8 +189,8 @@ public class UserController
 		
 		targetDetails.add(request.getParameter("targetName15"));
 		targetDetails.add(request.getParameter("category15"));
-		targetDetails.add(request.getParameter("completion15"));
 		targetDetails.add(request.getParameter("level15"));
+		targetDetails.add(request.getParameter("completion15"));
 	}
 
 	private Target createTarget(String targetName, String category, String level, String completion, String quarter) 
@@ -204,7 +204,7 @@ public class UserController
 			if(null == completion || completion.isEmpty())
 				completion = "0";
 			target.setCompletionPercent(completion);
-			target.setQuarter(quarter);
+//			target.setQuarter(quarter);
 			return target;
 		}
 		return null;

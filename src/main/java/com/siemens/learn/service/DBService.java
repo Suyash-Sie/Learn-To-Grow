@@ -16,6 +16,7 @@ import com.amazonaws.services.dynamodbv2.document.ItemCollection;
 import com.amazonaws.services.dynamodbv2.document.ScanOutcome;
 import com.amazonaws.services.dynamodbv2.document.Table;
 import com.amazonaws.services.dynamodbv2.document.UpdateItemOutcome;
+import com.amazonaws.services.dynamodbv2.document.spec.DeleteItemSpec;
 import com.amazonaws.services.dynamodbv2.document.spec.GetItemSpec;
 import com.amazonaws.services.dynamodbv2.document.spec.ScanSpec;
 import com.amazonaws.services.dynamodbv2.document.spec.UpdateItemSpec;
@@ -62,31 +63,40 @@ public class DBService
 	{
 		List<Map<String, String>> targets = new ArrayList<>();
 		GetItemSpec spec = new GetItemSpec().withPrimaryKey("GID", gid);
+		List<Map<String, String>> list = new ArrayList<>();
 		
 		try 
 		{
 			System.out.println("Attempting to read the item...");
 			Item outcome = table.getItem(spec);
 			System.out.println("GetItem succeeded: ");
-			List<Map<String, String>> list = outcome.getList("targets");
-			for (Map<String, String> map : list) 
-			{
-				for (Entry<String, String> entry : map.entrySet()) 
-				{
-					if(entry.getKey().equals("quarter") && entry.getValue().equals(quarter))
-						targets.add(map);
-				}
-			}
+			if(quarter.equals("Quarter 1"))
+				list = outcome.getList("q1targets");
+			else if(quarter.equals("Quarter 2"))
+				list = outcome.getList("q2targets");
+			else if(quarter.equals("Quarter 3"))
+				list = outcome.getList("q3targets");
+			else
+				list = outcome.getList("q4targets");
+			
+//			for (Map<String, String> map : list) 
+//			{
+//				for (Entry<String, String> entry : map.entrySet()) 
+//				{
+//					if(entry.getKey().equals("quarter") && entry.getValue().equals(quarter))
+//						targets.add(map);
+//				}
+//			}
 		}
 		catch (Exception e) 
 		{
 			System.err.println("Unable to read item: " + gid);
 			System.err.println(e.getMessage());
 		}
-		return targets;
+		return list;
 	}
 	
-	public void submit(String gid, List<Map<String, String>> targetsToBeAddded, String risk, String quarter)
+	public void update(String gid, List<Map<String, String>> targetsToBeAddded, String risk, String quarter)
 	{
 		Map<String, Object> expressionAttributeValues = new HashMap<>();
 		expressionAttributeValues.put(":val1", targetsToBeAddded);
@@ -94,13 +104,13 @@ public class DBService
 		
 		String updateExpr = "";
 		if(quarter.equals("Quarter 1"))
-			updateExpr = "set targets = :val1, q1risk = :val2";
+			updateExpr = "set q1targets = :val1, q1risk = :val2";
 		else if(quarter.equals("Quarter 2"))
-			updateExpr = "set targets = :val1, q2risk = :val2";
+			updateExpr = "set q2targets = :val1, q2risk = :val2";
 		else if(quarter.equals("Quarter 3"))
-			updateExpr = "set targets = :val1, q3risk = :val2";
+			updateExpr = "set q3targets = :val1, q3risk = :val2";
 		else if(quarter.equals("Quarter 4"))
-			updateExpr = "set targets = :val1, q4risk = :val2";
+			updateExpr = "set q4targets = :val1, q4risk = :val2";
 		
 		UpdateItemSpec updateItemSpec = new UpdateItemSpec().withPrimaryKey("GID", gid)
 	            .withUpdateExpression(updateExpr)
@@ -203,6 +213,8 @@ public class DBService
 //		dbService.submit("z0024dzv", targets, "100");
 		
 		DBService dbService = new DBService();
+//		dbService.update("z003cv8z", new ArrayList<>(), "0", "Quarter 1");
+		
 		List<Map<String, String>> targets2 = dbService.getTargets("z003cv8z", "Quarter 1");
 		for (Map<String, String> map : targets2) 
 		{

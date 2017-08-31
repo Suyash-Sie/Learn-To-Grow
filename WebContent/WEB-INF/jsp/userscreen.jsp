@@ -307,13 +307,13 @@ var tabChange = function(tabIndex){
 					<div class="dls-comp-tableDataRow">
 						<div class="dls-comp-table-row" id="myRow">
 							<div contenteditable="false" id="targetName" class="dls-comp-tableDataCell">
-								<input name="targetName${count}" type="text" value="${target.targetName}" style="margin: 5px; text-align: left;height:35px; width: calc(100% - 3px);background: #ADD8E6; opacity: 0.7;" disabled/>
+								<input name="targetName${count}" type="text" value="${target.targetName}" contenteditable="false" style="margin: 5px; text-align: left;height:35px; width: calc(100% - 3px);background: #ADD8E6; opacity: 0.7;"/>
 							</div>
 							<div contenteditable="false" id="category" class="dls-comp-tableDataCell">					
-								<input name="category${count}" type="text" value="${target.category}" style="margin: 5px; text-align: left;height:35px; width: calc(100% - 3px);background: #ADD8E6; opacity: 0.7;" disabled/>
+								<input name="category${count}" type="text" value="${target.category}" contenteditable="false" style="margin: 5px; text-align: left;height:35px; width: calc(100% - 3px);background: #ADD8E6; opacity: 0.7;"/>
 							</div>
 							<div contenteditable="false" id="level" class="dls-comp-tableDataCell">
-								<input name="level${count}" type="text" value="${target.level}" style="margin: 5px; text-align: left;height:35px; width: calc(100% - 3px);background: #ADD8E6; opacity: 0.7;" disabled/>
+								<input name="level${count}" type="text" value="${target.level}" contenteditable="false" style="margin: 5px; text-align: left;height:35px; width: calc(100% - 3px);background: #ADD8E6; opacity: 0.7;"/>
 							</div>
 							<div contenteditable="false" id="completionPercent" class="dls-comp-tableDataCell">
 								<input name="completion${count}" type="text" value="${target.completionPercent}" style="margin: 5px; text-align: left;height:35px; width: calc(100% - 3px);background: #ADD8E6; opacity: 0.7;"/>
@@ -395,13 +395,13 @@ var tabChange = function(tabIndex){
 					<div class="dls-comp-tableDataRow">
 						<div class="dls-comp-table-row" id="myRow">
 							<div contenteditable="false" id="targetName" class="dls-comp-tableDataCell">
-								<input name="targetName${count}" type="text" value="${target.targetName}" style="margin: 5px; text-align: left;height:35px; width: calc(100% - 3px);background: #ADD8E6; opacity: 0.7;" disabled/>
+								<input name="targetName${count}" type="text" value="${target.targetName}" contenteditable="false" style="margin: 5px; text-align: left;height:35px; width: calc(100% - 3px);background: #ADD8E6; opacity: 0.7;"/>
 							</div>
 							<div contenteditable="false" id="category" class="dls-comp-tableDataCell">					
-								<input name="category${count}" type="text" value="${target.category}" style="margin: 5px; text-align: left;height:35px; width: calc(100% - 3px);background: #ADD8E6; opacity: 0.7;" disabled/>
+								<input name="category${count}" type="text" value="${target.category}" contenteditable="false" style="margin: 5px; text-align: left;height:35px; width: calc(100% - 3px);background: #ADD8E6; opacity: 0.7;"/>
 							</div>
 							<div contenteditable="false" id="level" class="dls-comp-tableDataCell">
-								<input name="level${count}" type="text" value="${target.level}" style="margin: 5px; text-align: left;height:35px; width: calc(100% - 3px);background: #ADD8E6; opacity: 0.7;" disabled/>
+								<input name="level${count}" type="text" value="${target.level}" contenteditable="false" style="margin: 5px; text-align: left;height:35px; width: calc(100% - 3px);background: #ADD8E6; opacity: 0.7;"/>
 							</div>
 							<div contenteditable="false" id="completionPercent" class="dls-comp-tableDataCell">
 								<input name="completion${count}" type="text" value="${target.completionPercent}" style="margin: 5px; text-align: left;height:35px; width: calc(100% - 3px);background: #ADD8E6; opacity: 0.7;"/>
@@ -473,13 +473,13 @@ var tabChange = function(tabIndex){
 					<div class="dls-comp-tableDataRow">
 						<div class="dls-comp-table-row" id="myRow">
 							<div contenteditable="false" id="targetName" class="dls-comp-tableDataCell">
-								<input name="targetName${count}" type="text" value="${target.targetName}" style="margin: 5px; text-align: left;height:35px; width: calc(100% - 3px);background: #ADD8E6; opacity: 0.7;" disabled/>
+								<input name="targetName${count}" type="text" value="${target.targetName}" contenteditable="false" style="margin: 5px; text-align: left;height:35px; width: calc(100% - 3px);background: #ADD8E6; opacity: 0.7;"/>
 							</div>
 							<div contenteditable="false" id="category" class="dls-comp-tableDataCell">					
-								<input name="category${count}" type="text" value="${target.category}" style="margin: 5px; text-align: left;height:35px; width: calc(100% - 3px);background: #ADD8E6; opacity: 0.7;" disabled/>
+								<input name="category${count}" type="text" value="${target.category}" contenteditable="false" style="margin: 5px; text-align: left;height:35px; width: calc(100% - 3px);background: #ADD8E6; opacity: 0.7;"/>
 							</div>
 							<div contenteditable="false" id="level" class="dls-comp-tableDataCell">
-								<input name="level${count}" type="text" value="${target.level}" style="margin: 5px; text-align: left;height:35px; width: calc(100% - 3px);background: #ADD8E6; opacity: 0.7;" disabled/>
+								<input name="level${count}" type="text" value="${target.level}" contenteditable="false" style="margin: 5px; text-align: left;height:35px; width: calc(100% - 3px);background: #ADD8E6; opacity: 0.7;"/>
 							</div>
 							<div contenteditable="false" id="completionPercent" class="dls-comp-tableDataCell">
 								<input name="completion${count}" type="text" value="${target.completionPercent}" style="margin: 5px; text-align: left;height:35px; width: calc(100% - 3px);background: #ADD8E6; opacity: 0.7;"/>
@@ -551,13 +551,13 @@ var tabChange = function(tabIndex){
 					<div class="dls-comp-tableDataRow">
 						<div class="dls-comp-table-row" id="myRow">
 							<div contenteditable="false" id="targetName" class="dls-comp-tableDataCell">
-								<input name="targetName${count}" type="text" value="${target.targetName}" style="margin: 5px; text-align: left;height:35px; width: calc(100% - 3px);background: #ADD8E6; opacity: 0.7;" disabled/>
+								<input name="targetName${count}" type="text" value="${target.targetName}" contenteditable="false" style="margin: 5px; text-align: left;height:35px; width: calc(100% - 3px);background: #ADD8E6; opacity: 0.7;"/>
 							</div>
 							<div contenteditable="false" id="category" class="dls-comp-tableDataCell">					
-								<input name="category${count}" type="text" value="${target.category}" style="margin: 5px; text-align: left;height:35px; width: calc(100% - 3px);background: #ADD8E6; opacity: 0.7;" disabled/>
+								<input name="category${count}" type="text" value="${target.category}" contenteditable="false" style="margin: 5px; text-align: left;height:35px; width: calc(100% - 3px);background: #ADD8E6; opacity: 0.7;"/>
 							</div>
 							<div contenteditable="false" id="level" class="dls-comp-tableDataCell">
-								<input name="level${count}" type="text" value="${target.level}" style="margin: 5px; text-align: left;height:35px; width: calc(100% - 3px);background: #ADD8E6; opacity: 0.7;" disabled/>
+								<input name="level${count}" type="text" value="${target.level}" contenteditable="false" style="margin: 5px; text-align: left;height:35px; width: calc(100% - 3px);background: #ADD8E6; opacity: 0.7;"/>
 							</div>
 							<div contenteditable="false" id="completionPercent" class="dls-comp-tableDataCell">
 								<input name="completion${count}" type="text" value="${target.completionPercent}" style="margin: 5px; text-align: left;height:35px; width: calc(100% - 3px);background: #ADD8E6; opacity: 0.7;"/>
