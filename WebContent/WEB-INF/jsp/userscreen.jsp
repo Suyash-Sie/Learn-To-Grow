@@ -294,15 +294,13 @@ function insertRow(id, contentId){
 				console.log(exception);
 			}
 	}); */
-};
- */
+
 </script>
 	 <div>
 		<h3 style="text-align: center">Your Targets:</h3>
 		<br />
 		<form method="POST" action="submit">
-			<main>
-			<div id = "tabs">			
+			<main>			
 			<input style="display: none;" id="tab1" type="radio" tabindex="1" name="tab" value="Quarter 1" ${quarter=="Quarter 1" ? 'checked' : ''}> <label for="tab1">Quarter 1</label> 
 			<input style="display: none;" id="tab2" type="radio" tabindex="2" name="tab" value="Quarter 2" ${quarter=="Quarter 2" ? 'checked' : ''}> <label for="tab2">Quarter 2</label>
 		    <input style="display: none;" id="tab3" type="radio" tabindex="3" name="tab" value="Quarter 3" ${quarter=="Quarter 3" ? 'checked' : ''}> <label for="tab3">Quarter 3</label> 
@@ -733,11 +731,8 @@ function insertRow(id, contentId){
 			<div style='text-align: center; margin-top: 10px;'>
 				<input id="formSubmit" type="submit" name="add"	value="Submit New Targets" />
 			</div>
-			</div>
 			</main>
 		</form>
-
-
-	</div> 
+		</div>
 </body>
 </html>
