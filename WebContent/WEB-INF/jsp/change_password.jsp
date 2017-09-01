@@ -68,12 +68,18 @@ input:focus { box-shadow: inset 0 -5px 45px rgba(100,100,100,0.4), 0 1px 1px rgb
 </head>
 <body>
   <div class="login">
-	<h1>Login</h1>
+	<h1>Please change your password before proceeding...</h1>
     <form method="post" action="/LearnApp/change">
     	<input type="password" name="old" placeholder="Old Password" required="required" />
         <input type="password" name="new" placeholder="New Password" required="required" />
         <button type="submit" class="btn btn-primary btn-block btn-large">Change Password</button>
-        <lab type="label" class="btn btn-primary btn-block btn-large">Change Password</button>
+        <%if(request.getAttribute("message") != null)
+        	{	
+        %>
+        		<p style="color:red">${message}</p>
+        <%} %>
+        
+        
     </form>
 </div>
 </body>

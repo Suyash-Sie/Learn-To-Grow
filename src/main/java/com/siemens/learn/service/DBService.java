@@ -21,6 +21,7 @@ import com.amazonaws.services.dynamodbv2.document.spec.ScanSpec;
 import com.amazonaws.services.dynamodbv2.document.spec.UpdateItemSpec;
 import com.amazonaws.services.dynamodbv2.document.utils.NameMap;
 import com.amazonaws.services.dynamodbv2.document.utils.ValueMap;
+import com.amazonaws.services.dynamodbv2.model.AmazonDynamoDBException;
 import com.amazonaws.services.dynamodbv2.model.ReturnValue;
 
 public class DBService 
@@ -156,11 +157,12 @@ public class DBService
         return outcome.getString("pwdChanged");
 	}
 
-	public void updatePassword(String gid, String encodedPassword) throws Exception
+	public void updatePassword(String gid, String encodedPassword) throws AmazonDynamoDBException
 	{
-		String updateExpr = "set password = :val1, pwdChanged = true";
+		String updateExpr = "set upassword = :val1, pwdChanged = :val2";
 		Map<String, Object> expressionAttributeValues = new HashMap<>();
 		expressionAttributeValues.put(":val1", encodedPassword);
+		expressionAttributeValues.put(":val2", "true");
 		UpdateItemSpec updateItemSpec = new UpdateItemSpec().withPrimaryKey("GID", gid)
 	            .withUpdateExpression(updateExpr)
 	            .withValueMap(expressionAttributeValues)
@@ -184,7 +186,7 @@ public class DBService
 		
 		DBService dbService = new DBService();
 //		dbService.update("z003cv8z", new ArrayList<>(), "0", "Quarter 1");
-		
+		dbService.updatePassword("z0024dzv", "s");
 		List<Map<String, String>> targets2 = dbService.getTargets("z003cv8z", "Quarter 1");
 		for (Map<String, String> map : targets2) 
 		{

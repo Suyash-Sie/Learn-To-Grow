@@ -43,8 +43,8 @@ public class HelloController
 		{
 			if(!loginService.userValidated(gid, password))
 				return "hello";
-//			else if(!loginService.hasUserChangedPassword(gid))
-//				return "change_password";
+			else if(!loginService.hasUserChangedPassword(gid))
+				return "change_password";
 			
 			redirectAttributes.addFlashAttribute("user", gid);
 			redirectAttributes.addFlashAttribute("quarter", "Quarter 1");
