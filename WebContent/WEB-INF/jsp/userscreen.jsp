@@ -222,11 +222,11 @@ function renderCore() {
 	    //Draws the risk indicator
 	    optimizationBarV4.draw("#user_riskIndicator");
 }
-var i = '<%=(request.getAttribute("targets"))%>';
+<%-- var i = '<%=(request.getAttribute("targets"))%>';
 console.log(i)
 var t = JSON.parse('<%=(request.getAttribute("q1"))%>');
 console.log(t)
-
+ --%>
 <%-- function deleteRow(){
 	<%
     String quarter = request.;
@@ -256,8 +256,8 @@ function insertRow(id, contentId){
      }
 }
 
-<%-- var tabChange = function(tabIndex){
-	//var json = {"index" : tabIndex};
+/* function tabChange(){
+	/* //var json = {"index" : tabIndex};
 	//console.log(json + ': ' + tabIndex);
 	if(tabIndex === "1")
 		var tab = $('#tab1').val();
@@ -293,28 +293,20 @@ function insertRow(id, contentId){
 			{
 				console.log(exception);
 			}
-	});
-	var i = '<%=(request.getAttribute("targets"))%>';
-	console.log(i)
-}; --%>
-
+	}); */
+};
+ */
 </script>
 	 <div>
 		<h3 style="text-align: center">Your Targets:</h3>
 		<br />
 		<form method="POST" action="submit">
-			<main> <input style="display: none;" id="tab1" type="radio"
-				tabindex="1" name="tab" value="Quarter 1"
-				checked> <label for="tab1">Quarter 1</label> <input
-				style="display: none;" id="tab2" type="radio" tabindex="2"
-				name="tab" value="Quarter 2"> <label
-				for="tab2">Quarter 2</label> <input style="display: none;" id="tab3"
-				type="radio" tabindex="3" name="tab"
-				value="Quarter 3"> <label for="tab3">Quarter 3</label> <input
-				style="display: none;" id="tab4" type="radio" tabindex="4"
-				name="tab" value="Quarter 4"> <label
-				for="tab4">Quarter 4</label>
-
+			<main>
+			<div id = "tabs">			
+			<input style="display: none;" id="tab1" type="radio" tabindex="1" name="tab" value="Quarter 1" ${quarter=="Quarter 1" ? 'checked' : ''}> <label for="tab1">Quarter 1</label> 
+			<input style="display: none;" id="tab2" type="radio" tabindex="2" name="tab" value="Quarter 2" ${quarter=="Quarter 2" ? 'checked' : ''}> <label for="tab2">Quarter 2</label>
+		    <input style="display: none;" id="tab3" type="radio" tabindex="3" name="tab" value="Quarter 3" ${quarter=="Quarter 3" ? 'checked' : ''}> <label for="tab3">Quarter 3</label> 
+		    <input style="display: none;" id="tab4" type="radio" tabindex="4" name="tab" value="Quarter 4" ${quarter=="Quarter 4" ? 'checked' : ''}> <label for="tab4">Quarter 4</label>
 			<section id="content1">
 				<div>
 					<div class="obs-comp-table" id="myTable1">
@@ -739,8 +731,8 @@ function insertRow(id, contentId){
 				</c:if>
 			</section>
 			<div style='text-align: center; margin-top: 10px;'>
-				<input id="formSubmit" type="submit" name="add"
-					value="Submit New Targets" />
+				<input id="formSubmit" type="submit" name="add"	value="Submit New Targets" />
+			</div>
 			</div>
 			</main>
 		</form>
