@@ -16,7 +16,6 @@ import com.amazonaws.services.dynamodbv2.document.ItemCollection;
 import com.amazonaws.services.dynamodbv2.document.ScanOutcome;
 import com.amazonaws.services.dynamodbv2.document.Table;
 import com.amazonaws.services.dynamodbv2.document.UpdateItemOutcome;
-import com.amazonaws.services.dynamodbv2.document.spec.DeleteItemSpec;
 import com.amazonaws.services.dynamodbv2.document.spec.GetItemSpec;
 import com.amazonaws.services.dynamodbv2.document.spec.ScanSpec;
 import com.amazonaws.services.dynamodbv2.document.spec.UpdateItemSpec;
@@ -61,7 +60,6 @@ public class DBService
 
 	public List<Map<String, String>> getTargets(String gid, String quarter)
 	{
-		List<Map<String, String>> targets = new ArrayList<>();
 		GetItemSpec spec = new GetItemSpec().withPrimaryKey("GID", gid);
 		List<Map<String, String>> list = new ArrayList<>();
 		
@@ -154,10 +152,18 @@ public class DBService
             while (iter.hasNext()) 
             {
                 Item item = iter.next();
-                q1Risk.add(item.getString("q1risk"));
-                q2Risk.add(item.getString("q2risk"));
-                q3Risk.add(item.getString("q3risk"));
-                q4Risk.add(item.getString("q4risk"));
+                String q1RiskDb = item.getString("q1risk");
+                if(!q1RiskDb.equals("NaN"))
+                	q1Risk.add(q1RiskDb);
+                String q2RiskDb = item.getString("q2risk");
+                if(!q2RiskDb.equals("NaN"))
+                	q2Risk.add(q2RiskDb);
+                String q3RiskDb = item.getString("q3risk");
+                if(!q3RiskDb.equals("NaN"))
+                	q3Risk.add(q3RiskDb);
+                String q4RiskDb = item.getString("q4risk");
+                if(!q4RiskDb.equals("NaN"))
+                	q4Risk.add(q4RiskDb);
             }
         }
         catch (Exception e) 

@@ -5,9 +5,7 @@ import java.util.Calendar;
 import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
 
-import org.springframework.http.HttpRequest;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.ui.ModelMap;
@@ -20,7 +18,6 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
-import com.siemens.learn.model.Tab;
 import com.siemens.learn.model.Target;
 import com.siemens.learn.service.DBService;
 import com.siemens.learn.service.TargetService;
@@ -30,10 +27,12 @@ public class UserController
 {
 	private DBService dbService;
     private String user;
+	private TargetService targetService;
 
 	public UserController()
 	{
 		dbService = new DBService();
+		targetService = new TargetService(dbService);
 	}
 	
 	@RequestMapping(value = "/userscreen", method = RequestMethod.GET)
@@ -100,8 +99,8 @@ public class UserController
 			targets.add(target4);
 		
 		if(targets.size() != 0)
-			new TargetService(dbService).submitTargets(user, targets, quarter);
-		model.addAttribute("targets", new TargetService(dbService).getTargetsForUser(user, quarter));
+			targetService.submitTargets(user, targets, quarter);
+		model.addAttribute("targets", targetService.getTargetsForUser(user, quarter));
 		
 		redirectAttributes.addFlashAttribute("user", user);
 		redirectAttributes.addFlashAttribute("quarter", quarter);
@@ -228,11 +227,11 @@ public class UserController
 	
 	@RequestMapping(value = "/radio",  method = RequestMethod.GET)
 	@ResponseBody
-	public String tacbChanged(Model model, HttpServletResponse res, HttpServletRequest req) 
+	public String tacbChanged(Model model, HttpServletRequest req) 
 	{
-		String quarter = (String)req.getParameter("tab");
+		String quarter = req.getParameter("tab");
 		
-		List<Target> targets = new TargetService(dbService).getTargetsForUser(user, quarter);
+		List<Target> targets = targetService.getTargetsForUser(user, quarter);
 		ObjectMapper mapper = new ObjectMapper();
 
 		String jsonInString = "";

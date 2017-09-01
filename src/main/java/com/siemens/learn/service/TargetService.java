@@ -78,12 +78,6 @@ public class TargetService
 		dbService.update(gid, targetsToBeUpdated, risk, quarter);
 	}
 
-	private boolean targetsDifferByCompletion(Target target, Target dbTarget) 
-	{
-		return target.getTargetName().equals(dbTarget.getTargetName()) && target.getCategory().equals(dbTarget.getCategory())
-				&& target.getLevel().equals(dbTarget.getLevel()) && !target.getCompletionPercent().equals(dbTarget.getCompletionPercent());
-	}
-
 	private String calculateRisk(List<Map<String, String>> targetsToBeAddded, String quarter) 
 	{
 		float risk = 0;
@@ -137,29 +131,5 @@ public class TargetService
 			noOfDaysLeftInQuarter = Days.daysBetween(currentDay.toLocalDate(), qEnd.toLocalDate()).getDays();
 		}
 		return noOfDaysLeftInQuarter;
-	}
-	
-	private List<Target> convertDbToPojo(List<Map<String, String>> targetsFromDb)
-	{
-		List<Target> targets = new ArrayList<>();
-		for (Map<String, String> map : targetsFromDb) 
-		{
-			Target target = new Target();
-			for (Entry<String, String> entry : map.entrySet()) 
-			{
-				if(entry.getKey().equals("name"))
-					target.setTargetName(entry.getValue());
-				else if(entry.getKey().equals("category"))
-					target.setCategory(entry.getValue());
-				else if(entry.getKey().equals("level"))
-					target.setLevel(entry.getValue());
-				else if(entry.getKey().equals("completed"))
-					target.setCompletionPercent(entry.getValue());
-//				else
-//					target.setQuarter(entry.getValue());
-			}
-			targets.add(target);
-		}
-		return targets;
 	}
 }
