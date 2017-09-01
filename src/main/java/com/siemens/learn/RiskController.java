@@ -31,9 +31,16 @@ public class RiskController
 	@RequestMapping(value = "/userscreen_admin", method = RequestMethod.GET)
 	public ModelAndView riskInit(ModelAndView model, @ModelAttribute("check") String check, @ModelAttribute("quarter") String quarter) 
 	{
-		Risk allRisks = riskService.getAllRisks();
-		model.addObject("risk", allRisks);
-		model.setViewName("userscreen_admin");
+		try
+		{
+			Risk allRisks = riskService.getAllRisks();
+			model.addObject("risk", allRisks);
+			model.setViewName("userscreen_admin");
+		}
+		catch(Exception e)
+		{
+			
+		}
 		return model;
 	}
 	
@@ -41,15 +48,23 @@ public class RiskController
 	@ResponseBody
 	public String printHello(HttpServletRequest req) 
 	{
-		String checkSelected = req.getParameter("checked");
-		List<String> groupNames = new ArrayList<>();
-		String[] split = checkSelected.split("\\.");
-		for (String group : split) 
+		String newRisk = "";
+		try
 		{
-			if(group.contains("true"))
-				groupNames.add(group.split(";")[0]);
+			String checkSelected = req.getParameter("checked");
+			List<String> groupNames = new ArrayList<>();
+			String[] split = checkSelected.split("\\.");
+			for (String group : split) 
+			{
+				if(group.contains("true"))
+					groupNames.add(group.split(";")[0]);
+			}
+			newRisk = riskService.calculateNewRisk(groupNames);
 		}
-		String newRisk = riskService.calculateNewRisk(groupNames);
+		catch(Exception e)
+		{
+			
+		}
 		return newRisk;
 	}
 }

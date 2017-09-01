@@ -13,7 +13,7 @@ public class LoginService
 		this.bCryptPasswordEncoder = bCryptPasswordEncoder;
 	}
 	
-	public boolean userValidated(String gid, String password)
+	public boolean userValidated(String gid, String password) throws Exception
 	{
 		String passInDb = dbService.getPassword(gid);
 		if(null != passInDb && bCryptPasswordEncoder.matches(password, passInDb))
@@ -21,8 +21,20 @@ public class LoginService
 		return false;
 	}
 	
-	public String getUserRole(String gid)
+	public String getUserRole(String gid) throws Exception
 	{
 		return dbService.getRole(gid);
+	}
+
+	public boolean hasUserChangedPassword(String gid) throws Exception 
+	{
+		String passwordChanged = dbService.getPasswordChanged(gid);
+		return Boolean.valueOf(passwordChanged);
+	}
+
+	public void updatePassword(String gid, String newPassword) throws Exception 
+	{
+		String encodedPassword = bCryptPasswordEncoder.encode(newPassword);
+		dbService.updatePassword(gid, encodedPassword);
 	}
 }

@@ -20,7 +20,7 @@ public class TargetService
 		this.dbService = dbService;
 	}
 	
-	public List<Target> getTargetsForUser(String gid, String quarter)
+	public List<Target> getTargetsForUser(String gid, String quarter) throws Exception
 	{
 		List<Target> targets = new ArrayList<>();
 		List<Map<String, String>> targetsFromDb = dbService.getTargets(gid, quarter);
@@ -38,28 +38,15 @@ public class TargetService
 					target.setLevel(entry.getValue());
 				else if(entry.getKey().equals("completed"))
 					target.setCompletionPercent(entry.getValue());
-//				else
-//					target.setQuarter(entry.getValue());
 			}
 			targets.add(target);
 		}
 		return targets;
 	}
 	
-	public void submitTargets(String gid, List<Target> targets, String quarter)
+	public void submitTargets(String gid, List<Target> targets, String quarter) throws Exception
 	{
-//		List<Target> targetsFromDb = convertDbToPojo(dbService.getTargets(gid, quarter));
 		List<Map<String, String>> targetsToBeUpdated = new ArrayList<>();
-//		for (Target target : targets) 
-//		{
-//			for(Target dbTarget : targetsFromDb)
-//			{
-//				if(targetsDifferByCompletion(target, dbTarget) || !target.equals(dbTarget))
-//				{
-//					break;
-//				}
-//			}
-//		}
 		
 		for (Target target : targets) 
 		{
@@ -68,14 +55,13 @@ public class TargetService
 			targetDetails.put("category", target.getCategory());
 			targetDetails.put("level", target.getLevel());
 			targetDetails.put("completed", target.getCompletionPercent());
-//			targetDetails.put("quarter", quarter);
 			
 			targetsToBeUpdated.add(targetDetails);
 		}
 		
 		String risk = calculateRisk(targetsToBeUpdated, quarter);
-		dbService.update(gid, new ArrayList<>(), "0", quarter);
-		dbService.update(gid, targetsToBeUpdated, risk, quarter);
+		dbService.updateTargets(gid, new ArrayList<>(), "0", quarter);
+		dbService.updateTargets(gid, targetsToBeUpdated, risk, quarter);
 	}
 
 	private String calculateRisk(List<Map<String, String>> targetsToBeAddded, String quarter) 
@@ -101,6 +87,8 @@ public class TargetService
 		remaining /= targetsToBeAddded.size();
 		int noOfDaysLeftInQuarter = calculateDaysLeftInQuarter(quarter);
 		risk = remaining/noOfDaysLeftInQuarter;
+		if(risk > 1)
+			risk = 1;
 		return String.valueOf(risk);
 	}
 

@@ -5,18 +5,7 @@ public class Target
 	private String targetName;
 	private String category;
 	private String completionPercent;
-//	private String quarter;
 	private String level;
-
-//	public String getQuarter() 
-//	{
-//		return quarter;
-//	}
-//
-//	public void setQuarter(String quarter) 
-//	{
-//		this.quarter = quarter;
-//	}
 
 	public String getTargetName() 
 	{

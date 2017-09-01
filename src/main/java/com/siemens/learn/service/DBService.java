@@ -39,62 +39,36 @@ public class DBService
 		
 	}
 	
-	public String getPassword(String gid)
+	public String getPassword(String gid) throws Exception
 	{
         GetItemSpec spec = new GetItemSpec().withPrimaryKey("GID", gid);
 
-        try 
-        {
-            System.out.println("Attempting to read the item...");
-            Item outcome = table.getItem(spec);
-            System.out.println("GetItem succeeded: ");
-            return outcome.getString("password");
-        }
-        catch (Exception e) 
-        {
-            System.err.println("Unable to read item: " + gid);
-            System.err.println(e.getMessage());
-        }
-        return null;
+        System.out.println("Attempting to read the item...");
+        Item outcome = table.getItem(spec);
+        System.out.println("GetItem succeeded: ");
+        return outcome.getString("password");
     }
 
-	public List<Map<String, String>> getTargets(String gid, String quarter)
+	public List<Map<String, String>> getTargets(String gid, String quarter) throws Exception
 	{
 		GetItemSpec spec = new GetItemSpec().withPrimaryKey("GID", gid);
 		List<Map<String, String>> list = new ArrayList<>();
 		
-		try 
-		{
-			System.out.println("Attempting to read the item...");
-			Item outcome = table.getItem(spec);
-			System.out.println("GetItem succeeded: ");
-			if(quarter.equals("Quarter 1"))
-				list = outcome.getList("q1targets");
-			else if(quarter.equals("Quarter 2"))
-				list = outcome.getList("q2targets");
-			else if(quarter.equals("Quarter 3"))
-				list = outcome.getList("q3targets");
-			else
-				list = outcome.getList("q4targets");
-			
-//			for (Map<String, String> map : list) 
-//			{
-//				for (Entry<String, String> entry : map.entrySet()) 
-//				{
-//					if(entry.getKey().equals("quarter") && entry.getValue().equals(quarter))
-//						targets.add(map);
-//				}
-//			}
-		}
-		catch (Exception e) 
-		{
-			System.err.println("Unable to read item: " + gid);
-			System.err.println(e.getMessage());
-		}
+		System.out.println("Attempting to read the item...");
+		Item outcome = table.getItem(spec);
+		System.out.println("GetItem succeeded: ");
+		if(quarter.equals("Quarter 1"))
+			list = outcome.getList("q1targets");
+		else if(quarter.equals("Quarter 2"))
+			list = outcome.getList("q2targets");
+		else if(quarter.equals("Quarter 3"))
+			list = outcome.getList("q3targets");
+		else
+			list = outcome.getList("q4targets");
 		return list;
 	}
 	
-	public void update(String gid, List<Map<String, String>> targetsToBeAddded, String risk, String quarter)
+	public void updateTargets(String gid, List<Map<String, String>> targetsToBeAddded, String risk, String quarter) throws Exception
 	{
 		Map<String, Object> expressionAttributeValues = new HashMap<>();
 		expressionAttributeValues.put(":val1", targetsToBeAddded);
@@ -114,21 +88,12 @@ public class DBService
 	            .withUpdateExpression(updateExpr)
 	            .withValueMap(expressionAttributeValues)
 	            .withReturnValues(ReturnValue.UPDATED_NEW);
-        try 
-        {
-            System.out.println("Updating the item...");
-            UpdateItemOutcome outcome = table.updateItem(updateItemSpec);
-            System.out.println("UpdateItem succeeded:\n" + outcome.getItem().toJSONPretty());
-
-        }
-        catch (Exception e) 
-        {
-            System.err.println("Unable to update item: " + gid);
-            System.err.println(e.getMessage());
-        }
+        System.out.println("Updating the item...");
+        UpdateItemOutcome outcome = table.updateItem(updateItemSpec);
+        System.out.println("UpdateItem succeeded:\n" + outcome.getItem().toJSONPretty());
 	}
 	
-	public List<List<String>> getRiskForGroup(String groupName)
+	public List<List<String>> getRiskForGroup(String groupName) throws Exception
 	{
 		List<List<String>> allRisks = new ArrayList<>();
 		List<String> q1Risk = new ArrayList<>();
@@ -144,33 +109,26 @@ public class DBService
 		else
 			scanSpec = new ScanSpec().withProjectionExpression("q1risk, q2risk, q3risk, q4risk");
 
-        try 
-        {
-            ItemCollection<ScanOutcome> items = table.scan(scanSpec);
+        ItemCollection<ScanOutcome> items = table.scan(scanSpec);
 
-            Iterator<Item> iter = items.iterator();
-            while (iter.hasNext()) 
-            {
-                Item item = iter.next();
-                String q1RiskDb = item.getString("q1risk");
-                if(!q1RiskDb.equals("NaN"))
-                	q1Risk.add(q1RiskDb);
-                String q2RiskDb = item.getString("q2risk");
-                if(!q2RiskDb.equals("NaN"))
-                	q2Risk.add(q2RiskDb);
-                String q3RiskDb = item.getString("q3risk");
-                if(!q3RiskDb.equals("NaN"))
-                	q3Risk.add(q3RiskDb);
-                String q4RiskDb = item.getString("q4risk");
-                if(!q4RiskDb.equals("NaN"))
-                	q4Risk.add(q4RiskDb);
-            }
-        }
-        catch (Exception e) 
+        Iterator<Item> iter = items.iterator();
+        while (iter.hasNext()) 
         {
-            System.err.println("Unable to scan the table:");
-            System.err.println(e.getMessage());
+            Item item = iter.next();
+            String q1RiskDb = item.getString("q1risk");
+            if(!q1RiskDb.equals("NaN"))
+            	q1Risk.add(q1RiskDb);
+            String q2RiskDb = item.getString("q2risk");
+            if(!q2RiskDb.equals("NaN"))
+            	q2Risk.add(q2RiskDb);
+            String q3RiskDb = item.getString("q3risk");
+            if(!q3RiskDb.equals("NaN"))
+            	q3Risk.add(q3RiskDb);
+            String q4RiskDb = item.getString("q4risk");
+            if(!q4RiskDb.equals("NaN"))
+            	q4Risk.add(q4RiskDb);
         }
+        
         allRisks.add(q1Risk);
         allRisks.add(q2Risk);
         allRisks.add(q3Risk);
@@ -178,36 +136,42 @@ public class DBService
 		return allRisks;
 	}
 	
-	public String getRole(String gid)
+	public String getRole(String gid) throws Exception
 	{
 		GetItemSpec spec = new GetItemSpec().withPrimaryKey("GID", gid);
 
-        try 
-        {
-            System.out.println("Attempting to read the item...");
-            Item outcome = table.getItem(spec);
-            System.out.println("GetItem succeeded: ");
-            return outcome.getString("role");
-        }
-        catch (Exception e) 
-        {
-            System.err.println("Unable to read item: " + gid);
-            System.err.println(e.getMessage());
-        }
-        return null;
+        System.out.println("Attempting to read the item...");
+        Item outcome = table.getItem(spec);
+        System.out.println("GetItem succeeded: ");
+        return outcome.getString("role");
 	}
 	
-	public List<String> getGroups()
+	public String getPasswordChanged(String gid) throws Exception
 	{
-	    return null;
+		GetItemSpec spec = new GetItemSpec().withPrimaryKey("GID", gid);
+
+        System.out.println("Attempting to read the item...");
+        Item outcome = table.getItem(spec);
+        System.out.println("GetItem succeeded: ");
+        return outcome.getString("pwdChanged");
+	}
+
+	public void updatePassword(String gid, String encodedPassword) throws Exception
+	{
+		String updateExpr = "set password = :val1, pwdChanged = true";
+		Map<String, Object> expressionAttributeValues = new HashMap<>();
+		expressionAttributeValues.put(":val1", encodedPassword);
+		UpdateItemSpec updateItemSpec = new UpdateItemSpec().withPrimaryKey("GID", gid)
+	            .withUpdateExpression(updateExpr)
+	            .withValueMap(expressionAttributeValues)
+	            .withReturnValues(ReturnValue.UPDATED_NEW);
+        System.out.println("Updating the item...");
+        UpdateItemOutcome outcome = table.updateItem(updateItemSpec);
+        System.out.println("UpdateItem succeeded:\n" + outcome.getItem().toJSONPretty());
+		
 	}
 	
-	public List<String> getUsers(String grp)
-    {
-        return null;
-    }
-	
-	public static void main(String[] args) 
+	public static void main(String[] args) throws Exception 
 	{
 //		List<Target> targets = new ArrayList<>();
 //		Target target = new Target();

@@ -2,7 +2,9 @@ package com.siemens.learn;
 
 import java.util.ArrayList;
 import java.util.Calendar;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import javax.servlet.http.HttpServletRequest;
 
@@ -39,72 +41,92 @@ public class UserController
 	public ModelAndView welcome(ModelAndView modelAndView, @ModelAttribute("user") String user, @ModelAttribute("quarter") String quarter) 
 	{
 		this.user = user;
-        List<Target> targets = new TargetService(dbService).getTargetsForUser(user, quarter);
-		int currentMonth = Calendar.getInstance().get(Calendar.MONTH);
-		if(currentMonth > 9)
+		try
 		{
-			modelAndView.addObject("tab1", "true");
+			Map<String, List<Target>> targetsPerQuarter = new HashMap<>();
+	        List<Target> q1Targets = new TargetService(dbService).getTargetsForUser(user, "Quarter 1");
+	        List<Target> q2Targets = new TargetService(dbService).getTargetsForUser(user, "Quarter 2");
+	        List<Target> q3Targets = new TargetService(dbService).getTargetsForUser(user, "Quarter 3");
+	        List<Target> q4Targets = new TargetService(dbService).getTargetsForUser(user, "Quarter 4");
+	        targetsPerQuarter.put("Quarter 1", q1Targets);
+	        targetsPerQuarter.put("Quarter 2", q2Targets);
+	        targetsPerQuarter.put("Quarter 3", q3Targets);
+	        targetsPerQuarter.put("Quarter 4", q4Targets);
+	        
+			int currentMonth = Calendar.getInstance().get(Calendar.MONTH);
+			if(currentMonth > 9)
+			{
+				modelAndView.addObject("tab1", "true");
+			}
+			else if(currentMonth < 4)
+			{
+				modelAndView.addObject("tab1", "false");
+				modelAndView.addObject("tab2", "true");
+			}
+			else if(currentMonth < 7)
+			{
+				modelAndView.addObject("tab2", "false");
+				modelAndView.addObject("tab3", "true");
+			}
+			else if(currentMonth < 10)
+			{
+				modelAndView.addObject("tab3", "false");
+				modelAndView.addObject("tab4", "true");
+			}	
+			modelAndView.addObject("targets", targetsPerQuarter);
+			
+			modelAndView.setViewName("userscreen");
 		}
-		else if(currentMonth < 4)
+		catch(Exception e)
 		{
-			modelAndView.addObject("tab1", "false");
-			modelAndView.addObject("tab2", "true");
+			
 		}
-		else if(currentMonth < 7)
-		{
-			modelAndView.addObject("tab2", "false");
-			modelAndView.addObject("tab3", "true");
-		}
-		else if(currentMonth < 10)
-		{
-			modelAndView.addObject("tab3", "false");
-			modelAndView.addObject("tab4", "true");
-		}	
-		modelAndView.addObject("targets", targets);
-		
-		modelAndView.setViewName("userscreen");
-		
 		return modelAndView;
 	}
 
 	@RequestMapping(value = "submit", method = RequestMethod.POST, params="add")
 	public ModelAndView submit(HttpServletRequest request, ModelMap model, final RedirectAttributes redirectAttributes) 
 	{
-		String quarter = request.getParameter("tab");
-//		List<Target> targetsInDb = new TargetService(dbService).getTargetsForUser(user, quarter);
-		
-		List<String> targetDetails = new ArrayList<>();
-		if(quarter.equals("Quarter 1"))
-			populateDataForQ1(request, targetDetails);
-		else if(quarter.equals("Quarter 2"))
-			populateDataForQ2(request, targetDetails);
-		else if(quarter.equals("Quarter 3"))
-			populateDataForQ3(request, targetDetails);
-		else
-			populateDataForQ4(request, targetDetails);
-		
-		List<Target> targets = new ArrayList<>();
-		Target target1 = createTarget(targetDetails.get(0), targetDetails.get(1), targetDetails.get(2), targetDetails.get(3), quarter);
-//		if(target1 != null && !targetsInDb.contains(target1))
-		if(target1 != null)
-			targets.add(target1);
-		Target target2 = createTarget(targetDetails.get(4), targetDetails.get(5), targetDetails.get(6), targetDetails.get(7), quarter);
-		if(target2 != null)
-			targets.add(target2);
-		Target target3 = createTarget(targetDetails.get(8), targetDetails.get(9), targetDetails.get(10), targetDetails.get(11), quarter);
-		if(target3 != null)
-			targets.add(target3);
-		Target target4 = createTarget(targetDetails.get(12), targetDetails.get(13), targetDetails.get(14), targetDetails.get(15), quarter);
-		if(target4 != null)
-			targets.add(target4);
-		
-		if(targets.size() != 0)
-			targetService.submitTargets(user, targets, quarter);
-		model.addAttribute("targets", targetService.getTargetsForUser(user, quarter));
-		
-		redirectAttributes.addFlashAttribute("user", user);
-		redirectAttributes.addFlashAttribute("quarter", quarter);
-		model.addAttribute("quarter", quarter);
+		try
+		{
+			String quarter = request.getParameter("tab");
+			
+			List<String> targetDetails = new ArrayList<>();
+			if(quarter.equals("Quarter 1"))
+				populateDataForQ1(request, targetDetails);
+			else if(quarter.equals("Quarter 2"))
+				populateDataForQ2(request, targetDetails);
+			else if(quarter.equals("Quarter 3"))
+				populateDataForQ3(request, targetDetails);
+			else
+				populateDataForQ4(request, targetDetails);
+			
+			List<Target> targets = new ArrayList<>();
+			Target target1 = createTarget(targetDetails.get(0), targetDetails.get(1), targetDetails.get(2), targetDetails.get(3), quarter);
+			if(target1 != null)
+				targets.add(target1);
+			Target target2 = createTarget(targetDetails.get(4), targetDetails.get(5), targetDetails.get(6), targetDetails.get(7), quarter);
+			if(target2 != null)
+				targets.add(target2);
+			Target target3 = createTarget(targetDetails.get(8), targetDetails.get(9), targetDetails.get(10), targetDetails.get(11), quarter);
+			if(target3 != null)
+				targets.add(target3);
+			Target target4 = createTarget(targetDetails.get(12), targetDetails.get(13), targetDetails.get(14), targetDetails.get(15), quarter);
+			if(target4 != null)
+				targets.add(target4);
+			
+			if(targets.size() != 0)
+				targetService.submitTargets(user, targets, quarter);
+			model.addAttribute("targets", targetService.getTargetsForUser(user, quarter));
+			
+			redirectAttributes.addFlashAttribute("user", user);
+			redirectAttributes.addFlashAttribute("quarter", quarter);
+			model.addAttribute("quarter", quarter);
+		}
+		catch(Exception e)
+		{
+			
+		}
 		return new ModelAndView("redirect:userscreen");
 	}
 
@@ -211,7 +233,6 @@ public class UserController
 			if(null == completion || completion.isEmpty())
 				completion = "0";
 			target.setCompletionPercent(completion);
-//			target.setQuarter(quarter);
 			return target;
 		}
 		return null;
@@ -229,21 +250,27 @@ public class UserController
 	@ResponseBody
 	public String tacbChanged(Model model, HttpServletRequest req) 
 	{
-		String quarter = req.getParameter("tab");
-		
-		List<Target> targets = targetService.getTargetsForUser(user, quarter);
-		ObjectMapper mapper = new ObjectMapper();
-
-		String jsonInString = "";
-		try 
+		try
 		{
-			jsonInString = mapper.writeValueAsString(targets);
-		} 
-		catch (JsonProcessingException e) 
-		{
-			e.printStackTrace();
+			String quarter = req.getParameter("tab");
+			
+			List<Target> targets = targetService.getTargetsForUser(user, quarter);
+			ObjectMapper mapper = new ObjectMapper();
+	
+			String jsonInString = "";
+			try 
+			{
+				jsonInString = mapper.writeValueAsString(targets);
+			} 
+			catch (JsonProcessingException e) 
+			{
+				e.printStackTrace();
+			}
+			return jsonInString;
 		}
-		
-		return jsonInString;
+		catch(Exception e)
+		{
+			return "";
+		}
 	}
 }

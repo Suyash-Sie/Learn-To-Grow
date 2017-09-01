@@ -14,7 +14,7 @@ public class RiskService
 		this.dbService = dbService;
 	}
 	
-	public Risk getAllRisks() 
+	public Risk getAllRisks() throws Exception 
 	{
 		Risk risk = new Risk();
 		float lobRisk = 0;
@@ -50,7 +50,7 @@ public class RiskService
 		return risk;
 	}
 
-	public String calculateNewRisk(List<String> groups) 
+	public String calculateNewRisk(List<String> groups) throws Exception 
 	{
 		float lobRisk = 0;
 		for (String group : groups) 
