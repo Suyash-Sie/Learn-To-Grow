@@ -72,7 +72,11 @@ public class UserController
 			{
 				modelAndView.addObject("tab3", "false");
 				modelAndView.addObject("tab4", "true");
-			}	
+			}
+			modelAndView.addObject("q1", q1Targets);
+			modelAndView.addObject("q2", q2Targets);
+			modelAndView.addObject("q3", q3Targets);
+			modelAndView.addObject("q4", q4Targets);
 			modelAndView.addObject("targets", targetsPerQuarter);
 			
 			modelAndView.setViewName("userscreen");

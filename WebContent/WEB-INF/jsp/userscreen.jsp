@@ -187,7 +187,7 @@ input:checked+label {
 		style="position: relative; width: 100%; height: 250px; overflow: hidden;"
 		id="user_riskIndicator"></div>
 	<script>
-renderCore();
+//renderCore();
 function renderCore() {
 	"use strict";
 	var optimizationBarV4 = new OptimizationBar();
@@ -202,14 +202,14 @@ function renderCore() {
     var apendee = d3.select("#user_riskIndicator").node().getBoundingClientRect();
     optimizationBarV4.setDimension(apendee.height, apendee.width);
     var test = {};
-    <%List<Target> targets = ((List<Target>) request.getAttribute("targets"));
+  <%--   <%List<Target> targets = ((List<Target>) request.getAttribute("targets"));
 			float completed = 0;
 			for (Target target : targets) {
 				completed += Float.parseFloat(target.getCompletionPercent());
-			}%>
-    var i = <%=completed / targets.size()%>
+			}%> --%>
+<%--     var i = <%=completed / targets.size()%> --%>
 	
-		try {
+		/* try {
 			console.log(i)
 				optimizationBarV4.setSliderPosition(i);
 				 optimizationBarV4.setSliderText(""); 
@@ -218,10 +218,14 @@ function renderCore() {
 			console.error(err);
 			console.error(err.stack);
 		}
-		
+		 */
 	    //Draws the risk indicator
 	    optimizationBarV4.draw("#user_riskIndicator");
 }
+var i = '<%=(request.getAttribute("targets"))%>';
+console.log(i)
+var t = JSON.parse('<%=(request.getAttribute("q1"))%>');
+console.log(t)
 
 <%-- function deleteRow(){
 	<%
@@ -252,7 +256,7 @@ function insertRow(id, contentId){
      }
 }
 
-var tabChange = function(tabIndex){
+<%-- var tabChange = function(tabIndex){
 	//var json = {"index" : tabIndex};
 	//console.log(json + ': ' + tabIndex);
 	if(tabIndex === "1")
@@ -290,27 +294,26 @@ var tabChange = function(tabIndex){
 				console.log(exception);
 			}
 	});
-	<%-- var i = '<%=(request.getAttribute("targets"))%>';
-	console.log(i) --%>
-};
+	var i = '<%=(request.getAttribute("targets"))%>';
+	console.log(i)
+}; --%>
 
 </script>
-	<div>
+	 <div>
 		<h3 style="text-align: center">Your Targets:</h3>
 		<br />
 		<form method="POST" action="submit">
 			<main> <input style="display: none;" id="tab1" type="radio"
-				tabindex="1" name="tab" onclick="tabChange('1')" value="Quarter 1"
+				tabindex="1" name="tab" value="Quarter 1"
 				checked> <label for="tab1">Quarter 1</label> <input
 				style="display: none;" id="tab2" type="radio" tabindex="2"
-				onclick="tabChange('2')" name="tab" value="Quarter 2"> <label
+				name="tab" value="Quarter 2"> <label
 				for="tab2">Quarter 2</label> <input style="display: none;" id="tab3"
-				type="radio" tabindex="3" onclick="tabChange('3')" name="tab"
+				type="radio" tabindex="3" name="tab"
 				value="Quarter 3"> <label for="tab3">Quarter 3</label> <input
 				style="display: none;" id="tab4" type="radio" tabindex="4"
-				onclick="tabChange('4')" name="tab" value="Quarter 4"> <label
+				name="tab" value="Quarter 4"> <label
 				for="tab4">Quarter 4</label>
-
 
 			<section id="content1">
 				<div>
@@ -331,8 +334,7 @@ var tabChange = function(tabIndex){
 						</div>
 						<c:set var="count" value="0" />
 						<c:set var="Q" value="${quarter}" />
-						<c:if test="${Q=='Quarter 1'}">
-							<c:forEach var="target" items="${targets}">
+							<c:forEach var="target" items="${q1}">
 								<div class="dls-comp-tableDataRow">
 									<div class="dls-comp-table-row" id="myRow">
 										<div id="targetName" class="dls-comp-tableDataCell">
@@ -362,8 +364,7 @@ var tabChange = function(tabIndex){
 								</div>
 								<c:set var="count" value="${count + 1}" />
 							</c:forEach>
-						</c:if>
-						<c:if test="${fn:length(targets)<4}">
+						<c:if test="${fn:length(q1)<4}">
 							<div class="dls-comp-tableDataRow">
 								<div class="dls-comp-table-row empty">
 									<div contenteditable="false" id="targetName"
@@ -410,11 +411,11 @@ var tabChange = function(tabIndex){
 						</c:if>
 					</div>
 				</div>
-				<c:if test="${fn:length(targets)==4}">
+				<c:if test="${fn:length(q1)==4}">
 					<button id="btnAdd" style="margin-top: 5px;" type="button"
 						disabled="disabled">Add New Row</button>
 				</c:if>
-				<c:if test="${fn:length(targets)<4}">
+				<c:if test="${fn:length(q1)<4}">
 					<button id="btnAdd" class="insertRow" style="margin-top: 5px;"
 						type="button" onclick="insertRow('myTable1','content1');">Add
 						New Row</button>
@@ -440,8 +441,8 @@ var tabChange = function(tabIndex){
 						</div>
 						<c:set var="count" value="4" />
 						<c:set var="Q" value="${quarter}" />
-						<c:if test="${Q=='Quarter 2'}">
-							<c:forEach var="target" items="${targets}">
+						
+							<c:forEach var="target" items="${q2}">
 								<div class="dls-comp-tableDataRow">
 									<div class="dls-comp-table-row" id="myRow">
 										<div id="targetName" class="dls-comp-tableDataCell">
@@ -471,8 +472,8 @@ var tabChange = function(tabIndex){
 								</div>
 								<c:set var="count" value="${count + 1}" />
 							</c:forEach>
-						</c:if>
-						<c:if test="${fn:length(targets)<4}">
+						
+						<c:if test="${fn:length(q2)<4}">
 							<div class="dls-comp-tableDataRow">
 								<div class="dls-comp-table-row empty">
 									<div contenteditable="false" id="targetName"
@@ -517,11 +518,11 @@ var tabChange = function(tabIndex){
 						</c:if>
 					</div>
 				</div>
-				<c:if test="${fn:length(targets)==4}">
+				<c:if test="${fn:length(q2)==4}">
 					<button id="btnAdd" style="margin-top: 5px;" type="button"
 						disabled="disabled">Add New Row</button>
 				</c:if>
-				<c:if test="${fn:length(targets)<4}">
+				<c:if test="${fn:length(q2)<4}">
 					<button id="btnAdd" class="insertRow" style="margin-top: 5px;"
 						type="button" onclick="insertRow('myTable2','content2');">Add
 						New Row</button>
@@ -546,8 +547,8 @@ var tabChange = function(tabIndex){
 						</div>
 						<c:set var="count" value="8" />
 						<c:set var="Q" value="${quarter}" />
-						<c:if test="${Q=='Quarter 3'}">
-							<c:forEach var="target" items="${targets}">
+						
+							<c:forEach var="target" items="${q3}">
 								<div class="dls-comp-tableDataRow">
 									<div class="dls-comp-table-row" id="myRow">
 										<div id="targetName" class="dls-comp-tableDataCell">
@@ -577,8 +578,7 @@ var tabChange = function(tabIndex){
 								</div>
 								<c:set var="count" value="${count + 1}" />
 							</c:forEach>
-						</c:if>
-						<c:if test="${fn:length(targets)<4}">
+						<c:if test="${fn:length(q3)<4}">
 							<div class="dls-comp-tableDataRow">
 								<div class="dls-comp-table-row empty">
 									<div contenteditable="false" id="targetName"
@@ -623,11 +623,11 @@ var tabChange = function(tabIndex){
 						</c:if>
 					</div>
 				</div>
-				<c:if test="${fn:length(targets)==4}">
+				<c:if test="${fn:length(q3)==4}">
 					<button id="btnAdd" style="margin-top: 5px;" type="button"
 						disabled="disabled">Add New Row</button>
 				</c:if>
-				<c:if test="${fn:length(targets)<4}">
+				<c:if test="${fn:length(q3)<4}">
 					<button id="btnAdd" class="insertRow" style="margin-top: 5px;"
 						type="button" onclick="insertRow('myTable3', 'content3');">Add
 						New Row</button>
@@ -652,8 +652,7 @@ var tabChange = function(tabIndex){
 						</div>
 						<c:set var="count" value="12" />
 						<c:set var="Q" value="${quarter}" />
-						<c:if test="${Q=='Quarter 4'}">
-							<c:forEach var="target" items="${targets}">
+							<c:forEach var="target" items="${q4}">
 								<div class="dls-comp-tableDataRow">
 									<div class="dls-comp-table-row" id="myRow">
 										<div id="targetName" class="dls-comp-tableDataCell">
@@ -683,8 +682,8 @@ var tabChange = function(tabIndex){
 								</div>
 								<c:set var="count" value="${count + 1}" />
 							</c:forEach>
-						</c:if>
-						<c:if test="${fn:length(targets)<4}">
+					
+						<c:if test="${fn:length(q4)<4}">
 							<div class="dls-comp-tableDataRow">
 								<div class="dls-comp-table-row empty">
 									<div contenteditable="false" id="targetName"
@@ -729,20 +728,16 @@ var tabChange = function(tabIndex){
 						</c:if>
 					</div>
 				</div>
-				<c:if test="${fn:length(targets)==4}">
+				<c:if test="${fn:length(q4)==4}">
 					<button id="btnAdd" style="margin-top: 5px;" type="button"
 						disabled="disabled">Add New Row</button>
 				</c:if>
-				<c:if test="${fn:length(targets)<4}">
+				<c:if test="${fn:length(q4)<4}">
 					<button id="btnAdd" class="insertRow" style="margin-top: 5px;"
 						type="button" onclick="insertRow('myTable4', 'content4');">Add
 						New Row</button>
 				</c:if>
 			</section>
-			<%-- <c:out value = "${quarter}">
-      </c:out>
-      <c:out value = "${currentQuarter}">
-      </c:out> --%>
 			<div style='text-align: center; margin-top: 10px;'>
 				<input id="formSubmit" type="submit" name="add"
 					value="Submit New Targets" />
@@ -751,6 +746,6 @@ var tabChange = function(tabIndex){
 		</form>
 
 
-	</div>
+	</div> 
 </body>
 </html>
