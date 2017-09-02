@@ -48,6 +48,7 @@ public class UserController
 	        List<Target> q2Targets = new TargetService(dbService).getTargetsForUser(user, "Quarter 2");
 	        List<Target> q3Targets = new TargetService(dbService).getTargetsForUser(user, "Quarter 3");
 	        List<Target> q4Targets = new TargetService(dbService).getTargetsForUser(user, "Quarter 4");
+	        
 	        targetsPerQuarter.put("Quarter 1", q1Targets);
 	        targetsPerQuarter.put("Quarter 2", q2Targets);
 	        targetsPerQuarter.put("Quarter 3", q3Targets);
@@ -77,6 +78,8 @@ public class UserController
 			modelAndView.addObject("q2", q2Targets);
 			modelAndView.addObject("q3", q3Targets);
 			modelAndView.addObject("q4", q4Targets);
+			modelAndView.addObject("currentRisk", 64);
+			modelAndView.addObject("currentQuarter", "Quarter 1");
 			modelAndView.addObject("targets", targetsPerQuarter);
 			
 			modelAndView.setViewName("userscreen");

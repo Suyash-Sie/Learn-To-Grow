@@ -10,6 +10,8 @@
 <title>Hello World</title>
 <script src="https://d3js.org/d3.v4.min.js"></script>
 <script type="text/javascript"
+	src="<c:url value="/resources/js/benchmark.js" />"></script>
+<script type="text/javascript"
 	src="<c:url value="/resources/js/optimizationBar.js" />"></script>
 <script type="text/javascript"
 	src="<c:url value="/resources/js/jQuery.js" />"></script>
@@ -185,11 +187,14 @@ input:checked+label {
 <body>
 	<div
 		style="position: relative; width: 100%; height: 250px; overflow: hidden;"
-		id="user_riskIndicator"></div>
+		id="js_chart"></div>
 	<script>
-//renderCore();
+renderCore();
 function renderCore() {
 	"use strict";
+	var ri = new benchMark();
+	ri.setTopText("Your Current Quarter Risk");
+	ri.setMargin(0,0,0,0);
 	var optimizationBarV4 = new OptimizationBar();
 	optimizationBarV4.setLeftLabel("HIGH RISK");
 	optimizationBarV4.setRightLabel("LOW RISK");
@@ -198,9 +203,6 @@ function renderCore() {
        
     // To control the layout of opti bar inside riskindicator.
     //optimizationBarV4.setMargin(0,0,0,0);
-    optimizationBarV4.setChartMultipliers(0.1, 0.5);
-    var apendee = d3.select("#user_riskIndicator").node().getBoundingClientRect();
-    optimizationBarV4.setDimension(apendee.height, apendee.width);
     var test = {};
   <%--   <%List<Target> targets = ((List<Target>) request.getAttribute("targets"));
 			float completed = 0;
@@ -208,19 +210,20 @@ function renderCore() {
 				completed += Float.parseFloat(target.getCompletionPercent());
 			}%> --%>
 <%--     var i = <%=completed / targets.size()%> --%>
-	
-		/* try {
-			console.log(i)
-				optimizationBarV4.setSliderPosition(i);
-				 optimizationBarV4.setSliderText(""); 
+	var currRisk = <%=request.getAttribute("currentRisk")%>
+	 try {
+			console.log(currRisk)
+				optimizationBarV4.setSliderPosition(currRisk);
+				 optimizationBarV4.setSliderText(currRisk+"%"); 
+				ri.setBottomText("YOU: "+currRisk);
 		} catch(err) {
 			optimizationBarV4.setSliderPosition(Number.NaN);
 			console.error(err);
 			console.error(err.stack);
 		}
-		 */
+		 
 	    //Draws the risk indicator
-	    optimizationBarV4.draw("#user_riskIndicator");
+		ri.renderChart(optimizationBarV4,"js_chart");
 }
 <%-- var i = '<%=(request.getAttribute("targets"))%>';
 console.log(i)
@@ -244,10 +247,12 @@ function insertRow(id, contentId){
 	var i=row.length;
 	var max=4;
 	if (i < max) {
-		var row1 = row[i-1].cloneNode(true); // "deep" clone
+		//var row1 = row[i-1].cloneNode(true); // "deep" clone
+		var row1 = $("#myTable1 .dls-comp-tableDataRow:last").clone(true).find('input:first').val('').end();
 		i++;
 		row1.id = "myRow" + i; // there can only be one element with an ID
-        row[0].parentNode.appendChild(row1);
+        //row[0].parentNode.appendChild(row1);
+		$("#myTable1").append(row1);
     }
      if (i === max)
      {
@@ -256,56 +261,28 @@ function insertRow(id, contentId){
      }
 }
 
-/* function tabChange(){
-	/* //var json = {"index" : tabIndex};
-	//console.log(json + ': ' + tabIndex);
-	if(tabIndex === "1")
-		var tab = $('#tab1').val();
-	if(tabIndex === "2")
-		var tab = $('#tab2').val();
-	if(tabIndex === "3")
-		var tab = $('#tab3').val();
-	if(tabIndex === "4")
-		var tab = $('#tab4').val();
+function tabChange(current){
+	console.log(current)
+	console.log(current.value)
+	if(current.value != "<%=request.getAttribute("currentQuarter")%>")
+	{
+		$("#formSubmit")[0].disabled = true;
+	}else{
+		$("#formSubmit")[0].disabled = false;
+	}
 	
-	$.ajax({
-		   	type: 'GET',
-			url : '/LearnApp/radio',
-			contentType: 'application/json; charset=utf-8',
-		   	data: "tab=" + tab,
-		   	async: false,
-		   	beforeSend: function(x) 
-		   	{
-	            if (x && x.overrideMimeType) 
-	            {
-	              x.overrideMimeType("application/j-son;charset=UTF-8");
-	            }
-	        },
-		   	success: function(response) 
-		   	{
-		   		console.log(response);
-		   		var result = JSON.parse(response);
-		   		console.log(result);
-		   		
-		   		appendData(result);
-			},
-			error:function(exception)
-			{
-				console.log(exception);
-			}
-	}); */
-
+}
 </script>
 	 <div>
 		<h3 style="text-align: center">Your Targets:</h3>
 		<br />
 		<form method="POST" action="submit">
 			<main>			
-			<input style="display: none;" id="tab1" type="radio" tabindex="1" name="tab" value="Quarter 1" ${quarter=="Quarter 1" ? 'checked' : ''}> <label for="tab1">Quarter 1</label> 
-			<input style="display: none;" id="tab2" type="radio" tabindex="2" name="tab" value="Quarter 2" ${quarter=="Quarter 2" ? 'checked' : ''}> <label for="tab2">Quarter 2</label>
-		    <input style="display: none;" id="tab3" type="radio" tabindex="3" name="tab" value="Quarter 3" ${quarter=="Quarter 3" ? 'checked' : ''}> <label for="tab3">Quarter 3</label> 
-		    <input style="display: none;" id="tab4" type="radio" tabindex="4" name="tab" value="Quarter 4" ${quarter=="Quarter 4" ? 'checked' : ''}> <label for="tab4">Quarter 4</label>
-			<section id="content1">
+			<input style="display: none;" id="tab1" type="radio" tabindex="1" name="tab" onclick="tabChange(this)" value="Quarter 1" ${quarter=="Quarter 1" ? 'checked' : ''}> <label for="tab1">Quarter 1</label> 
+			<input style="display: none;" id="tab2" type="radio" tabindex="2" name="tab" onclick="tabChange(this)" value="Quarter 2" ${quarter=="Quarter 2" ? 'checked' : ''}> <label for="tab2">Quarter 2</label>
+		    <input style="display: none;" id="tab3" type="radio" tabindex="3" name="tab" onclick="tabChange(this)" value="Quarter 3" ${quarter=="Quarter 3" ? 'checked' : ''}> <label for="tab3">Quarter 3</label> 
+		    <input style="display: none;" id="tab4" type="radio" tabindex="4" name="tab" onclick="tabChange(this)" value="Quarter 4" ${quarter=="Quarter 4" ? 'checked' : ''}> <label for="tab4">Quarter 4</label>
+			<section id="content1" ${currentQuarter=="Quarter 1" ? '' : 'readonly'}>
 				<div>
 					<div class="obs-comp-table" id="myTable1">
 						<div class="dls-comp-tableHeader">
@@ -346,9 +323,8 @@ function insertRow(id, contentId){
 												readonly />
 										</div>
 										<div id="completionPercent" class="dls-comp-tableDataCell">
-											<input name="completion${count}" type="text"
-												value="${target.completionPercent}"
-												style="margin: 5px; text-align: left; height: 35px; width: calc(100% - 3px); background: #ADD8E6; opacity: 0.7;" />
+											<input name="completion${count}" type="text" value="${target.completionPercent}"
+												style="margin: 5px; text-align: left; height: 35px; width: calc(100% - 3px); background: #ADD8E6; opacity: 0.7;" ${currentQuarter=="Quarter 1" ? '' : 'readonly'}/>
 										</div>
 									</div>
 								</div>
@@ -359,17 +335,13 @@ function insertRow(id, contentId){
 								<div class="dls-comp-table-row empty">
 									<div contenteditable="false" id="targetName"
 										class="dls-comp-tableDataCell">
-										<input name="targetName3" type="text"
-											style="height: 35px; width: calc(100% - 3px); background: #ADD8E6; opacity: 0.7;" />
+										<input name="targetName3" type="text" style="height: 35px; width: calc(100% - 3px); background: #ADD8E6; opacity: 0.7;" ${currentQuarter=="Quarter 1" ? '' : 'readonly'}/>
 										<span style='margin: 5px; text-align: left'></span>
 									</div>
 									<div contenteditable="false" id="category"
 										class="dls-comp-tableDataCell">
-										<!-- <input style="height:35px; width: calc(100% - 3px);background: #ADD8E6;
-	opacity: 0.7;" id="Category_list" name="category3" type="text" list="Category" /> -->
-										<select
-											style="height: 35px; width: calc(100% - 3px); background: #ADD8E6; opacity: 0.7;"
-											id="Category_list" name="category3">
+										<select	style="height: 35px; width: calc(100% - 3px); background: #ADD8E6; opacity: 0.7;"
+											id="Category_list" name="category3" ${currentQuarter=="Quarter 1" ? 'readonly' : ''}>
 											<option value="Tools">Tools</option>
 											<option value="Technology">Technology</option>
 											<option value="Domain">Domain</option>
@@ -382,9 +354,8 @@ function insertRow(id, contentId){
 										class="dls-comp-tableDataCell">
 										<!-- <input style="height:35px; width: calc(100% - 3px);background: #ADD8E6;
 	opacity: 0.7;" id="Level_list" name="level3" type="text" list="Level" /> -->
-										<select
-											style="height: 35px; width: calc(100% - 3px); background: #ADD8E6; opacity: 0.7;"
-											id="Level_list" name="level3">
+										<select	style="height: 35px; width: calc(100% - 3px); background: #ADD8E6; opacity: 0.7;"
+											id="Level_list" name="level3" ${currentQuarter=="Quarter 1" ? '' : 'readonly'}>
 											<option value="Basic">Basic</option>
 											<option value="Intermediate">Intermediate</option>
 											<option value="Advanced">Advanced</option>
@@ -407,12 +378,12 @@ function insertRow(id, contentId){
 				</c:if>
 				<c:if test="${fn:length(q1)<4}">
 					<button id="btnAdd" class="insertRow" style="margin-top: 5px;"
-						type="button" onclick="insertRow('myTable1','content1');">Add
+						type="button" onclick="insertRow('myTable1','content1');"  ${currentQuarter=="Quarter 1" ? '' : 'disabled'}>Add
 						New Row</button>
 				</c:if>
 			</section>
 
-			<section id="content2">
+			<section id="content2" ${currentQuarter=="Quarter 2" ? '' : 'readonly'}>
 				<div>
 					<div class="obs-comp-table" id="myTable2">
 						<div class="dls-comp-tableHeader">
@@ -454,9 +425,8 @@ function insertRow(id, contentId){
 												readonly />
 										</div>
 										<div id="completionPercent" class="dls-comp-tableDataCell">
-											<input name="completion${count}" type="text"
-												value="${target.completionPercent}"
-												style="margin: 5px; text-align: left; height: 35px; width: calc(100% - 3px); background: #ADD8E6; opacity: 0.7;" />
+											<input name="completion${count}" type="text" value="${target.completionPercent}"
+												style="margin: 5px; text-align: left; height: 35px; width: calc(100% - 3px); background: #ADD8E6; opacity: 0.7;" ${currentQuarter=="Quarter 2" ? '' : 'readonly'}/>
 										</div>
 									</div>
 								</div>
@@ -469,14 +439,14 @@ function insertRow(id, contentId){
 									<div contenteditable="false" id="targetName"
 										class="dls-comp-tableDataCell">
 										<input name="targetName7" type="text"
-											style="height: 35px; width: calc(100% - 3px); background: #ADD8E6; opacity: 0.7;" />
+											style="height: 35px; width: calc(100% - 3px); background: #ADD8E6; opacity: 0.7;" ${currentQuarter=="Quarter 2" ? '' : 'readonly'}/>
 										<span style='margin: 5px; text-align: left'></span>
 									</div>
 									<div contenteditable="false" id="category"
 										class="dls-comp-tableDataCell">
 										<select
 											style="height: 35px; width: calc(100% - 3px); background: #ADD8E6; opacity: 0.7;"
-											id="Category_list" name="category7">
+											id="Category_list" name="category7" ${currentQuarter=="Quarter 2" ? '' : 'disabled'}>
 											<option value="Tools">Tools</option>
 											<option value="Technology">Technology</option>
 											<option value="Domain">Domain</option>
@@ -491,7 +461,7 @@ function insertRow(id, contentId){
 	opacity: 0.7;" id="Level_list" name="level3" type="text" list="Level" /> -->
 										<select
 											style="height: 35px; width: calc(100% - 3px); background: #ADD8E6; opacity: 0.7;"
-											id="Level_list" name="level7">
+											id="Level_list" name="level7" ${currentQuarter=="Quarter 2" ? '' : 'disabled'}>
 											<option value="Basic">Basic</option>
 											<option value="Intermediate">Intermediate</option>
 											<option value="Advanced">Advanced</option>
@@ -514,11 +484,11 @@ function insertRow(id, contentId){
 				</c:if>
 				<c:if test="${fn:length(q2)<4}">
 					<button id="btnAdd" class="insertRow" style="margin-top: 5px;"
-						type="button" onclick="insertRow('myTable2','content2');">Add
+						type="button" onclick="insertRow('myTable2','content2');"  ${currentQuarter=="Quarter 2" ? '' : 'disabled'}>Add
 						New Row</button>
 				</c:if>
 			</section>
-			<section id="content3">
+			<section id="content3" ${currentQuarter=="Quarter 2" ? '' : 'readonly'}>
 				<div>
 					<div class="obs-comp-table" id="myTable3">
 						<div class="dls-comp-tableHeader">
@@ -562,7 +532,7 @@ function insertRow(id, contentId){
 										<div id="completionPercent" class="dls-comp-tableDataCell">
 											<input name="completion${count}" type="text"
 												value="${target.completionPercent}"
-												style="margin: 5px; text-align: left; height: 35px; width: calc(100% - 3px); background: #ADD8E6; opacity: 0.7;" />
+												style="margin: 5px; text-align: left; height: 35px; width: calc(100% - 3px); background: #ADD8E6; opacity: 0.7;" ${currentQuarter=="Quarter 3" ? '' : 'readonly'} />
 										</div>
 									</div>
 								</div>
@@ -574,14 +544,14 @@ function insertRow(id, contentId){
 									<div contenteditable="false" id="targetName"
 										class="dls-comp-tableDataCell">
 										<input name="targetName11" type="text"
-											style="height: 35px; width: calc(100% - 3px); background: #ADD8E6; opacity: 0.7;" />
+											style="height: 35px; width: calc(100% - 3px); background: #ADD8E6; opacity: 0.7;" ${currentQuarter=="Quarter 3" ? '' : 'readonly'}/>
 										<span style='margin: 5px; text-align: left'></span>
 									</div>
 									<div contenteditable="false" id="category"
 										class="dls-comp-tableDataCell">
 										<select
 											style="height: 35px; width: calc(100% - 3px); background: #ADD8E6; opacity: 0.7;"
-											id="Category_list" name="category11">
+											id="Category_list" name="category11" ${currentQuarter=="Quarter 3" ? '' : 'disabled'}>
 											<option value="Tools">Tools</option>
 											<option value="Technology">Technology</option>
 											<option value="Domain">Domain</option>
@@ -596,7 +566,7 @@ function insertRow(id, contentId){
 	opacity: 0.7;" id="Level_list" name="level3" type="text" list="Level" /> -->
 										<select
 											style="height: 35px; width: calc(100% - 3px); background: #ADD8E6; opacity: 0.7;"
-											id="Level_list" name="level11">
+											id="Level_list" name="level11" ${currentQuarter=="Quarter 3" ? '' : 'disabled'}>
 											<option value="Basic">Basic</option>
 											<option value="Intermediate">Intermediate</option>
 											<option value="Advanced">Advanced</option>
@@ -619,11 +589,11 @@ function insertRow(id, contentId){
 				</c:if>
 				<c:if test="${fn:length(q3)<4}">
 					<button id="btnAdd" class="insertRow" style="margin-top: 5px;"
-						type="button" onclick="insertRow('myTable3', 'content3');">Add
+						type="button" onclick="insertRow('myTable3', 'content3');" ${currentQuarter=="Quarter 3" ? '' : 'disabled'}>Add
 						New Row</button>
 				</c:if>
 			</section>
-			<section id="content4">
+			<section id="content4" ${currentQuarter=="Quarter 4" ? '' : 'readonly'}>
 				<div>
 					<div class="obs-comp-table" id="myTable4">
 						<div class="dls-comp-tableHeader">
@@ -666,7 +636,7 @@ function insertRow(id, contentId){
 										<div id="completionPercent" class="dls-comp-tableDataCell">
 											<input name="completion${count}" type="text"
 												value="${target.completionPercent}"
-												style="margin: 5px; text-align: left; height: 35px; width: calc(100% - 3px); background: #ADD8E6; opacity: 0.7;" />
+												style="margin: 5px; text-align: left; height: 35px; width: calc(100% - 3px); background: #ADD8E6; opacity: 0.7;" ${currentQuarter=="Quarter 4" ? '' : 'readonly'}/>
 										</div>
 									</div>
 								</div>
@@ -679,14 +649,14 @@ function insertRow(id, contentId){
 									<div contenteditable="false" id="targetName"
 										class="dls-comp-tableDataCell">
 										<input name="targetName15" type="text"
-											style="height: 35px; width: calc(100% - 3px); background: #ADD8E6; opacity: 0.7;" />
+											style="height: 35px; width: calc(100% - 3px); background: #ADD8E6; opacity: 0.7;" ${currentQuarter=="Quarter 4" ? '' : 'readonly'} />
 										<span style='margin: 5px; text-align: left'></span>
 									</div>
 									<div contenteditable="false" id="category"
 										class="dls-comp-tableDataCell">
 										<select
 											style="height: 35px; width: calc(100% - 3px); background: #ADD8E6; opacity: 0.7;"
-											id="Category_list" name="category15">
+											id="Category_list" name="category15" ${currentQuarter=="Quarter 4" ? '' : 'disabled'}>
 											<option value="Tools">Tools</option>
 											<option value="Technology">Technology</option>
 											<option value="Domain">Domain</option>
@@ -701,7 +671,7 @@ function insertRow(id, contentId){
 	opacity: 0.7;" id="Level_list" name="level3" type="text" list="Level" /> -->
 										<select
 											style="height: 35px; width: calc(100% - 3px); background: #ADD8E6; opacity: 0.7;"
-											id="Level_list" name="level15">
+											id="Level_list" name="level15" ${currentQuarter=="Quarter 4" ? '' : 'disabled'}>
 											<option value="Basic">Basic</option>
 											<option value="Intermediate">Intermediate</option>
 											<option value="Advanced">Advanced</option>
@@ -724,12 +694,12 @@ function insertRow(id, contentId){
 				</c:if>
 				<c:if test="${fn:length(q4)<4}">
 					<button id="btnAdd" class="insertRow" style="margin-top: 5px;"
-						type="button" onclick="insertRow('myTable4', 'content4');">Add
+						type="button" onclick="insertRow('myTable4', 'content4');" ${currentQuarter=="Quarter 4" ? '' : 'disabled'}>Add
 						New Row</button>
 				</c:if>
 			</section>
 			<div style='text-align: center; margin-top: 10px;'>
-				<input id="formSubmit" type="submit" name="add"	value="Submit New Targets" />
+				<input id="formSubmit" type="submit" name="add"	value="Submit New Targets"/>
 			</div>
 			</main>
 		</form>
