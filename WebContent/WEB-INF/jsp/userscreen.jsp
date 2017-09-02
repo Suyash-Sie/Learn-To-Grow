@@ -212,6 +212,10 @@ body {
   }
 }
 
+.row1 {
+  display: table-row;
+  background: #f6f6f6;
+}
 .row {
   display: table-row;
   background: #f6f6f6;
@@ -219,7 +223,7 @@ body {
 .row:nth-of-type(odd) {
   background: #e9e9e9;
 }
-.row.header {
+.row1.header {
   font-weight: 900;
   color: #ffffff;
   background: #ea6153;
@@ -227,7 +231,7 @@ body {
 .row.green {
   background: #27ae60;
 }
-.row.blue {
+.row1.blue {
   background: #2980b9;
 }
 @media screen and (max-width: 580px) {
@@ -321,11 +325,18 @@ function insertRow(id, contentId){
 	var max=4;
 	if (i < max) {
 		//var row1 = row[i-1].cloneNode(true); // "deep" clone
-		var row1 = $("#myTable2 .dls-comp-tableDataRow:last").clone(true).find('input:first').val('').end();
+		if(id==='myTable1')
+			var row1 = $("#myTable1 .dls-comp-tableDataRow:last").clone(true).find('input:first').val('').end().insertAfter("#myTable1 .dls-comp-tableDataRow:last");
+		else if(id==='myTable2')
+			var row1 = $("#myTable2 .dls-comp-tableDataRow:last").clone(true).find('input:first').val('').end().insertAfter("#myTable2 .dls-comp-tableDataRow:last");
+		else if(id==='myTable3')
+			var row1 = $("#myTable3 .dls-comp-tableDataRow:last").clone(true).find('input:first').val('').end().insertAfter("#myTable3 .dls-comp-tableDataRow:last");
+		else if(id==='myTable4')
+			var row1 = $("#myTable4 .dls-comp-tableDataRow:last").clone(true).find('input:first').val('').end().insertAfter("#myTable4 .dls-comp-tableDataRow:last");
 		i++;
 		row1.id = "myRow" + i; // there can only be one element with an ID
         //row[0].parentNode.appendChild(row1);
-		$("#myTable2").append(row1);
+		//$("#myTable2").append(row1);
     }
      if (i === max)
      {
@@ -357,18 +368,18 @@ function insertRow(id, contentId){
 			<section id="content1" ${currentQuarter=="Quarter 1" ? '' : 'readonly'}>
 				<div>
 					<div class="table" id="myTable1">
-						<div class="row header blue">
+						<div class="row1 header blue">
 							<div class="cell">
-								<span style='margin-left: 5px'>Target</span>
+								<span style='margin-left: 5px;color: black;'>Target</span>
 							</div>
 							<div class="cell">
-								<span style='margin-left: 5px'>Category</span>
+								<span style='margin-left: 5px;color: black;'>Category</span>
 							</div>
 							<div class="cell">
-								<span style='margin-left: 5px'>Competency Level</span>
+								<span style='margin-left: 5px;color: black;'>Competency Level</span>
 							</div>
 							<div class="cell">
-								<span style='margin-left: 5px'>%Completion</span>
+								<span style='margin-left: 5px;color: black;'>%Completion</span>
 							</div>
 						</div>
 						<c:set var="count" value="0" />
@@ -460,18 +471,18 @@ function insertRow(id, contentId){
 			<section id="content2" ${currentQuarter=="Quarter 2" ? '' : 'readonly'}>
 				<div>
 					<div class="table" id="myTable2">
-						<div class="row header blue">
+						<div class="row1 header blue">
 							<div class="cell">
-								<span style='margin-left: 5px'>Target</span>
+								<span style='margin-left: 5px;color: black;'>Target</span>
 							</div>
 							<div class="cell">
-								<span style='margin-left: 5px'>Category</span>
+								<span style='margin-left: 5px;color: black;'>Category</span>
 							</div>
 							<div class="cell">
-								<span style='margin-left: 5px'>Competency Level</span>
+								<span style='margin-left: 5px;color: black;'>Competency Level</span>
 							</div>
 							<div class="cell">
-								<span style='margin-left: 5px'>%Completion</span>
+								<span style='margin-left: 5px;color: black;'>%Completion</span>
 							</div>
 						</div>
 						<c:set var="count" value="4" />
@@ -568,18 +579,18 @@ function insertRow(id, contentId){
 			<section id="content3" ${currentQuarter=="Quarter 3" ? '' : 'readonly'}>
 				<div>
 					<div class="table" id="myTable3">
-						<div class="row header blue">
+						<div class="row1 header blue">
 							<div class="cell">
-								<span style='margin-left: 5px'>Target</span>
+								<span style='margin-left: 5px;color: black;'>Target</span>
 							</div>
 							<div class="cell">
-								<span style='margin-left: 5px'>Category</span>
+								<span style='margin-left: 5px;color: black;'>Category</span>
 							</div>
 							<div class="cell">
-								<span style='margin-left: 5px'>Competency Level</span>
+								<span style='margin-left: 5px;color: black;'>Competency Level</span>
 							</div>
 							<div class="cell">
-								<span style='margin-left: 5px'>%Completion</span>
+								<span style='margin-left: 5px;color: black;'>%Completion</span>
 							</div>
 						</div>
 						<c:set var="count" value="8" />
@@ -676,18 +687,18 @@ function insertRow(id, contentId){
 			<section id="content4" ${currentQuarter=="Quarter 4" ? '' : 'readonly'}>
 				<div>
 					<div class="table" id="myTable4">
-						<div class="row header blue">
+						<div class="row1 header blue">
 							<div class="cell">
-								<span style='margin-left: 5px'>Target</span>
+								<span style='margin-left: 5px;color: black;'>Target</span>
 							</div>
 							<div class="cell">
-								<span style='margin-left: 5px'>Category</span>
+								<span style='margin-left: 5px;color: black;'>Category</span>
 							</div>
 							<div class="cell">
-								<span style='margin-left: 5px'>Competency Level</span>
+								<span style='margin-left: 5px;color: black;'>Competency Level</span>
 							</div>
 							<div class="cell">
-								<span style='margin-left: 5px'>%Completion</span>
+								<span style='margin-left: 5px;color: black;'>%Completion</span>
 							</div>
 						</div>
 						<c:set var="count" value="12" />
