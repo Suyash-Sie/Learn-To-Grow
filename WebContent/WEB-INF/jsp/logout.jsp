@@ -58,18 +58,11 @@ input {
 	transition: box-shadow .5s ease;
 }
 input:focus { box-shadow: inset 0 -5px 45px rgba(100,100,100,0.4), 0 1px 1px rgba(255,255,255,0.2); }
-#grad1 {        
-   /* Background Gradient for Monochromatic Colors */
-   background-color: #FFFFFF;
-    /* For WebKit (Safari, Chrome, etc) */
-    background: #FFFFFF -webkit-gradient(linear, left top, left bottom, from(#D9D690), to(#FFFFFF)) no-repeat;
-    /* Mozilla,Firefox/Gecko */
-    background: #FFFFFF -moz-linear-gradient(top, #D9D690, #FFFFFF) no-repeat;
-    /* IE 5.5 - 7 */
-    filter: progid:DXImageTransform.Microsoft.gradient(startColorstr=#D9D690, endColorstr=#FFFFFF) no-repeat;
-    /* IE 8 */
-    -ms-filter: "progid:DXImageTransform.Microsoft.gradient(startColorstr=#D9D690, endColorstr=#D9D690)" no-repeat;
-}
+#grad1 {
+background: #EDE574;  /* fallback for old browsers */
+background: -webkit-linear-gradient(to right, #E1F5C4, #EDE574);  /* Chrome 10-25, Safari 5.1-6 */
+background: linear-gradient(to right, #E1F5C4, #EDE574); /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */
+ }
 /* Permalink - use to edit and share this gradient: http://colorzilla.com/gradient-editor/#fefcea+0,f1da36+100;Gold+3D */
 </style>
 </head>
