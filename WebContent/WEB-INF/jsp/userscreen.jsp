@@ -107,10 +107,10 @@ p {
 }
 
 main {
-	width: 100%;
+	width: 75%;
 	padding: 20px;
 	margin: 0 auto;
-	background: #fff;
+	border-top: 2px solid beige;
 }
 
 section {
@@ -183,8 +183,86 @@ input:checked+label {
 		padding: 15px;
 	}
 }
+body {
+  font-family: "Helvetica Neue", Helvetica, Arial;
+  font-size: 14px;
+  line-height: 20px;
+  font-weight: 400;
+  color: #3b3b3b;
+  -webkit-font-smoothing: antialiased;
+  font-smoothing: antialiased;
+  background: beige;
+}
+
+.wrapper {
+  margin: 0 auto;
+  padding: 40px;
+  max-width: 800px;
+}
+
+.table {
+  margin: 0 0 40px 0;
+  width: 100%;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.2);
+  display: table;
+}
+@media screen and (max-width: 580px) {
+  .table {
+    display: block;
+  }
+}
+
+.row {
+  display: table-row;
+  background: #f6f6f6;
+}
+.row:nth-of-type(odd) {
+  background: #e9e9e9;
+}
+.row.header {
+  font-weight: 900;
+  color: #ffffff;
+  background: #ea6153;
+}
+.row.green {
+  background: #27ae60;
+}
+.row.blue {
+  background: #2980b9;
+}
+@media screen and (max-width: 580px) {
+  .row {
+    padding: 8px 0;
+    display: block;
+  }
+}
+
+.cell {
+  padding: 6px 12px;
+  display: table-cell;
+}
+@media screen and (max-width: 580px) {
+  .cell {
+    padding: 2px 12px;
+    display: block;
+  }
+}
+#grad1 {        
+   /* Background Gradient for Monochromatic Colors */
+   background-color: #FFFFFF;
+    /* For WebKit (Safari, Chrome, etc) */
+    background: #FFFFFF -webkit-gradient(linear, left top, left bottom, from(#D9D690), to(#FFFFFF)) no-repeat;
+    /* Mozilla,Firefox/Gecko */
+    background: #FFFFFF -moz-linear-gradient(top, #D9D690, #FFFFFF) no-repeat;
+    /* IE 5.5 - 7 */
+    filter: progid:DXImageTransform.Microsoft.gradient(startColorstr=#D9D690, endColorstr=#FFFFFF) no-repeat;
+    /* IE 8 */
+    -ms-filter: "progid:DXImageTransform.Microsoft.gradient(startColorstr=#D9D690, endColorstr=#D9D690)" no-repeat;
+}
+/* Permalink - use to edit and share this gradient: http://colorzilla.com/gradient-editor/#fefcea+0,f1da36+100;Gold+3D */
+
 </style>
-<body>
+<body id="grad1">
 <form method="post" action="/LearnApp/logout">
 <p style="margin-top:5px;margin-left:5px;margin-bottom:0px">Welcome, <%=request.getAttribute("name")%>
 <input type="submit" value="Logout" style="float: right;width:75px;height:25px;margin-top:5px;margin-right:5px" /></p>
@@ -245,16 +323,16 @@ console.log(t)
 
 function insertRow(id, contentId){
 	var table = document.getElementById(id);
-	var row = table.getElementsByClassName("dls-comp-table-row");
+	var row = table.getElementsByClassName("row");
 	var i=row.length;
 	var max=4;
 	if (i < max) {
 		//var row1 = row[i-1].cloneNode(true); // "deep" clone
-		var row1 = $("#myTable1 .dls-comp-tableDataRow:last").clone(true).find('input:first').val('').end();
+		var row1 = $("#myTable2 .dls-comp-tableDataRow:last").clone(true).find('input:first').val('').end();
 		i++;
 		row1.id = "myRow" + i; // there can only be one element with an ID
         //row[0].parentNode.appendChild(row1);
-		$("#myTable1").append(row1);
+		$("#myTable2").append(row1);
     }
      if (i === max)
      {
@@ -276,8 +354,7 @@ function insertRow(id, contentId){
 }
  --%></script>
 	 <div style="overflow-y: hidden; overflow-x: hidden;">
-		<h3 style="text-align: center">Your Targets:</h3>
-		<br />
+		<h3 style="text-align: center;margin-bottom:5px; margin-top:20px">Your Targets:</h3>
 		<form method="POST" action="submit">
 			<main>			
 			<input style="display: none;" id="tab1" type="radio" tabindex="1" name="tab" value="Quarter 1" ${quarter=="Quarter 1" ? 'checked' : ''}> <label for="tab1">Quarter 1</label> 
@@ -286,18 +363,18 @@ function insertRow(id, contentId){
 		    <input style="display: none;" id="tab4" type="radio" tabindex="4" name="tab" value="Quarter 4" ${quarter=="Quarter 4" ? 'checked' : ''}> <label for="tab4">Quarter 4</label>
 			<section id="content1" ${currentQuarter=="Quarter 1" ? '' : 'readonly'}>
 				<div>
-					<div class="obs-comp-table" id="myTable1">
-						<div class="dls-comp-tableHeader">
-							<div class="dls-comp-tableHeaderCell">
+					<div class="table" id="myTable1">
+						<div class="row header blue">
+							<div class="cell">
 								<span style='margin-left: 5px'>Target</span>
 							</div>
-							<div class="dls-comp-tableHeaderCell">
+							<div class="cell">
 								<span style='margin-left: 5px'>Category</span>
 							</div>
-							<div class="dls-comp-tableHeaderCell">
+							<div class="cell">
 								<span style='margin-left: 5px'>Competency Level</span>
 							</div>
-							<div class="dls-comp-tableHeaderCell">
+							<div class="cell">
 								<span style='margin-left: 5px'>%Completion</span>
 							</div>
 						</div>
@@ -305,26 +382,26 @@ function insertRow(id, contentId){
 						<c:set var="Q" value="${quarter}" />
 							<c:forEach var="target" items="${q1}">
 								<div class="dls-comp-tableDataRow">
-									<div class="dls-comp-table-row" id="myRow">
-										<div id="targetName" class="dls-comp-tableDataCell">
+									<div class="row" id="myRow">
+										<div id="targetName" class="cell">
 											<input name="targetName${count}" type="text"
 												value="${target.targetName}"
 												style="margin: 5px; text-align: left; height: 35px; width: calc(100% - 3px); background: #ADD8E6; opacity: 0.7;"
 												readonly />
 										</div>
-										<div id="category" class="dls-comp-tableDataCell">
+										<div id="category" class="cell">
 											<input name="category${count}" type="text"
 												value="${target.category}"
 												style="margin: 5px; text-align: left; height: 35px; width: calc(100% - 3px); background: #ADD8E6; opacity: 0.7;"
 												readonly />
 										</div>
-										<div id="level" class="dls-comp-tableDataCell">
+										<div id="level" class="cell">
 											<input name="level${count}" type="text"
 												value="${target.level}"
 												style="margin: 5px; text-align: left; height: 35px; width: calc(100% - 3px); background: #ADD8E6; opacity: 0.7;"
 												readonly />
 										</div>
-										<div id="completionPercent" class="dls-comp-tableDataCell">
+										<div id="completionPercent" class="cell">
 											<input name="completion${count}" type="text" value="${target.completionPercent}"
 												style="margin: 5px; text-align: left; height: 35px; width: calc(100% - 3px); background: #ADD8E6; opacity: 0.7;" ${currentQuarter=="Quarter 1" ? '' : 'readonly'}/>
 										</div>
@@ -334,16 +411,16 @@ function insertRow(id, contentId){
 							</c:forEach>
 						<c:if test="${fn:length(q1)<4}">
 							<div class="dls-comp-tableDataRow">
-								<div class="dls-comp-table-row empty">
+								<div class="row empty">
 									<div contenteditable="false" id="targetName"
-										class="dls-comp-tableDataCell">
+										class="cell">
 										<input name="targetName3" type="text" style="height: 35px; width: calc(100% - 3px); background: #ADD8E6; opacity: 0.7;" ${currentQuarter=="Quarter 1" ? '' : 'readonly'}/>
 										<span style='margin: 5px; text-align: left'></span>
 									</div>
 									<div contenteditable="false" id="category"
-										class="dls-comp-tableDataCell">
+										class="cell">
 										<select	style="height: 35px; width: calc(100% - 3px); background: #ADD8E6; opacity: 0.7;"
-											id="Category_list" name="category3" ${currentQuarter=="Quarter 1" ? 'readonly' : ''}>
+											id="Category_list" name="category3" ${currentQuarter=="Quarter 1" ? '' : 'disabled'}>
 											<option value="Tools">Tools</option>
 											<option value="Technology">Technology</option>
 											<option value="Domain">Domain</option>
@@ -353,18 +430,18 @@ function insertRow(id, contentId){
 										</select> <span style='margin: 5px; text-align: left'></span>
 									</div>
 									<div contenteditable="false" id="level"
-										class="dls-comp-tableDataCell">
+										class="cell">
 										<!-- <input style="height:35px; width: calc(100% - 3px);background: #ADD8E6;
 	opacity: 0.7;" id="Level_list" name="level3" type="text" list="Level" /> -->
 										<select	style="height: 35px; width: calc(100% - 3px); background: #ADD8E6; opacity: 0.7;"
-											id="Level_list" name="level3" ${currentQuarter=="Quarter 1" ? '' : 'readonly'}>
+											id="Level_list" name="level3" ${currentQuarter=="Quarter 1" ? '' : 'disabled'}>
 											<option value="Basic">Basic</option>
 											<option value="Intermediate">Intermediate</option>
 											<option value="Advanced">Advanced</option>
 										</select> <span style='margin: 5px; text-align: left'></span>
 									</div>
 									<div contenteditable="false" id="completionPercent"
-										class="dls-comp-tableDataCell">
+										class="cell">
 										<input name="completion3" type="text"
 											style="height: 35px; width: calc(100% - 3px); background: #ADD8E6; opacity: 0.7;"
 											readonly /> <span style='margin: 5px; text-align: left'></span>
@@ -374,33 +451,33 @@ function insertRow(id, contentId){
 						</c:if>
 					</div>
 				</div>
+				<div style="text-align: center;margin-top: 5px">
 				<c:if test="${fn:length(q1)==4}">
-					<button id="btnAdd" style="margin-top: 5px;" type="button"
+					<button id="btnAdd" style="margin-top: 5px;text-align:center;" type="button"
 						disabled="disabled">Add New Row</button>
 				</c:if>
 				<c:if test="${fn:length(q1)<4}">
-					<button id="btnAdd" class="insertRow" style="margin-top: 5px;"
+					<button id="btnAdd" class="insertRow" style="margin-right: 5px;"
 						type="button" onclick="insertRow('myTable1','content1');"  ${currentQuarter=="Quarter 1" ? '' : 'disabled'}>Add
 						New Row</button>
 				</c:if>
-				<div style='text-align: center; margin-top: 5px;display: inline-block;'>
-				<input id="formSubmit" type="submit" name="add"	value="Submit New Targets" ${currentQuarter=="Quarter 1" ? '' : 'disabled'}/>
+				<input id="formSubmit" type="submit" name="add"	style="display: inline-block;" value="Submit New Targets" ${currentQuarter=="Quarter 1" ? '' : 'disabled'}/>
 			</div>
 			</section>
 			<section id="content2" ${currentQuarter=="Quarter 2" ? '' : 'readonly'}>
 				<div>
-					<div class="obs-comp-table" id="myTable2">
-						<div class="dls-comp-tableHeader">
-							<div class="dls-comp-tableHeaderCell">
+					<div class="table" id="myTable2">
+						<div class="row header blue">
+							<div class="cell">
 								<span style='margin-left: 5px'>Target</span>
 							</div>
-							<div class="dls-comp-tableHeaderCell">
+							<div class="cell">
 								<span style='margin-left: 5px'>Category</span>
 							</div>
-							<div class="dls-comp-tableHeaderCell">
+							<div class="cell">
 								<span style='margin-left: 5px'>Competency Level</span>
 							</div>
-							<div class="dls-comp-tableHeaderCell">
+							<div class="cell">
 								<span style='margin-left: 5px'>%Completion</span>
 							</div>
 						</div>
@@ -409,26 +486,26 @@ function insertRow(id, contentId){
 						
 							<c:forEach var="target" items="${q2}">
 								<div class="dls-comp-tableDataRow">
-									<div class="dls-comp-table-row" id="myRow">
-										<div id="targetName" class="dls-comp-tableDataCell">
+									<div class="row" id="myRow">
+										<div id="targetName" class="cell">
 											<input name="targetName${count}" type="text"
 												value="${target.targetName}"
 												style="margin: 5px; text-align: left; height: 35px; width: calc(100% - 3px); background: #ADD8E6; opacity: 0.7;"
 												readonly />
 										</div>
-										<div id="category" class="dls-comp-tableDataCell">
+										<div id="category" class="cell">
 											<input name="category${count}" type="text"
 												value="${target.category}"
 												style="margin: 5px; text-align: left; height: 35px; width: calc(100% - 3px); background: #ADD8E6; opacity: 0.7;"
 												readonly />
 										</div>
-										<div id="level" class="dls-comp-tableDataCell">
+										<div id="level" class="cell">
 											<input name="level${count}" type="text"
 												value="${target.level}"
 												style="margin: 5px; text-align: left; height: 35px; width: calc(100% - 3px); background: #ADD8E6; opacity: 0.7;"
 												readonly />
 										</div>
-										<div id="completionPercent" class="dls-comp-tableDataCell">
+										<div id="completionPercent" class="cell">
 											<input name="completion${count}" type="text" value="${target.completionPercent}"
 												style="margin: 5px; text-align: left; height: 35px; width: calc(100% - 3px); background: #ADD8E6; opacity: 0.7;" ${currentQuarter=="Quarter 2" ? '' : 'readonly'}/>
 										</div>
@@ -439,15 +516,15 @@ function insertRow(id, contentId){
 						
 						<c:if test="${fn:length(q2)<4}">
 							<div class="dls-comp-tableDataRow">
-								<div class="dls-comp-table-row empty">
+								<div class="row empty">
 									<div contenteditable="false" id="targetName"
-										class="dls-comp-tableDataCell">
+										class="cell">
 										<input name="targetName7" type="text"
 											style="height: 35px; width: calc(100% - 3px); background: #ADD8E6; opacity: 0.7;" ${currentQuarter=="Quarter 2" ? '' : 'readonly'}/>
 										<span style='margin: 5px; text-align: left'></span>
 									</div>
 									<div contenteditable="false" id="category"
-										class="dls-comp-tableDataCell">
+										class="cell">
 										<select
 											style="height: 35px; width: calc(100% - 3px); background: #ADD8E6; opacity: 0.7;"
 											id="Category_list" name="category7" ${currentQuarter=="Quarter 2" ? '' : 'disabled'}>
@@ -460,7 +537,7 @@ function insertRow(id, contentId){
 										</select> <span style='margin: 5px; text-align: left'></span>
 									</div>
 									<div contenteditable="false" id="level"
-										class="dls-comp-tableDataCell">
+										class="cell">
 										<!-- <input style="height:35px; width: calc(100% - 3px);background: #ADD8E6;
 	opacity: 0.7;" id="Level_list" name="level3" type="text" list="Level" /> -->
 										<select
@@ -472,7 +549,7 @@ function insertRow(id, contentId){
 										</select> <span style='margin: 5px; text-align: left'></span>
 									</div>
 									<div contenteditable="false" id="completionPercent"
-										class="dls-comp-tableDataCell">
+										class="cell">
 										<input name="completion7" type="text"
 											style="height: 35px; width: calc(100% - 3px); background: #ADD8E6; opacity: 0.7;"
 											disabled /> <span style='margin: 5px; text-align: left'></span>
@@ -482,33 +559,33 @@ function insertRow(id, contentId){
 						</c:if>
 					</div>
 				</div>
+				<div style="text-align: center;margin-top: 5px">
 				<c:if test="${fn:length(q2)==4}">
-					<button id="btnAdd" style="margin-top: 5px;" type="button"
+					<button id="btnAdd" style="margin-top: 5px; margin-right: 5px" type="button"
 						disabled="disabled">Add New Row</button>
 				</c:if>
 				<c:if test="${fn:length(q2)<4}">
-					<button id="btnAdd" class="insertRow" style="margin-top: 5px;"
+					<button id="btnAdd" class="insertRow" style="margin-top: 5px;margin-right: 5px"
 						type="button" onclick="insertRow('myTable2','content2');"  ${currentQuarter=="Quarter 2" ? '' : 'disabled'}>Add
 						New Row</button>
 				</c:if>
-				<div style='text-align: center; margin-top: 5px;display: inline-block;'>
-				<input id="formSubmit" type="submit" name="add"	value="Submit New Targets" ${currentQuarter=="Quarter 2" ? '' : 'disabled'}/>
+				<input id="formSubmit" type="submit" name="add"	style="display: inline-block;"value="Submit New Targets" ${currentQuarter=="Quarter 2" ? '' : 'disabled'}/>
 			</div>
 			</section>
 			<section id="content3" ${currentQuarter=="Quarter 3" ? '' : 'readonly'}>
 				<div>
-					<div class="obs-comp-table" id="myTable3">
-						<div class="dls-comp-tableHeader">
-							<div class="dls-comp-tableHeaderCell">
+					<div class="table" id="myTable3">
+						<div class="row header blue">
+							<div class="cell">
 								<span style='margin-left: 5px'>Target</span>
 							</div>
-							<div class="dls-comp-tableHeaderCell">
+							<div class="cell">
 								<span style='margin-left: 5px'>Category</span>
 							</div>
-							<div class="dls-comp-tableHeaderCell">
+							<div class="cell">
 								<span style='margin-left: 5px'>Competency Level</span>
 							</div>
-							<div class="dls-comp-tableHeaderCell">
+							<div class="cell">
 								<span style='margin-left: 5px'>%Completion</span>
 							</div>
 						</div>
@@ -517,26 +594,26 @@ function insertRow(id, contentId){
 						
 							<c:forEach var="target" items="${q3}">
 								<div class="dls-comp-tableDataRow">
-									<div class="dls-comp-table-row" id="myRow">
-										<div id="targetName" class="dls-comp-tableDataCell">
+									<div class="row" id="myRow">
+										<div id="targetName" class="cell">
 											<input name="targetName${count}" type="text"
 												value="${target.targetName}"
 												style="margin: 5px; text-align: left; height: 35px; width: calc(100% - 3px); background: #ADD8E6; opacity: 0.7;"
 												readonly />
 										</div>
-										<div id="category" class="dls-comp-tableDataCell">
+										<div id="category" class="cell">
 											<input name="category${count}" type="text"
 												value="${target.category}"
 												style="margin: 5px; text-align: left; height: 35px; width: calc(100% - 3px); background: #ADD8E6; opacity: 0.7;"
 												readonly />
 										</div>
-										<div id="level" class="dls-comp-tableDataCell">
+										<div id="level" class="cell">
 											<input name="level${count}" type="text"
 												value="${target.level}"
 												style="margin: 5px; text-align: left; height: 35px; width: calc(100% - 3px); background: #ADD8E6; opacity: 0.7;"
 												readonly />
 										</div>
-										<div id="completionPercent" class="dls-comp-tableDataCell">
+										<div id="completionPercent" class="cell">
 											<input name="completion${count}" type="text"
 												value="${target.completionPercent}"
 												style="margin: 5px; text-align: left; height: 35px; width: calc(100% - 3px); background: #ADD8E6; opacity: 0.7;" ${currentQuarter=="Quarter 3" ? '' : 'readonly'} />
@@ -547,15 +624,15 @@ function insertRow(id, contentId){
 							</c:forEach>
 						<c:if test="${fn:length(q3)<4}">
 							<div class="dls-comp-tableDataRow">
-								<div class="dls-comp-table-row empty">
+								<div class="row empty">
 									<div contenteditable="false" id="targetName"
-										class="dls-comp-tableDataCell">
+										class="cell">
 										<input name="targetName11" type="text"
 											style="height: 35px; width: calc(100% - 3px); background: #ADD8E6; opacity: 0.7;" ${currentQuarter=="Quarter 3" ? '' : 'readonly'}/>
 										<span style='margin: 5px; text-align: left'></span>
 									</div>
 									<div contenteditable="false" id="category"
-										class="dls-comp-tableDataCell">
+										class="cell">
 										<select
 											style="height: 35px; width: calc(100% - 3px); background: #ADD8E6; opacity: 0.7;"
 											id="Category_list" name="category11" ${currentQuarter=="Quarter 3" ? '' : 'disabled'}>
@@ -568,7 +645,7 @@ function insertRow(id, contentId){
 										</select> <span style='margin: 5px; text-align: left'></span>
 									</div>
 									<div contenteditable="false" id="level"
-										class="dls-comp-tableDataCell">
+										class="cell">
 										<!-- <input style="height:35px; width: calc(100% - 3px);background: #ADD8E6;
 	opacity: 0.7;" id="Level_list" name="level3" type="text" list="Level" /> -->
 										<select
@@ -580,7 +657,7 @@ function insertRow(id, contentId){
 										</select> <span style='margin: 5px; text-align: left'></span>
 									</div>
 									<div contenteditable="false" id="completionPercent"
-										class="dls-comp-tableDataCell">
+										class="cell">
 										<input name="completion11" type="text"
 											style="height: 35px; width: calc(100% - 3px); background: #ADD8E6; opacity: 0.7;"
 											disabled /> <span style='margin: 5px; text-align: left'></span>
@@ -590,33 +667,33 @@ function insertRow(id, contentId){
 						</c:if>
 					</div>
 				</div>
+				<div style="text-align: center;margin-top: 5px">
 				<c:if test="${fn:length(q3)==4}">
-					<button id="btnAdd" style="margin-top: 5px;" type="button"
+					<button id="btnAdd" style="margin-top: 5px;margin-right: 5px" type="button"
 						disabled="disabled">Add New Row</button>
 				</c:if>
 				<c:if test="${fn:length(q3)<4}">
-					<button id="btnAdd" class="insertRow" style="margin-top: 5px;"
+					<button id="btnAdd" class="insertRow" style="margin-top: 5px;margin-right: 5px"
 						type="button" onclick="insertRow('myTable3', 'content3');" ${currentQuarter=="Quarter 3" ? '' : 'disabled'}>Add
 						New Row</button>
 				</c:if>
-				<div style='text-align: center; margin-top: 5px;display: inline-block;'>
-				<input id="formSubmit" type="submit" name="add"	value="Submit New Targets" ${currentQuarter=="Quarter 3" ? '' : 'disabled'}/>
+				<input id="formSubmit" type="submit" name="add"	style="display: inline-block;" value="Submit New Targets" ${currentQuarter=="Quarter 3" ? '' : 'disabled'}/>
 			</div>
 			</section>
 			<section id="content4" ${currentQuarter=="Quarter 4" ? '' : 'readonly'}>
 				<div>
-					<div class="obs-comp-table" id="myTable4">
-						<div class="dls-comp-tableHeader">
-							<div class="dls-comp-tableHeaderCell">
+					<div class="table" id="myTable4">
+						<div class="row header blue">
+							<div class="cell">
 								<span style='margin-left: 5px'>Target</span>
 							</div>
-							<div class="dls-comp-tableHeaderCell">
+							<div class="cell">
 								<span style='margin-left: 5px'>Category</span>
 							</div>
-							<div class="dls-comp-tableHeaderCell">
+							<div class="cell">
 								<span style='margin-left: 5px'>Competency Level</span>
 							</div>
-							<div class="dls-comp-tableHeaderCell">
+							<div class="cell">
 								<span style='margin-left: 5px'>%Completion</span>
 							</div>
 						</div>
@@ -624,26 +701,26 @@ function insertRow(id, contentId){
 						<c:set var="Q" value="${quarter}" />
 							<c:forEach var="target" items="${q4}">
 								<div class="dls-comp-tableDataRow">
-									<div class="dls-comp-table-row" id="myRow">
-										<div id="targetName" class="dls-comp-tableDataCell">
+									<div class="row" id="myRow">
+										<div id="targetName" class="cell">
 											<input name="targetName${count}" type="text"
 												value="${target.targetName}"
 												style="margin: 5px; text-align: left; height: 35px; width: calc(100% - 3px); background: #ADD8E6; opacity: 0.7;"
 												readonly />
 										</div>
-										<div id="category" class="dls-comp-tableDataCell">
+										<div id="category" class="cell">
 											<input name="category${count}" type="text"
 												value="${target.category}"
 												style="margin: 5px; text-align: left; height: 35px; width: calc(100% - 3px); background: #ADD8E6; opacity: 0.7;"
 												readonly />
 										</div>
-										<div id="level" class="dls-comp-tableDataCell">
+										<div id="level" class="cell">
 											<input name="level${count}" type="text"
 												value="${target.level}"
 												style="margin: 5px; text-align: left; height: 35px; width: calc(100% - 3px); background: #ADD8E6; opacity: 0.7;"
 												readonly />
 										</div>
-										<div id="completionPercent" class="dls-comp-tableDataCell">
+										<div id="completionPercent" class="cell">
 											<input name="completion${count}" type="text"
 												value="${target.completionPercent}"
 												style="margin: 5px; text-align: left; height: 35px; width: calc(100% - 3px); background: #ADD8E6; opacity: 0.7;" ${currentQuarter=="Quarter 4" ? '' : 'readonly'}/>
@@ -655,15 +732,15 @@ function insertRow(id, contentId){
 					
 						<c:if test="${fn:length(q4)<4}">
 							<div class="dls-comp-tableDataRow">
-								<div class="dls-comp-table-row empty">
+								<div class="row empty">
 									<div contenteditable="false" id="targetName"
-										class="dls-comp-tableDataCell">
+										class="cell">
 										<input name="targetName15" type="text"
 											style="height: 35px; width: calc(100% - 3px); background: #ADD8E6; opacity: 0.7;" ${currentQuarter=="Quarter 4" ? '' : 'readonly'} />
 										<span style='margin: 5px; text-align: left'></span>
 									</div>
 									<div contenteditable="false" id="category"
-										class="dls-comp-tableDataCell">
+										class="cell">
 										<select
 											style="height: 35px; width: calc(100% - 3px); background: #ADD8E6; opacity: 0.7;"
 											id="Category_list" name="category15" ${currentQuarter=="Quarter 4" ? '' : 'disabled'}>
@@ -676,7 +753,7 @@ function insertRow(id, contentId){
 										</select> <span style='margin: 5px; text-align: left'></span>
 									</div>
 									<div contenteditable="false" id="level"
-										class="dls-comp-tableDataCell">
+										class="cell">
 										<!-- <input style="height:35px; width: calc(100% - 3px);background: #ADD8E6;
 	opacity: 0.7;" id="Level_list" name="level3" type="text" list="Level" /> -->
 										<select
@@ -688,7 +765,7 @@ function insertRow(id, contentId){
 										</select> <span style='margin: 5px; text-align: left'></span>
 									</div>
 									<div contenteditable="false" id="completionPercent"
-										class="dls-comp-tableDataCell">
+										class="cell">
 										<input name="completion15" type="text"
 											style="height: 35px; width: calc(100% - 3px); background: #ADD8E6; opacity: 0.7;"
 											disabled /> <span style='margin: 5px; text-align: left'></span>
@@ -698,17 +775,17 @@ function insertRow(id, contentId){
 						</c:if>
 					</div>
 				</div>
+				<div style="text-align: center;margin-top: 5px">
 				<c:if test="${fn:length(q4)==4}">
-					<button id="btnAdd" style="margin-top: 5px;" type="button"
+					<button id="btnAdd" style="margin-top: 5px;margin-right: 5px" type="button"
 						disabled="disabled">Add New Row</button>
 				</c:if>
 				<c:if test="${fn:length(q4)<4}">
-					<button id="btnAdd" class="insertRow" style="margin-top: 5px;"
+					<button id="btnAdd" class="insertRow" style="margin-top: 5px; margin-right: 5px"
 						type="button" onclick="insertRow('myTable4', 'content4');" ${currentQuarter=="Quarter 4" ? '' : 'disabled'}>Add
 						New Row</button>
 				</c:if>
-				<div style='text-align: center; margin-top: 5px;display: inline-block;'>
-				<input id="formSubmit" type="submit" name="add"	value="Submit New Targets" ${currentQuarter=="Quarter 4" ? '' : 'disabled'}/>
+				<input id="formSubmit" type="submit" name="add" style="display: inline-block;" value="Submit New Targets" ${currentQuarter=="Quarter 4" ? '' : 'disabled'}/>
 			</div>
 			</section>
 			</main>

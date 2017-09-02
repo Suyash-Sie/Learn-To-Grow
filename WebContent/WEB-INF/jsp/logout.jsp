@@ -3,7 +3,7 @@
 
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-<title>Login Form</title>
+<title>Logout</title>
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/normalize/5.0.0/normalize.min.css">
  <style>
  @import url(https://fonts.googleapis.com/css?family=Open+Sans);
@@ -37,7 +37,7 @@ body {
 	float:left;
 	align:center;
 }
-.login h1 { color: #fff; text-shadow: 0 0 10px rgba(0,0,0,0.3); letter-spacing:1px; text-align:center; }
+.login h1 { color: black;letter-spacing:1px; text-align:center; }
 
 input { 
 	width: 100%;
@@ -47,8 +47,7 @@ input {
 	outline: none;
 	padding: 10px;
 	font-size: 13px;
-	color: #fff;
-	text-shadow: 1px 1px 1px rgba(0,0,0,0.3);
+	color: mediumblue;
 	border: 1px solid rgba(0,0,0,0.3);
 	border-radius: 4px;
 	box-shadow: inset 0 -5px 45px rgba(100,100,100,0.2), 0 1px 1px rgba(255,255,255,0.2);
@@ -59,13 +58,25 @@ input {
 	transition: box-shadow .5s ease;
 }
 input:focus { box-shadow: inset 0 -5px 45px rgba(100,100,100,0.4), 0 1px 1px rgba(255,255,255,0.2); }
-
+#grad1 {        
+   /* Background Gradient for Monochromatic Colors */
+   background-color: #FFFFFF;
+    /* For WebKit (Safari, Chrome, etc) */
+    background: #FFFFFF -webkit-gradient(linear, left top, left bottom, from(#D9D690), to(#FFFFFF)) no-repeat;
+    /* Mozilla,Firefox/Gecko */
+    background: #FFFFFF -moz-linear-gradient(top, #D9D690, #FFFFFF) no-repeat;
+    /* IE 5.5 - 7 */
+    filter: progid:DXImageTransform.Microsoft.gradient(startColorstr=#D9D690, endColorstr=#FFFFFF) no-repeat;
+    /* IE 8 */
+    -ms-filter: "progid:DXImageTransform.Microsoft.gradient(startColorstr=#D9D690, endColorstr=#D9D690)" no-repeat;
+}
+/* Permalink - use to edit and share this gradient: http://colorzilla.com/gradient-editor/#fefcea+0,f1da36+100;Gold+3D */
 </style>
 </head>
-<body>
+<body id="grad1">
   <div class="login">
 	<h1>You have been successfully logged out!</h1>
-	 <a style="color:wheat" href="/LearnApp">Go-Back To Login Page</a>
+	 <a style="color:blue" href="/LearnApp">Go-Back To Login Page</a>
 </div>
 </body>
 </html>

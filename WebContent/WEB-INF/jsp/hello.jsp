@@ -41,18 +41,18 @@ body {
 	width:300px;
 	height:300px;
 }
-.login h1 { color: #fff; text-shadow: 0 0 10px rgba(0,0,0,0.3); letter-spacing:1px; text-align:center; }
+.login h1 { color: black;letter-spacing:1px; text-align:center; }
 
 input { 
 	width: 100%; 
 	margin-bottom: 10px; 
-	background: rgba(0,0,0,0.3);
+	background: #ADD8E6;
 	border: none;
 	outline: none;
 	padding: 10px;
 	font-size: 13px;
-	color: #fff;
-	text-shadow: 1px 1px 1px rgba(0,0,0,0.3);
+	color: #ADD8E6;
+	text-shadow: 1px 1px 1px white;
 	border: 1px solid rgba(0,0,0,0.3);
 	border-radius: 4px;
 	box-shadow: inset 0 -5px 45px rgba(100,100,100,0.2), 0 1px 1px rgba(255,255,255,0.2);
@@ -63,19 +63,30 @@ input {
 	transition: box-shadow .5s ease;
 }
 input:focus { box-shadow: inset 0 -5px 45px rgba(100,100,100,0.4), 0 1px 1px rgba(255,255,255,0.2); }
+#grad1 {        
+   /* Background Gradient for Monochromatic Colors */
+   background-color: #FFFFFF;
+    /* For WebKit (Safari, Chrome, etc) */
+    background: #FFFFFF -webkit-gradient(linear, left top, left bottom, from(#D9D690), to(#FFFFFF)) no-repeat;
+    /* Mozilla,Firefox/Gecko */
+    background: #FFFFFF -moz-linear-gradient(top, #D9D690, #FFFFFF) no-repeat;
+    /* IE 5.5 - 7 */
+    filter: progid:DXImageTransform.Microsoft.gradient(startColorstr=#D9D690, endColorstr=#FFFFFF) no-repeat;
+    /* IE 8 */
+    -ms-filter: "progid:DXImageTransform.Microsoft.gradient(startColorstr=#D9D690, endColorstr=#D9D690)" no-repeat;
+}
+/* Permalink - use to edit and share this gradient: http://colorzilla.com/gradient-editor/#fefcea+0,f1da36+100;Gold+3D */
 
 </style>
 </head>
-<body>
+<body id="grad1">
   <div class="login">
 	<h1>Login</h1>
     <form method="post" action="/LearnApp/login">
-    	<input type="text" name="gid" placeholder="Username" required="required" />
-        <input type="password" name="password" placeholder="Password" required="required" />
+    	<input type="text" style="color:black" name="gid" placeholder="Username" required="required" />
+        <input type="password" style="color:black" name="password" placeholder="Password" required="required" />
         <button type="submit" class="btn btn-primary btn-block btn-large">Let me in.</button>
     </form>
 </div>
 </body>
 </html>
-  
-  
