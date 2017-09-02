@@ -33,6 +33,7 @@ function renderCore(idSelector, slider) {
 var checkClicked = function()
 {
 	var checked = "";
+	var quarter = "";
 	if (document.getElementById('r7').checked) 
 		checked = checked + "R7;true.";
 	else
@@ -53,11 +54,29 @@ var checkClicked = function()
 		checked = checked + "TDOC;true.";
 	else
 		checked = checked + "TDOC;false";
+		
+	if (document.getElementById('q1').checked) 
+		quarter = quarter + "Q1;true.";
+	else
+		quarter = quarter + "Q1;false.";
+	if (document.getElementById('q2').checked) 
+		quarter = quarter + "Q2;true.";
+	else
+		quarter = quarter + "Q2;false.";
+	if (document.getElementById('q3').checked) 
+		quarter = quarter + "Q3;true.";
+	else
+		quarter = quarter + "Q3;false.";
+	if (document.getElementById('q4').checked) 
+		quarter = quarter + "Q4;true.";
+	else
+		quarter = quarter + "Q4;false.";
+	var riskJson = {"checked": checked, "quarter": quarter}
 	$.ajax({
 	   	type: 'GET',
 		url : '/LearnApp/checkbox',
 		contentType: 'application/json; charset=utf-8',
-	   	data: "checked=" + checked,
+	   	data: riskJson,
 	   	async: false,
 	   	beforeSend: function(x) 
 	   	{
@@ -68,10 +87,15 @@ var checkClicked = function()
         },
 	   	success: function(response) 
 	   	{
-	   		console.log(response);
 	   		var result = JSON.parse(response);
 	   		console.log(result);
-	   		renderCore("#userAdmin_riskIndicatorLob", result);
+	   		renderCore("#userAdmin_riskIndicatorLob", result.lobRisk);
+			renderCore("#userAdmin_riskIndicator1", result.r7Risk);
+			renderCore("#userAdmin_riskIndicator2", result.r8Risk);
+			renderCore("#userAdmin_riskIndicator3", result.sitRisk);
+			renderCore("#userAdmin_riskIndicator4", result.sysRisk);
+			renderCore("#userAdmin_riskIndicator5", result.tDocRisk);
+			renderCore("#userAdmin_riskIndicator6", result.lobRisk);
 		},
 		error:function(exception)
 		{
@@ -94,7 +118,11 @@ var checkClicked = function()
 <input type="checkbox" id="sit" name="sit" value="sit" onclick="checkClicked()" checked>SIT<br>
 <input type="checkbox" id="sys" name="sys" value="sys" onclick="checkClicked()" checked>SYSTEC<br>
 <input type="checkbox" id="tdoc" name="tdoc" value="tdoc" onclick="checkClicked()" checked>TDOC<br>
-<input type="checkbox" id="lob" name="lob" value="lob">LOB<br>
+<br>
+<input type="checkbox" id="q1" name="q1" value="q1" onclick="checkClicked()" checked="${checkq1}" readonly="${checkq1}">Q1<br>
+<input type="checkbox" id="q2" name="q2" value="q2" onclick="checkClicked()" checked="${checkq2}" readonly="${checkq2}">Q2<br>
+<input type="checkbox" id="q3" name="q3" value="q3" onclick="checkClicked()" checked="${checkq3}" readonly="${checkq3}">Q3<br>
+<input type="checkbox" id="q4" name="q4" value="q4" onclick="checkClicked()" checked="${checkq4}" readonly="${checkq4}">Q4<br>
 </form>
 </div>
 <div style="float: left; width: 75%; height: 75%; position: relative;">

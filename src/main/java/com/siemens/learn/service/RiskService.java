@@ -50,27 +50,38 @@ public class RiskService
 		return risk;
 	}
 
-	public String calculateNewRisk(List<String> groups) throws Exception 
+	public Risk calculateNewRisk(Risk currentRisks, List<String> groups, List<String> quarters) throws Exception 
 	{
 		float lobRisk = 0;
 		for (String group : groups) 
 		{
-			List<List<String>> riskForGroup = dbService.getRiskForGroup(group);
-			float groupRisk = 0;
+			float quarterRisk = 0;
 			int riskCount = 0;
-			for (List<String> riskPerUser : riskForGroup) 
+			for(String quarter : quarters)
 			{
-				for (String riskPerQuarter : riskPerUser) 
+				List<String> riskForGroupAndQuarter = dbService.getRiskForGroupAndQuarter(group, quarter);
+				for (String riskPerUser : riskForGroupAndQuarter) 
 				{
-					groupRisk += Float.parseFloat(riskPerQuarter);
+					quarterRisk += Float.parseFloat(riskPerUser);
 					riskCount++;
 				}
 			}
 			if(riskCount != 0)
-				groupRisk /= riskCount;
-			lobRisk += groupRisk;
+				quarterRisk /= riskCount;
+			lobRisk += quarterRisk;
+			if(groups.equals(Groups.R7))
+				currentRisks.setR7Risk(quarterRisk);
+			else if(groups.equals(Groups.R8))
+				currentRisks.setR8Risk(quarterRisk);
+			else if(groups.equals(Groups.SIT))
+				currentRisks.setSitRisk(quarterRisk);
+			else if(groups.equals(Groups.SYS))
+				currentRisks.setSysRisk(quarterRisk);
+			else if(groups.equals(Groups.TDOC))
+				currentRisks.settDocRisk(quarterRisk);
 		}
 		lobRisk /= Groups.values().length;
-		return String.valueOf(lobRisk);
+		currentRisks.setLobRisk(lobRisk);
+		return currentRisks;
 	}
 }

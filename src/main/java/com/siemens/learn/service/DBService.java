@@ -137,6 +137,53 @@ public class DBService
 		return allRisks;
 	}
 	
+	public List<String> getRiskForGroupAndQuarter(String groupName, String quarter) throws Exception
+	{
+		List<String> quarterRisk = new ArrayList<>();
+		
+		ScanSpec scanSpec;
+		if(!groupName.equals("*"))
+			scanSpec = new ScanSpec().withProjectionExpression("#gr, q1risk, q2risk, q3risk, q4risk")
+	            .withFilterExpression("#gr = :gname").withNameMap(new NameMap().with("#gr", "group"))
+	            .withValueMap(new ValueMap().withString(":gname", groupName));
+		else
+			scanSpec = new ScanSpec().withProjectionExpression("q1risk, q2risk, q3risk, q4risk");
+
+        ItemCollection<ScanOutcome> items = table.scan(scanSpec);
+
+        Iterator<Item> iter = items.iterator();
+        while (iter.hasNext()) 
+        {
+            Item item = iter.next();
+            if("Q1".equals(quarter))
+            {
+	            String q1RiskDb = item.getString("q1risk");
+	            if(!q1RiskDb.equals("NaN"))
+	            	quarterRisk.add(q1RiskDb);
+            }
+            else if("Q2".equals(quarter))
+            {
+	            String q2RiskDb = item.getString("q2risk");
+	            if(!q2RiskDb.equals("NaN"))
+	            	quarterRisk.add(q2RiskDb);
+            }
+            else if("Q3".equals(quarter))
+            {
+	            String q3RiskDb = item.getString("q3risk");
+	            if(!q3RiskDb.equals("NaN"))
+	            	quarterRisk.add(q3RiskDb);
+            }
+            else
+            {
+	            String q4RiskDb = item.getString("q4risk");
+	            if(!q4RiskDb.equals("NaN"))
+	            	quarterRisk.add(q4RiskDb);
+            }
+        }
+        
+		return quarterRisk;
+	}
+	
 	public String getRole(String gid) throws Exception
 	{
 		GetItemSpec spec = new GetItemSpec().withPrimaryKey("GID", gid);

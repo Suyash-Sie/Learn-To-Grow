@@ -68,7 +68,7 @@ input:focus { box-shadow: inset 0 -5px 45px rgba(100,100,100,0.4), 0 1px 1px rgb
 </head>
 <body>
   <div class="login">
-	<h1>Please change your password before proceeding...</h1>
+	<h2>Please change your password before proceeding...</h2>
     <form method="post" action="/LearnApp/change">
     	<input type="password" name="old" placeholder="Old Password" required="required" />
         <input type="password" name="new" placeholder="New Password" required="required" />
