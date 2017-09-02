@@ -49,6 +49,16 @@ public class DBService
         System.out.println("GetItem succeeded: ");
         return outcome.getString("password");
     }
+	
+	public String getName(String gid) throws Exception
+	{
+        GetItemSpec spec = new GetItemSpec().withPrimaryKey("GID", gid);
+
+        System.out.println("Attempting to read the item...");
+        Item outcome = table.getItem(spec);
+        System.out.println("GetItem succeeded: ");
+        return outcome.getString("name");
+    }
 
 	public List<Map<String, String>> getTargets(String gid, String quarter) throws Exception
 	{

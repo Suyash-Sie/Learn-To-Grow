@@ -7,7 +7,7 @@
 <%@ page session="true"%>
 <html>
 <head>
-<title>Hello World</title>
+<title>Welcome</title>
 <script src="https://d3js.org/d3.v4.min.js"></script>
 <script type="text/javascript"
 	src="<c:url value="/resources/js/benchmark.js" />"></script>
@@ -185,9 +185,11 @@ input:checked+label {
 }
 </style>
 <body>
-	<div
-		style="position: relative; width: 100%; height: 250px; overflow: hidden;"
-		id="js_chart"></div>
+<form method="post" action="/LearnApp/logout">
+<p style="margin-top:5px;margin-left:5px;margin-bottom:0px">Welcome, <%=request.getAttribute("name")%>
+<input type="submit" value="Logout" style="float: right;width:75px;height:25px;margin-top:5px;margin-right:5px" /></p>
+</form>
+	<div style="position: relative; width: 75%; height: 35%; overflow: hidden;" id="js_chart" align="center"></div>
 	<script>
 renderCore();
 function renderCore() {
@@ -261,7 +263,7 @@ function insertRow(id, contentId){
      }
 }
 
-function tabChange(current){
+<%-- function tabChange(current){
 	console.log(current)
 	console.log(current.value)
 	if(current.value != "<%=request.getAttribute("currentQuarter")%>")
@@ -272,16 +274,16 @@ function tabChange(current){
 	}
 	
 }
-</script>
-	 <div>
+ --%></script>
+	 <div style="overflow-y: hidden; overflow-x: hidden;">
 		<h3 style="text-align: center">Your Targets:</h3>
 		<br />
 		<form method="POST" action="submit">
 			<main>			
-			<input style="display: none;" id="tab1" type="radio" tabindex="1" name="tab" onclick="tabChange(this)" value="Quarter 1" ${quarter=="Quarter 1" ? 'checked' : ''}> <label for="tab1">Quarter 1</label> 
-			<input style="display: none;" id="tab2" type="radio" tabindex="2" name="tab" onclick="tabChange(this)" value="Quarter 2" ${quarter=="Quarter 2" ? 'checked' : ''}> <label for="tab2">Quarter 2</label>
-		    <input style="display: none;" id="tab3" type="radio" tabindex="3" name="tab" onclick="tabChange(this)" value="Quarter 3" ${quarter=="Quarter 3" ? 'checked' : ''}> <label for="tab3">Quarter 3</label> 
-		    <input style="display: none;" id="tab4" type="radio" tabindex="4" name="tab" onclick="tabChange(this)" value="Quarter 4" ${quarter=="Quarter 4" ? 'checked' : ''}> <label for="tab4">Quarter 4</label>
+			<input style="display: none;" id="tab1" type="radio" tabindex="1" name="tab" value="Quarter 1" ${quarter=="Quarter 1" ? 'checked' : ''}> <label for="tab1">Quarter 1</label> 
+			<input style="display: none;" id="tab2" type="radio" tabindex="2" name="tab" value="Quarter 2" ${quarter=="Quarter 2" ? 'checked' : ''}> <label for="tab2">Quarter 2</label>
+		    <input style="display: none;" id="tab3" type="radio" tabindex="3" name="tab" value="Quarter 3" ${quarter=="Quarter 3" ? 'checked' : ''}> <label for="tab3">Quarter 3</label> 
+		    <input style="display: none;" id="tab4" type="radio" tabindex="4" name="tab" value="Quarter 4" ${quarter=="Quarter 4" ? 'checked' : ''}> <label for="tab4">Quarter 4</label>
 			<section id="content1" ${currentQuarter=="Quarter 1" ? '' : 'readonly'}>
 				<div>
 					<div class="obs-comp-table" id="myTable1">
@@ -381,8 +383,10 @@ function tabChange(current){
 						type="button" onclick="insertRow('myTable1','content1');"  ${currentQuarter=="Quarter 1" ? '' : 'disabled'}>Add
 						New Row</button>
 				</c:if>
+				<div style='text-align: center; margin-top: 5px;display: inline-block;'>
+				<input id="formSubmit" type="submit" name="add"	value="Submit New Targets" ${currentQuarter=="Quarter 1" ? '' : 'disabled'}/>
+			</div>
 			</section>
-
 			<section id="content2" ${currentQuarter=="Quarter 2" ? '' : 'readonly'}>
 				<div>
 					<div class="obs-comp-table" id="myTable2">
@@ -487,8 +491,11 @@ function tabChange(current){
 						type="button" onclick="insertRow('myTable2','content2');"  ${currentQuarter=="Quarter 2" ? '' : 'disabled'}>Add
 						New Row</button>
 				</c:if>
+				<div style='text-align: center; margin-top: 5px;display: inline-block;'>
+				<input id="formSubmit" type="submit" name="add"	value="Submit New Targets" ${currentQuarter=="Quarter 2" ? '' : 'disabled'}/>
+			</div>
 			</section>
-			<section id="content3" ${currentQuarter=="Quarter 2" ? '' : 'readonly'}>
+			<section id="content3" ${currentQuarter=="Quarter 3" ? '' : 'readonly'}>
 				<div>
 					<div class="obs-comp-table" id="myTable3">
 						<div class="dls-comp-tableHeader">
@@ -592,6 +599,9 @@ function tabChange(current){
 						type="button" onclick="insertRow('myTable3', 'content3');" ${currentQuarter=="Quarter 3" ? '' : 'disabled'}>Add
 						New Row</button>
 				</c:if>
+				<div style='text-align: center; margin-top: 5px;display: inline-block;'>
+				<input id="formSubmit" type="submit" name="add"	value="Submit New Targets" ${currentQuarter=="Quarter 3" ? '' : 'disabled'}/>
+			</div>
 			</section>
 			<section id="content4" ${currentQuarter=="Quarter 4" ? '' : 'readonly'}>
 				<div>
@@ -697,10 +707,10 @@ function tabChange(current){
 						type="button" onclick="insertRow('myTable4', 'content4');" ${currentQuarter=="Quarter 4" ? '' : 'disabled'}>Add
 						New Row</button>
 				</c:if>
-			</section>
-			<div style='text-align: center; margin-top: 10px;'>
-				<input id="formSubmit" type="submit" name="add"	value="Submit New Targets"/>
+				<div style='text-align: center; margin-top: 5px;display: inline-block;'>
+				<input id="formSubmit" type="submit" name="add"	value="Submit New Targets" ${currentQuarter=="Quarter 4" ? '' : 'disabled'}/>
 			</div>
+			</section>
 			</main>
 		</form>
 		</div>

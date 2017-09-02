@@ -35,18 +35,27 @@ public class HelloController
 		return "hello";
 	}
 
+	@RequestMapping(value = "/logout", method = RequestMethod.POST)
+	public String logout(ModelMap model)
+	{
+		model.addAttribute("message", "You have been successfully logged out!");
+		return "logout";
+	}
+
 	@RequestMapping(value = "/login", method = RequestMethod.POST)
 	public String login(ModelMap model, @RequestParam String gid, @RequestParam String password, final RedirectAttributes redirectAttributes) 
 	{
 		this.gid = gid;
 		try
 		{
+			String name = loginService.getUserName(gid);
 			if(!loginService.userValidated(gid, password))
 				return "hello";
 			else if(!loginService.hasUserChangedPassword(gid))
 				return "change_password";
 			
 			redirectAttributes.addFlashAttribute("user", gid);
+			redirectAttributes.addFlashAttribute("name", name);
 			redirectAttributes.addFlashAttribute("quarter", "Quarter 1");
 			
 			if(loginService.getUserRole(gid).equals("manager"))

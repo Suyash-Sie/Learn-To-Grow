@@ -21,6 +21,11 @@ public class LoginService
 		return false;
 	}
 	
+	public String getUserName(String gid) throws Exception
+	{
+		return dbService.getName(gid);
+	}
+	
 	public String getUserRole(String gid) throws Exception
 	{
 		return dbService.getRole(gid);

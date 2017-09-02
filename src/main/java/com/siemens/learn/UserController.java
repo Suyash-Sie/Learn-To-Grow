@@ -79,7 +79,7 @@ public class UserController
 			modelAndView.addObject("q3", q3Targets);
 			modelAndView.addObject("q4", q4Targets);
 			modelAndView.addObject("currentRisk", 64);
-			modelAndView.addObject("currentQuarter", "Quarter 1");
+			modelAndView.addObject("currentQuarter", "Quarter 2");
 			modelAndView.addObject("targets", targetsPerQuarter);
 			
 			modelAndView.setViewName("userscreen");
