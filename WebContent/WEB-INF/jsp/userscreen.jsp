@@ -303,11 +303,7 @@ function renderCore() {
 	    //Draws the risk indicator
 		ri.renderChart(optimizationBarV4,"js_chart");
 }
-<%-- var i = '<%=(request.getAttribute("targets"))%>';
-console.log(i)
-var t = JSON.parse('<%=(request.getAttribute("q1"))%>');
-console.log(t)
- --%>
+
 <%-- function deleteRow(){
 	<%
     String quarter = request.;
@@ -345,6 +341,14 @@ function insertRow(id, contentId){
      	contentSec.getElementsByClassName('insertRow')[0].disabled = true;
      }
 }
+function validate(value) {
+    //var outputPercentageString = document.getElementById('completionPercent').value;
+    var outputPercentage = parseInt(value);
+    if (outputPercentage < 0 || outputPercentage > 100) {
+        alert("INVALID INPUT. Please enter the correct percentage.");
+        return false;
+    }
+}
 
 <%-- function tabChange(current){
 	console.log(current)
@@ -360,7 +364,7 @@ function insertRow(id, contentId){
  --%></script>
 	 <div style="overflow-y: hidden; overflow-x: hidden;">
 		<h3 style="text-align: left;margin-bottom:5px; margin-top:20px">Your Targets:</h3>
-		<form method="POST" action="submit">
+		<form name="myForm" method="POST" action="submit">
 			<main>			
 			<input style="display: none;" id="tab1" type="radio" tabindex="1" name="tab" value="Quarter 1" ${quarter=="Quarter 1" ? 'checked' : ''}> <label for="tab1">Quarter 1</label> 
 			<input style="display: none;" id="tab2" type="radio" tabindex="2" name="tab" value="Quarter 2" ${quarter=="Quarter 2" ? 'checked' : ''}> <label for="tab2">Quarter 2</label>
@@ -407,7 +411,7 @@ function insertRow(id, contentId){
 												readonly />
 										</div>
 										<div id="completionPercent" class="cell">
-											<input name="completion${count}" type="text" value="${target.completionPercent}"
+											<input name="completion${count}" type="text" value="${target.completionPercent}" onblur="validate(value)"
 												style="text-align: left; height: 35px; width: calc(100% - 3px); background: #ADD8E6; opacity: 0.7;" ${currentQuarter=="Quarter 1" ? '' : 'readonly'}/>
 										</div>
 									</div>
@@ -511,7 +515,7 @@ function insertRow(id, contentId){
 												readonly />
 										</div>
 										<div id="completionPercent" class="cell" style="width:15%">
-											<input name="completion${count}" type="text" value="${target.completionPercent}"
+											<input name="completion${count}" type="text" value="${target.completionPercent}" onblur="return(validate(value))"
 												style="text-align: left; height: 35px; width: calc(100% - 3px); background: #ADD8E6; opacity: 0.7;" ${currentQuarter=="Quarter 2" ? '' : 'readonly'}/>
 										</div>
 									</div>
@@ -616,7 +620,7 @@ function insertRow(id, contentId){
 										</div>
 										<div id="completionPercent" class="cell">
 											<input name="completion${count}" type="text"
-												value="${target.completionPercent}"
+												value="${target.completionPercent}" onblur="validate(value)"
 												style="text-align: left; height: 35px; width: calc(100% - 3px); background: #ADD8E6; opacity: 0.7;" ${currentQuarter=="Quarter 3" ? '' : 'readonly'} />
 										</div>
 									</div>
@@ -723,7 +727,7 @@ function insertRow(id, contentId){
 										</div>
 										<div id="completionPercent" class="cell">
 											<input name="completion${count}" type="text"
-												value="${target.completionPercent}"
+												value="${target.completionPercent}" onblur="validate(value)"
 												style="text-align: left; height: 35px; width: calc(100% - 3px); background: #ADD8E6; opacity: 0.7;" ${currentQuarter=="Quarter 4" ? '' : 'readonly'}/>
 										</div>
 									</div>
