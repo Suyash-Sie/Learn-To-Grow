@@ -108,9 +108,10 @@ p {
 
 main {
 	width: 75%;
-	padding: 20px;
+	padding: 0px;
 	margin: 0 auto;
 	border-top: 2px solid beige;
+	display:inline-block;
 }
 
 section {
@@ -228,7 +229,7 @@ body {
   color: #ffffff;
   background: #ea6153;
 }
-.row.green {
+.row1.green {
   background: #27ae60;
 }
 .row1.blue {
@@ -358,7 +359,7 @@ function insertRow(id, contentId){
 }
  --%></script>
 	 <div style="overflow-y: hidden; overflow-x: hidden;">
-		<h3 style="text-align: center;margin-bottom:5px; margin-top:20px">Your Targets:</h3>
+		<h3 style="text-align: left;margin-bottom:5px; margin-top:30px">Your Targets:</h3>
 		<form method="POST" action="submit">
 			<main>			
 			<input style="display: none;" id="tab1" type="radio" tabindex="1" name="tab" value="Quarter 1" ${quarter=="Quarter 1" ? 'checked' : ''}> <label for="tab1">Quarter 1</label> 
@@ -390,24 +391,24 @@ function insertRow(id, contentId){
 										<div id="targetName" class="cell">
 											<input name="targetName${count}" type="text"
 												value="${target.targetName}"
-												style="margin: 5px; text-align: left; height: 35px; width: calc(100% - 3px); background: #ADD8E6; opacity: 0.7;"
+												style="text-align: left; height: 35px; width: calc(100% - 3px); background: #ADD8E6; opacity: 0.7;"
 												readonly />
 										</div>
 										<div id="category" class="cell">
 											<input name="category${count}" type="text"
 												value="${target.category}"
-												style="margin: 5px; text-align: left; height: 35px; width: calc(100% - 3px); background: #ADD8E6; opacity: 0.7;"
+												style="text-align: left; height: 35px; width: calc(100% - 3px); background: #ADD8E6; opacity: 0.7;"
 												readonly />
 										</div>
 										<div id="level" class="cell">
 											<input name="level${count}" type="text"
 												value="${target.level}"
-												style="margin: 5px; text-align: left; height: 35px; width: calc(100% - 3px); background: #ADD8E6; opacity: 0.7;"
+												style="text-align: left; height: 35px; width: calc(100% - 3px); background: #ADD8E6; opacity: 0.7;"
 												readonly />
 										</div>
 										<div id="completionPercent" class="cell">
 											<input name="completion${count}" type="text" value="${target.completionPercent}"
-												style="margin: 5px; text-align: left; height: 35px; width: calc(100% - 3px); background: #ADD8E6; opacity: 0.7;" ${currentQuarter=="Quarter 1" ? '' : 'readonly'}/>
+												style="text-align: left; height: 35px; width: calc(100% - 3px); background: #ADD8E6; opacity: 0.7;" ${currentQuarter=="Quarter 1" ? '' : 'readonly'}/>
 										</div>
 									</div>
 								</div>
@@ -494,24 +495,24 @@ function insertRow(id, contentId){
 										<div id="targetName" class="cell">
 											<input name="targetName${count}" type="text"
 												value="${target.targetName}"
-												style="margin: 5px; text-align: left; height: 35px; width: calc(100% - 3px); background: #ADD8E6; opacity: 0.7;"
+												style="text-align: left; height: 35px; width: calc(100% - 3px); background: #ADD8E6; opacity: 0.7;"
 												readonly />
 										</div>
 										<div id="category" class="cell">
 											<input name="category${count}" type="text"
 												value="${target.category}"
-												style="margin: 5px; text-align: left; height: 35px; width: calc(100% - 3px); background: #ADD8E6; opacity: 0.7;"
+												style="text-align: left; height: 35px; width: calc(100% - 3px); background: #ADD8E6; opacity: 0.7;"
 												readonly />
 										</div>
 										<div id="level" class="cell">
 											<input name="level${count}" type="text"
 												value="${target.level}"
-												style="margin: 5px; text-align: left; height: 35px; width: calc(100% - 3px); background: #ADD8E6; opacity: 0.7;"
+												style="text-align: left; height: 35px; width: calc(100% - 3px); background: #ADD8E6; opacity: 0.7;"
 												readonly />
 										</div>
 										<div id="completionPercent" class="cell">
 											<input name="completion${count}" type="text" value="${target.completionPercent}"
-												style="margin: 5px; text-align: left; height: 35px; width: calc(100% - 3px); background: #ADD8E6; opacity: 0.7;" ${currentQuarter=="Quarter 2" ? '' : 'readonly'}/>
+												style="text-align: left; height: 35px; width: calc(100% - 3px); background: #ADD8E6; opacity: 0.7;" ${currentQuarter=="Quarter 2" ? '' : 'readonly'}/>
 										</div>
 									</div>
 								</div>
@@ -565,11 +566,11 @@ function insertRow(id, contentId){
 				</div>
 				<div style="text-align: center;margin-top: 5px">
 				<c:if test="${fn:length(q2)==4}">
-					<button id="btnAdd" style="margin-top: 5px; margin-right: 5px" type="button"
+					<button id="btnAdd" style="margin-right: 5px" type="button"
 						disabled="disabled">Add New Row</button>
 				</c:if>
 				<c:if test="${fn:length(q2)<4}">
-					<button id="btnAdd" class="insertRow" style="margin-top: 5px;margin-right: 5px"
+					<button id="btnAdd" class="insertRow" style="margin-right: 5px"
 						type="button" onclick="insertRow('myTable2','content2');"  ${currentQuarter=="Quarter 2" ? '' : 'disabled'}>Add
 						New Row</button>
 				</c:if>
@@ -602,25 +603,25 @@ function insertRow(id, contentId){
 										<div id="targetName" class="cell">
 											<input name="targetName${count}" type="text"
 												value="${target.targetName}"
-												style="margin: 5px; text-align: left; height: 35px; width: calc(100% - 3px); background: #ADD8E6; opacity: 0.7;"
+												style="text-align: left; height: 35px; width: calc(100% - 3px); background: #ADD8E6; opacity: 0.7;"
 												readonly />
 										</div>
 										<div id="category" class="cell">
 											<input name="category${count}" type="text"
 												value="${target.category}"
-												style="margin: 5px; text-align: left; height: 35px; width: calc(100% - 3px); background: #ADD8E6; opacity: 0.7;"
+												style="text-align: left; height: 35px; width: calc(100% - 3px); background: #ADD8E6; opacity: 0.7;"
 												readonly />
 										</div>
 										<div id="level" class="cell">
 											<input name="level${count}" type="text"
 												value="${target.level}"
-												style="margin: 5px; text-align: left; height: 35px; width: calc(100% - 3px); background: #ADD8E6; opacity: 0.7;"
+												style="text-align: left; height: 35px; width: calc(100% - 3px); background: #ADD8E6; opacity: 0.7;"
 												readonly />
 										</div>
 										<div id="completionPercent" class="cell">
 											<input name="completion${count}" type="text"
 												value="${target.completionPercent}"
-												style="margin: 5px; text-align: left; height: 35px; width: calc(100% - 3px); background: #ADD8E6; opacity: 0.7;" ${currentQuarter=="Quarter 3" ? '' : 'readonly'} />
+												style="text-align: left; height: 35px; width: calc(100% - 3px); background: #ADD8E6; opacity: 0.7;" ${currentQuarter=="Quarter 3" ? '' : 'readonly'} />
 										</div>
 									</div>
 								</div>
@@ -709,25 +710,25 @@ function insertRow(id, contentId){
 										<div id="targetName" class="cell">
 											<input name="targetName${count}" type="text"
 												value="${target.targetName}"
-												style="margin: 5px; text-align: left; height: 35px; width: calc(100% - 3px); background: #ADD8E6; opacity: 0.7;"
+												style="text-align: left; height: 35px; width: calc(100% - 3px); background: #ADD8E6; opacity: 0.7;"
 												readonly />
 										</div>
 										<div id="category" class="cell">
 											<input name="category${count}" type="text"
 												value="${target.category}"
-												style="margin: 5px; text-align: left; height: 35px; width: calc(100% - 3px); background: #ADD8E6; opacity: 0.7;"
+												style="text-align: left; height: 35px; width: calc(100% - 3px); background: #ADD8E6; opacity: 0.7;"
 												readonly />
 										</div>
 										<div id="level" class="cell">
 											<input name="level${count}" type="text"
 												value="${target.level}"
-												style="margin: 5px; text-align: left; height: 35px; width: calc(100% - 3px); background: #ADD8E6; opacity: 0.7;"
+												style="text-align: left; height: 35px; width: calc(100% - 3px); background: #ADD8E6; opacity: 0.7;"
 												readonly />
 										</div>
 										<div id="completionPercent" class="cell">
 											<input name="completion${count}" type="text"
 												value="${target.completionPercent}"
-												style="margin: 5px; text-align: left; height: 35px; width: calc(100% - 3px); background: #ADD8E6; opacity: 0.7;" ${currentQuarter=="Quarter 4" ? '' : 'readonly'}/>
+												style="text-align: left; height: 35px; width: calc(100% - 3px); background: #ADD8E6; opacity: 0.7;" ${currentQuarter=="Quarter 4" ? '' : 'readonly'}/>
 										</div>
 									</div>
 								</div>
