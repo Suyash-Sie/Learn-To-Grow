@@ -120,4 +120,9 @@ public class TargetService
 		}
 		return noOfDaysLeftInQuarter;
 	}
+
+	public String getRiskForCurrentQuarter(String user, String quarter) throws Exception 
+	{
+		return dbService.getRiskForQuarter(user, quarter);
+	}
 }

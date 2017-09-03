@@ -18,7 +18,6 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
-import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.siemens.learn.model.Target;
 import com.siemens.learn.service.DBService;
@@ -44,15 +43,17 @@ public class UserController
 		try
 		{
 			Map<String, List<Target>> targetsPerQuarter = new HashMap<>();
-	        List<Target> q1Targets = new TargetService(dbService).getTargetsForUser(user, "Quarter 1");
-	        List<Target> q2Targets = new TargetService(dbService).getTargetsForUser(user, "Quarter 2");
-	        List<Target> q3Targets = new TargetService(dbService).getTargetsForUser(user, "Quarter 3");
-	        List<Target> q4Targets = new TargetService(dbService).getTargetsForUser(user, "Quarter 4");
+	        List<Target> q1Targets = targetService.getTargetsForUser(user, quarter);
+	        List<Target> q2Targets = targetService.getTargetsForUser(user, "Quarter 2");
+	        List<Target> q3Targets = targetService.getTargetsForUser(user, "Quarter 3");
+	        List<Target> q4Targets = targetService.getTargetsForUser(user, "Quarter 4");
 	        
-	        targetsPerQuarter.put("Quarter 1", q1Targets);
+	        targetsPerQuarter.put(quarter, q1Targets);
 	        targetsPerQuarter.put("Quarter 2", q2Targets);
 	        targetsPerQuarter.put("Quarter 3", q3Targets);
 	        targetsPerQuarter.put("Quarter 4", q4Targets);
+	        
+	        String currentRisk = targetService.getRiskForCurrentQuarter(user, quarter);
 	        
 			int currentMonth = Calendar.getInstance().get(Calendar.MONTH);
 			if(currentMonth > 9)
@@ -78,8 +79,8 @@ public class UserController
 			modelAndView.addObject("q2", q2Targets);
 			modelAndView.addObject("q3", q3Targets);
 			modelAndView.addObject("q4", q4Targets);
-			modelAndView.addObject("currentRisk", 64);
-			modelAndView.addObject("currentQuarter", "Quarter 2");
+			modelAndView.addObject("currentRisk", currentRisk);
+			modelAndView.addObject("currentQuarter", quarter);
 			modelAndView.addObject("targets", targetsPerQuarter);
 			
 			modelAndView.setViewName("userscreen");
@@ -265,14 +266,7 @@ public class UserController
 			ObjectMapper mapper = new ObjectMapper();
 	
 			String jsonInString = "";
-			try 
-			{
 				jsonInString = mapper.writeValueAsString(targets);
-			} 
-			catch (JsonProcessingException e) 
-			{
-				e.printStackTrace();
-			}
 			return jsonInString;
 		}
 		catch(Exception e)

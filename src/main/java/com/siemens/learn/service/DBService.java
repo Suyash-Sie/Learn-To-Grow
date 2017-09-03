@@ -78,6 +78,24 @@ public class DBService
 			list = outcome.getList("q4targets");
 		return list;
 	}
+
+	public String getRiskForQuarter(String gid, String quarter) throws Exception
+	{
+		GetItemSpec spec = new GetItemSpec().withPrimaryKey("GID", gid);
+		String risk = "";
+		System.out.println("Attempting to read the item...");
+		Item outcome = table.getItem(spec);
+		System.out.println("GetItem succeeded: ");
+		if(quarter.equals("Quarter 1"))
+			risk = outcome.getString("q1risk");
+		else if(quarter.equals("Quarter 2"))
+			risk = outcome.getString("q2risk");
+		else if(quarter.equals("Quarter 3"))
+			risk = outcome.getString("q3risk");
+		else
+			risk = outcome.getString("q4risk");
+		return risk;
+	}
 	
 	public void updateTargets(String gid, List<Map<String, String>> targetsToBeAddded, String risk, String quarter) throws Exception
 	{
