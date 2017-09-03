@@ -55,6 +55,7 @@ public class TargetService
 			targetDetails.put("category", target.getCategory());
 			targetDetails.put("level", target.getLevel());
 			targetDetails.put("completed", target.getCompletionPercent());
+			targetDetails.put("year", target.getYear());
 			
 			targetsToBeUpdated.add(targetDetails);
 		}

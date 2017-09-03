@@ -241,6 +241,7 @@ public class UserController
 			if(null == completion || completion.isEmpty())
 				completion = "0";
 			target.setCompletionPercent(completion);
+			target.setYear(String.valueOf(Calendar.getInstance().get(Calendar.YEAR)));
 			return target;
 		}
 		return null;
@@ -256,7 +257,7 @@ public class UserController
 	
 	@RequestMapping(value = "/radio",  method = RequestMethod.GET)
 	@ResponseBody
-	public String tacbChanged(Model model, HttpServletRequest req) 
+	public String tabChanged(Model model, HttpServletRequest req) 
 	{
 		try
 		{

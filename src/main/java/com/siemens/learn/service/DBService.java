@@ -1,9 +1,11 @@
 package com.siemens.learn.service;
 
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.HashMap;
 import java.util.Iterator;
 import java.util.List;
+import java.util.ListIterator;
 import java.util.Map;
 import java.util.Map.Entry;
 
@@ -37,7 +39,6 @@ public class DBService
 		
 		DynamoDB dynamoDB = new DynamoDB(client);
 		table = dynamoDB.getTable(USERS);
-		
 	}
 	
 	public String getPassword(String gid) throws Exception
@@ -62,6 +63,12 @@ public class DBService
 
 	public List<Map<String, String>> getTargets(String gid, String quarter) throws Exception
 	{
+		int year = Calendar.getInstance().get(Calendar.YEAR);
+		int month = Calendar.getInstance().get(Calendar.MONTH);
+		
+		if("Quarter 1".equals(quarter) && month > 1)
+			year--;
+		
 		GetItemSpec spec = new GetItemSpec().withPrimaryKey("GID", gid);
 		List<Map<String, String>> list = new ArrayList<>();
 		
@@ -76,6 +83,21 @@ public class DBService
 			list = outcome.getList("q3targets");
 		else
 			list = outcome.getList("q4targets");
+
+		ListIterator<Map<String, String>> listIterator = list.listIterator();
+		while(listIterator.hasNext())
+		{
+			Map<String, String> next = listIterator.next();
+			for (Entry<String, String> entry : next.entrySet()) 
+			{
+				if("year".equals(entry.getKey()) && year != Integer.parseInt(entry.getValue()))
+				{
+					listIterator.remove();
+					break;
+				}
+			}
+		}
+		
 		return list;
 	}
 
@@ -250,19 +272,22 @@ public class DBService
 	
 	public static void main(String[] args) throws Exception 
 	{
-//		List<Target> targets = new ArrayList<>();
-//		Target target = new Target();
-//		target.setTargetName("T2");
-//		target.setCategory("C2");
-//		target.setCompletionPercent("16");
-//		target.setQuarter("Q2");
-//		targets.add(target);
-//		dbService.submit("z0024dzv", targets, "100");
-		
 		DBService dbService = new DBService();
+		List<Map<String, String>> targetsToBeUpdated = new ArrayList<>();
+		
+		Map<String, String> targetDetails = new HashMap<>();
+		targetDetails.put("name", "T1");
+		targetDetails.put("category", "C1");
+		targetDetails.put("level", "L1");
+		targetDetails.put("completed", "16");
+		targetDetails.put("year", "2018");
+		targetsToBeUpdated.add(targetDetails);
+			
+		dbService.updateTargets("z0024dzv", targetsToBeUpdated, "100", "Quarter 2");
+		
 //		dbService.update("z003cv8z", new ArrayList<>(), "0", "Quarter 1");
-		dbService.updatePassword("z0024dzv", "s");
-		List<Map<String, String>> targets2 = dbService.getTargets("z003cv8z", "Quarter 1");
+//		dbService.updatePassword("z0024dzv", "s");
+		List<Map<String, String>> targets2 = dbService.getTargets("z0024dzv", "Quarter 1");
 		for (Map<String, String> map : targets2) 
 		{
 			for (Entry<String, String> entry : map.entrySet()) 
