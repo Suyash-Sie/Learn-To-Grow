@@ -6,6 +6,7 @@ public class Target
 	private String category;
 	private String completionPercent;
 	private String level;
+	private String year;
 
 	public String getTargetName() 
 	{
@@ -47,13 +48,23 @@ public class Target
 		this.level = level;
 	}
 	
+	public String getYear() 
+	{
+		return year;
+	}
+
+	public void setYear(String year) 
+	{
+		this.year = year;
+	}
+
 	@Override
 	public String toString() 
 	{
 		return "Target [targetName=" + targetName + ", category=" + category + ", completionPercent="
-				+ completionPercent + ", level=" + level + "]";
+				+ completionPercent + ", level=" + level + ", year=" + year + "]";
 	}
-	
+
 	@Override
 	public int hashCode() 
 	{

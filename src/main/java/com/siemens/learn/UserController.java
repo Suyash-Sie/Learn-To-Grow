@@ -43,12 +43,12 @@ public class UserController
 		try
 		{
 			Map<String, List<Target>> targetsPerQuarter = new HashMap<>();
-	        List<Target> q1Targets = targetService.getTargetsForUser(user, quarter);
+	        List<Target> q1Targets = targetService.getTargetsForUser(user, "Quarter 1");
 	        List<Target> q2Targets = targetService.getTargetsForUser(user, "Quarter 2");
 	        List<Target> q3Targets = targetService.getTargetsForUser(user, "Quarter 3");
 	        List<Target> q4Targets = targetService.getTargetsForUser(user, "Quarter 4");
 	        
-	        targetsPerQuarter.put(quarter, q1Targets);
+	        targetsPerQuarter.put("Quarter 1", q1Targets);
 	        targetsPerQuarter.put("Quarter 2", q2Targets);
 	        targetsPerQuarter.put("Quarter 3", q3Targets);
 	        targetsPerQuarter.put("Quarter 4", q4Targets);
