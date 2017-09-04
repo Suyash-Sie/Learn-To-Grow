@@ -46,6 +46,8 @@ public class RiskService
 				risk.settDocRisk(groupRisk);
 			else if(groups.equals(Groups.PRM))
 				risk.setPrmRisk(groupRisk);
+			else if(groups.equals(Groups.TE))
+				risk.setTeRisk(groupRisk);
 		}
 		risk.setLobRisk(lobRisk/Groups.values().length);
 		
@@ -83,6 +85,8 @@ public class RiskService
 				currentRisks.settDocRisk(quarterRisk);
 			else if(groups.equals(Groups.PRM))
 				currentRisks.setPrmRisk(quarterRisk);
+			else if(groups.equals(Groups.TE))
+				currentRisks.setTeRisk(quarterRisk);
 		}
 		lobRisk /= Groups.values().length;
 		currentRisks.setLobRisk(lobRisk);

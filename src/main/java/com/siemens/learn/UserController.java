@@ -1,6 +1,5 @@
 package com.siemens.learn;
 
-import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.HashMap;
@@ -8,15 +7,7 @@ import java.util.List;
 import java.util.Map;
 
 import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
 
-import org.apache.poi.ss.usermodel.Cell;
-import org.apache.poi.ss.usermodel.CellStyle;
-import org.apache.poi.ss.usermodel.Font;
-import org.apache.poi.ss.usermodel.Row;
-import org.apache.poi.xssf.usermodel.XSSFRow;
-import org.apache.poi.xssf.usermodel.XSSFSheet;
-import org.apache.poi.xssf.usermodel.XSSFWorkbook;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.ui.ModelMap;
@@ -286,82 +277,6 @@ public class UserController
 		{
 			return "";
 		}
-	}
-	
-	/**
-     * Handle request to download an Excel document
-     */
-    @RequestMapping(value = "/downloadExcel", method = RequestMethod.GET)
-    public @ResponseBody void downloadExcel(HttpServletRequest request, 
-    		HttpServletResponse response) {
-    	List<Target> listTargets = new ArrayList<Target>();
-    	try {
-    		listTargets = targetService.getTargetsForUser(user, "Quarter 1");
-    	} catch (Exception e) {
-    		// TODO Auto-generated catch block
-    		e.printStackTrace();
-    	}
-    	XSSFWorkbook workbook = new XSSFWorkbook();
-    	XSSFSheet sheet = workbook.createSheet();
-    	createHeaderRow(sheet);
-
-    	// create data rows
-    	int rowCount = 1;
-
-    	for (Target target : listTargets) {
-    		XSSFRow aRow = sheet.createRow(rowCount++);
-    		aRow.createCell(0).setCellValue(target.getCategory());
-    		aRow.createCell(1).setCellValue(target.getCompletionPercent());
-    		aRow.createCell(2).setCellValue(target.getLevel());
-    		aRow.createCell(3).setCellValue(target.getTargetName());
-    	}
-    	response.setHeader("Content-disposition","attachment; filename=" + "LearnToGrow_Report.xlsx");
-    	try {
-    		workbook.write(response.getOutputStream());
-    		workbook.close();
-    	} catch (IOException e) {
-    		// TODO Auto-generated catch block
-    		e.printStackTrace();
-    	}
-    }
-
-	private void createHeaderRow(XSSFSheet sheet) {
-		CellStyle cellStyle = sheet.getWorkbook().createCellStyle();
-	    Font font = sheet.getWorkbook().createFont();
-//	    font.setBold(true);
-	    font.setFontHeightInPoints((short) 15);
-	    font.setFontName("Cambria");
-	    cellStyle.setFont(font);
-	    cellStyle.setShrinkToFit(true);
-	 
-	    Row row = sheet.createRow(0);
-	    Cell cellSNo = row.createCell(0);
-	    cellSNo.setCellStyle(cellStyle);
-	    cellSNo.setCellValue("S.No.");
-
-	    Cell cellName = row.createCell(1);
-	    cellName.setCellStyle(cellStyle);
-	    cellName.setCellValue("Name");
-	 
-	    Cell cellGid = row.createCell(2);
-	    cellGid.setCellStyle(cellStyle);
-	    cellGid.setCellValue("GID");
-	 
-	    Cell cellDept = row.createCell(3);
-	    cellDept.setCellStyle(cellStyle);
-	    cellDept.setCellValue("Dept.");
-	    
-	    Cell cellQuarter = row.createCell(4);
-	    cellQuarter.setCellStyle(cellStyle);
-	    cellQuarter.setCellValue("Quarter");
-	    
-	    Cell cellTarget = row.createCell(5);
-	    cellTarget.setCellStyle(cellStyle);
-	    cellTarget.setCellValue("Target");
-	    
-	    Cell cellRisk = row.createCell(6);
-	    cellRisk.setCellStyle(cellStyle);
-	    cellRisk.setCellValue("Risk");
 	}
 	
 }

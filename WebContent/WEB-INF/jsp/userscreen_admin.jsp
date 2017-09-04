@@ -28,16 +28,29 @@ function renderCore(idSelector, slider) {
 	var optimizationBarV4 = new OptimizationBar();
 	optimizationBarV4.setLeftLabel("HIGH RISK");
 	optimizationBarV4.setRightLabel("LOW RISK");
-	optimizationBarV4.setDomain(0,1);
+	optimizationBarV4.setDomain(100,0);
 	optimizationBarV4.setColors(["rgb(255,0,0)", "rgb(255,194,12)", "rgb(160,215,44)"]);
        
     // To control the layout of opti bar inside riskindicator.
     //optimizationBarV4.setMargin(0,0,0,0);
-    optimizationBarV4.setChartMultipliers(0.1, 0.5);
+    optimizationBarV4.setChartMultipliers(0.25, .3);
     var apendee = d3.select(idSelector).node().getBoundingClientRect();
     optimizationBarV4.setDimension(apendee.height, apendee.width);
 	optimizationBarV4.setSliderPosition(slider);
-    optimizationBarV4.setSliderText(""); 
+	if(idSelector==="#userAdmin_riskIndicator1")
+		optimizationBarV4.setSliderText("R7");
+	if(idSelector==="#userAdmin_riskIndicator2")
+		optimizationBarV4.setSliderText("APPS");
+	if(idSelector==="#userAdmin_riskIndicator3")
+		optimizationBarV4.setSliderText("SIT");
+	if(idSelector==="#userAdmin_riskIndicator4")
+		optimizationBarV4.setSliderText("SYSTEC");
+	if(idSelector==="#userAdmin_riskIndicator5")
+		optimizationBarV4.setSliderText("TDOC");
+	if(idSelector==="#userAdmin_riskIndicator6")
+		optimizationBarV4.setSliderText("PRM");
+	if(idSelector==="#userAdmin_riskIndicator7")
+		optimizationBarV4.setSliderText("TE");
 	//Draws the risk indicator
 	optimizationBarV4.draw(idSelector);
 }
@@ -69,7 +82,11 @@ var checkClicked = function()
 	if (document.getElementById('prm').checked) 
 		checked = checked + "PRM;true.";
 	else
-		checked = checked + "PRM;false";		
+		checked = checked + "PRM;false";
+		if (document.getElementById('te').checked) 
+			checked = checked + "TE;true.";
+		else
+			checked = checked + "TE;false";
 	if (document.getElementById('q1').checked) 
 		quarter = quarter + "Q1;true.";
 	else
@@ -111,6 +128,7 @@ var checkClicked = function()
 			renderCore("#userAdmin_riskIndicator4", result.sysRisk);
 			renderCore("#userAdmin_riskIndicator5", result.tDocRisk);
 			renderCore("#userAdmin_riskIndicator6", result.prmRisk);
+			renderCore("#userAdmin_riskIndicator7", result.teRisk);
 		},
 		error:function(exception)
 		{
@@ -130,17 +148,18 @@ var checkClicked = function()
 <form method="post" action="/LearnApp/logout">
 <input type="submit" value="Logout" style="float: right;width:75px;height:25px" />
 </form>
-<form method="post" action="">
+<form action="">
 <div style="float:left; position: relative;margin-left:10px;margin-right: 10px">
 <input type="checkbox" id="r7" name="r7" value="r7" onclick="checkClicked()" checked>R7<br>
-<input type="checkbox" id="r8" name="r8" value="r8" onclick="checkClicked()" checked>R8<br>
+<input type="checkbox" id="r8" name="r8" value="r8" onclick="checkClicked()" checked>APPS<br>
 <input type="checkbox" id="sit" name="sit" value="sit" onclick="checkClicked()" checked>SIT<br>
 </div>
-<div style="position: relative">
+<div style="display:inline-block;">
 <input type="checkbox" id="sys" name="sys" value="sys" onclick="checkClicked()" checked>SYSTEC<br>
 <input type="checkbox" id="tdoc" name="tdoc" value="tdoc" onclick="checkClicked()" checked>TDOC<br>
 <input type="checkbox" id="prm" name="prm" value="prm" onclick="checkClicked()" checked>PRM<br>
 </div>
+<div style="display: inline;"><input type="checkbox" id="te" name="te" value="te" onclick="checkClicked()" checked>TE<br></div>
 <br>
 <div style="float:left; position:relative;margin-left:10px;margin-right: 10px"><input type="checkbox" id="q1" name="q1" value="q1" onclick="checkClicked()" checked="${checkq1}" readonly="${checkq1}">Q1<br></div>
 <div style="float:left; position: relative;margin-left:10px;margin-right: 10px"><input type="checkbox" id="q2" name="q2" value="q2" onclick="checkClicked()" checked="${checkq2}" readonly="${checkq2}">Q2<br></div>
@@ -150,23 +169,26 @@ var checkClicked = function()
 </form>
 </div>
 <div style="float: left; width: 75%; height: 75%; position: relative;">
-	<div style="float: left; position: relative; width: 50%; height: 33%; overflow: hidden;"
+	<div style="float: left; position: relative; width: 48%; height: 24%; overflow: hidden;margin:2px;padding:2px"
 		id="userAdmin_riskIndicator1">
 	</div>
-	<div style="float: right; position: relative; width: 50%; height: 33%; overflow: hidden;"
+	<div style="float: right; position: relative; width: 48%; height: 24%; overflow: hidden;margin:2px;padding:2px"
 		id="userAdmin_riskIndicator2">
 	</div>
-	<div style="float: left; position: relative; width: 50%; height: 33%; overflow: hidden;"
+	<div style="float: left; position: relative; width: 48%; height: 24%; overflow: hidden;margin:2px;padding:2px"
 		id="userAdmin_riskIndicator3">
 	</div>
-	<div style="float: right; position: relative; width: 50%; height: 33%; overflow: hidden;"
+	<div style="float: right; position: relative; width: 48%; height: 24%; overflow: hidden;margin:2px;padding:2px"
 		id="userAdmin_riskIndicator4">
 	</div>
-	<div style="float: left; position: relative; width: 50%; height: 33%; overflow: hidden;"
+	<div style="float: left; position: relative; width: 48%; height: 24%; overflow: hidden;margin:2px;padding:2px"
 		id="userAdmin_riskIndicator5">
 	</div>
-	<div style="float: right; position: relative; width: 50%; height: 33%; overflow: hidden;"
+	<div style="float: right; position: relative; width: 48%; height: 24%; overflow: hidden;margin:2px;padding:2px"
 		id="userAdmin_riskIndicator6">
+	</div>
+	<div style="float: left; position: relative; width: 48%; height: 24%; overflow: hidden;margin:2px;padding:2px"
+		id="userAdmin_riskIndicator7">
 	</div>
 </div>
 	<script>
@@ -179,6 +201,7 @@ var checkClicked = function()
 		renderCore("#userAdmin_riskIndicator4", '${risk.sysRisk}');
 		renderCore("#userAdmin_riskIndicator5", '${risk.tDocRisk}');
 		renderCore("#userAdmin_riskIndicator6", '${risk.prmRisk}');
+		renderCore("#userAdmin_riskIndicator7", '${risk.teRisk}');
 	}
 	populateRisks();
 	</script>

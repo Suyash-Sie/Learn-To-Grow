@@ -9,6 +9,7 @@ public class Risk
 	private float tDocRisk;
 	private float lobRisk;
 	private float prmRisk;
+	private float teRisk;
 	
 	public float getR7Risk() 
 	{
@@ -83,6 +84,14 @@ public class Risk
 	{
 		return "Risk [r7Risk=" + r7Risk + ", r8Risk=" + r8Risk + ", sitRisk=" + sitRisk + ", sysRisk=" + sysRisk
 				+ ", tDocRisk=" + tDocRisk + ", prmRisk=" + prmRisk + ", lobRisk=" + lobRisk + "]";
+	}
+
+	public float getTeRisk() {
+		return teRisk;
+	}
+
+	public void setTeRisk(float teRisk) {
+		this.teRisk = teRisk;
 	}
 
 }
