@@ -84,7 +84,7 @@ public class Dynamo
             table.putItem(new Item().withPrimaryKey("GID", "z003cv8z")
             		.withString("name", "KC")
             		.withString("password", "$2a$10$m7xN4LloEj4dMbWFCj.lteLTbCn4D8hFJO0cW4SP0RsbQgdUs3zt.")
-            		.withString("pwdChanged", "true")
+            		.withString("pwdChanged", "false")
             		.withString("role", "user")
             		.withString("group", "R8")
             		.withString("q1risk", "NaN")
