@@ -82,6 +82,11 @@ filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#ffffff', end
     	<input type="text" style="color:black" name="gid" placeholder="Username" required="required" />
         <input type="password" style="color:black" name="password" placeholder="Password" required="required" />
         <button type="submit" class="btn btn-primary btn-block btn-large">Let me in.</button>
+        <%if(request.getAttribute("message") != null)
+        	{	
+        %>
+        		<p style="color:red">${message}</p>
+        <%} %>
     </form>
 </div>
 </body>

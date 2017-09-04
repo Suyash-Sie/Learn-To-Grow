@@ -48,7 +48,10 @@ public class DBService
         System.out.println("Attempting to read the item...");
         Item outcome = table.getItem(spec);
         System.out.println("GetItem succeeded: ");
-        return outcome.getString("password");
+        if(outcome != null)
+        	return outcome.getString("password");
+        else
+        	return "";
     }
 	
 	public String getName(String gid) throws Exception

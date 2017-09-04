@@ -33,7 +33,6 @@ public class HelloController
 	@RequestMapping(value = "/", method = RequestMethod.GET)
 	public String printHello(ModelMap model) 
 	{
-		model.addAttribute("message", "Hello Spring MVC Framework!");
 		return "hello";
 	}
 
@@ -51,7 +50,10 @@ public class HelloController
 		try
 		{
 			if(!loginService.userValidated(gid, password))
+			{
+				model.addAttribute("message", "Invalid credentials provided!");
 				return "hello";
+			}
 			else if(!loginService.hasUserChangedPassword(gid))
 				return "change_password";
 			
