@@ -1,5 +1,7 @@
 package com.siemens.learn;
 
+import java.util.Calendar;
+
 import javax.servlet.http.HttpServletRequest;
 
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
@@ -56,7 +58,16 @@ public class HelloController
 			
 			redirectAttributes.addFlashAttribute("user", gid);
 			redirectAttributes.addFlashAttribute("name", name);
-			redirectAttributes.addFlashAttribute("quarter", "Quarter 1");
+			
+			int currentMonth = Calendar.getInstance().get(Calendar.MONTH);
+			if(currentMonth > 9)
+				redirectAttributes.addFlashAttribute("quarter", "Quarter 1");
+			else if(currentMonth < 4)
+				redirectAttributes.addFlashAttribute("quarter", "Quarter 2");
+			else if(currentMonth < 7)
+				redirectAttributes.addFlashAttribute("quarter", "Quarter 3");
+			else if(currentMonth < 10)
+				redirectAttributes.addFlashAttribute("quarter", "Quarter 4");
 			
 			if(loginService.getUserRole(gid).equals("manager"))
 				return "redirect:userscreen_admin";
