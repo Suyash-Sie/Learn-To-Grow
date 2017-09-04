@@ -8,6 +8,7 @@ public class Risk
 	private float sysRisk;
 	private float tDocRisk;
 	private float lobRisk;
+	private float prmRisk;
 	
 	public float getR7Risk() 
 	{
@@ -69,10 +70,19 @@ public class Risk
 		this.lobRisk = lobRisk;
 	}
 	
+	public float getPrmRisk() {
+		return prmRisk;
+	}
+
+	public void setPrmRisk(float prmRisk) {
+		this.prmRisk = prmRisk;
+	}
+	
 	@Override
 	public String toString() 
 	{
 		return "Risk [r7Risk=" + r7Risk + ", r8Risk=" + r8Risk + ", sitRisk=" + sitRisk + ", sysRisk=" + sysRisk
-				+ ", tDocRisk=" + tDocRisk + ", lobRisk=" + lobRisk + "]";
+				+ ", tDocRisk=" + tDocRisk + ", prmRisk=" + prmRisk + ", lobRisk=" + lobRisk + "]";
 	}
+
 }

@@ -37,6 +37,7 @@ public class UserController
 {
 	private DBService dbService;
     private String user;
+    private String name;
 	private TargetService targetService;
 
 	public UserController()
@@ -46,9 +47,10 @@ public class UserController
 	}
 	
 	@RequestMapping(value = "/userscreen", method = RequestMethod.GET)
-	public ModelAndView welcome(ModelAndView modelAndView, @ModelAttribute("user") String user, @ModelAttribute("quarter") String quarter) 
+	public ModelAndView welcome(ModelAndView modelAndView, @ModelAttribute("user") String user, @ModelAttribute("name") String name,@ModelAttribute("quarter") String quarter) 
 	{
 		this.user = user;
+		this.name = name;
 		try
 		{
 			Map<String, List<Target>> targetsPerQuarter = new HashMap<>();
@@ -137,6 +139,7 @@ public class UserController
 			model.addAttribute("targets", targetService.getTargetsForUser(user, quarter));
 			
 			redirectAttributes.addFlashAttribute("user", user);
+			redirectAttributes.addFlashAttribute("name", name);
 			redirectAttributes.addFlashAttribute("quarter", quarter);
 			model.addAttribute("quarter", quarter);
 		}
