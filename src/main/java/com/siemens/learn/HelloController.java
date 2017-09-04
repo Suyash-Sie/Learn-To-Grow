@@ -9,7 +9,6 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.siemens.learn.service.DBService;
@@ -31,7 +30,7 @@ public class HelloController
 	}
 	
 	@RequestMapping(value = "/", method = RequestMethod.GET)
-	public String printHello(ModelMap model) 
+	public String home() 
 	{
 		return "hello";
 	}
@@ -43,12 +42,19 @@ public class HelloController
 		return "logout";
 	}
 
-	@RequestMapping(value = "/login", method = RequestMethod.POST)
-	public String login(ModelMap model, @RequestParam String gid, @RequestParam String password, final RedirectAttributes redirectAttributes) 
+	@RequestMapping(value = "/logout", method = RequestMethod.GET)
+	public String logoutGet()
 	{
-		this.gid = gid;
+ 		return "hello";
+	}
+
+	@RequestMapping(value = "/login", method = RequestMethod.POST)
+	public String login(ModelMap model, HttpServletRequest request, final RedirectAttributes redirectAttributes) 
+	{
 		try
 		{
+			String password = request.getParameter("password");
+			this.gid = request.getParameter("gid");
 			if(!loginService.userValidated(gid, password))
 			{
 				model.addAttribute("message", "Invalid credentials provided!");
@@ -57,6 +63,7 @@ public class HelloController
 			else if(!loginService.hasUserChangedPassword(gid))
 				return "change_password";
 			
+			redirectAttributes.addFlashAttribute("user", gid);
 			if(loginService.getUserRole(gid).equals("manager"))
 				return "redirect:userscreen_admin";
 			
@@ -70,10 +77,15 @@ public class HelloController
 		}
 	}
 
+	@RequestMapping(value = "/login", method = RequestMethod.GET)
+	public String loginGet()
+	{
+ 		return "hello";
+	}
+	
 	private void setRedirectAttributes(String gid, final RedirectAttributes redirectAttributes) throws Exception 
 	{
 		String name = loginService.getUserName(gid);
-		redirectAttributes.addFlashAttribute("user", gid);
 		redirectAttributes.addFlashAttribute("name", name);
 		
 		int currentMonth = Calendar.getInstance().get(Calendar.MONTH);
@@ -99,8 +111,14 @@ public class HelloController
 				model.addAttribute("message", "Old Password incorrect");
 				return "change_password";
 			}
+			if(newPassword.contains(" "))
+			{
+				model.addAttribute("message", "Your password cannot contain space!");
+				return "change_password";
+			}
 			loginService.updatePassword(gid, newPassword);
 			
+			redirectAttributes.addFlashAttribute("user", gid);
 			if(loginService.getUserRole(gid).equals("manager"))
 				return "redirect:userscreen_admin";
 			
@@ -112,5 +130,11 @@ public class HelloController
 		{
 			return "hello";
 		}
+	}
+	
+	@RequestMapping(value = "/change", method = RequestMethod.GET)
+	public String changeGet()
+	{
+ 		return "hello";
 	}
 }

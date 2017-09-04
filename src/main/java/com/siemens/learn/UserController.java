@@ -1,6 +1,5 @@
 package com.siemens.learn;
 
-import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.HashMap;
@@ -47,12 +46,18 @@ public class UserController
 	}
 	
 	@RequestMapping(value = "/userscreen", method = RequestMethod.GET)
-	public ModelAndView welcome(ModelAndView modelAndView, @ModelAttribute("user") String user, @ModelAttribute("name") String name,@ModelAttribute("quarter") String quarter) 
+	public ModelAndView welcome(ModelAndView modelAndView, @ModelAttribute("user") String user, 
+			@ModelAttribute("name") String name, @ModelAttribute("quarter") String quarter) 
 	{
-		this.user = user;
-		this.name = name;
+		if(null == user || null == name || null == quarter)
+		{
+			modelAndView.setViewName("hello");
+			return modelAndView;
+		}
 		try
 		{
+			this.user = user;
+			this.name = name;
 			Map<String, List<Target>> targetsPerQuarter = new HashMap<>();
 	        List<Target> q1Targets = targetService.getTargetsForUser(user, "Quarter 1");
 	        List<Target> q2Targets = targetService.getTargetsForUser(user, "Quarter 2");
@@ -98,7 +103,7 @@ public class UserController
 		}
 		catch(Exception e)
 		{
-			
+			modelAndView.setViewName("hello");
 		}
 		return modelAndView;
 	}
@@ -106,6 +111,7 @@ public class UserController
 	@RequestMapping(value = "submit", method = RequestMethod.POST, params="add")
 	public ModelAndView submit(HttpServletRequest request, ModelMap model, final RedirectAttributes redirectAttributes) 
 	{
+		ModelAndView modelAndView = new ModelAndView();
 		try
 		{
 			String quarter = request.getParameter("tab");
@@ -142,12 +148,13 @@ public class UserController
 			redirectAttributes.addFlashAttribute("name", name);
 			redirectAttributes.addFlashAttribute("quarter", quarter);
 			model.addAttribute("quarter", quarter);
+			return new ModelAndView("redirect:userscreen");
 		}
 		catch(Exception e)
 		{
-			
+			modelAndView.setViewName("hello");
+			return modelAndView;
 		}
-		return new ModelAndView("redirect:userscreen");
 	}
 
 	private void populateDataForQ1(HttpServletRequest request, List<String> targetDetails) 
@@ -274,58 +281,58 @@ public class UserController
 		try
 		{
 			String quarter = req.getParameter("tab");
+			if(null == quarter)
+				return "hello";
 			
 			List<Target> targets = targetService.getTargetsForUser(user, quarter);
 			ObjectMapper mapper = new ObjectMapper();
 	
-			String jsonInString = "";
-				jsonInString = mapper.writeValueAsString(targets);
-			return jsonInString;
+			return mapper.writeValueAsString(targets);
 		}
 		catch(Exception e)
 		{
-			return "";
+			return "hello";
 		}
 	}
 	
 	/**
      * Handle request to download an Excel document
      */
-    @RequestMapping(value = "/downloadExcel", method = RequestMethod.GET)
-    public @ResponseBody void downloadExcel(HttpServletRequest request, 
-    		HttpServletResponse response) {
+    @RequestMapping(value = "/downloadExcel", method = RequestMethod.POST)
+    public @ResponseBody String downloadExcel(HttpServletRequest request, HttpServletResponse response) 
+    {
     	List<Target> listTargets = new ArrayList<Target>();
-    	try {
+    	try 
+    	{
     		listTargets = targetService.getTargetsForUser(user, "Quarter 1");
-    	} catch (Exception e) {
-    		// TODO Auto-generated catch block
-    		e.printStackTrace();
-    	}
-    	XSSFWorkbook workbook = new XSSFWorkbook();
-    	XSSFSheet sheet = workbook.createSheet();
-    	createHeaderRow(sheet);
-
-    	// create data rows
-    	int rowCount = 1;
-
-    	for (Target target : listTargets) {
-    		XSSFRow aRow = sheet.createRow(rowCount++);
-    		aRow.createCell(0).setCellValue(target.getCategory());
-    		aRow.createCell(1).setCellValue(target.getCompletionPercent());
-    		aRow.createCell(2).setCellValue(target.getLevel());
-    		aRow.createCell(3).setCellValue(target.getTargetName());
-    	}
-    	response.setHeader("Content-disposition","attachment; filename=" + "LearnToGrow_Report.xlsx");
-    	try {
-    		workbook.write(response.getOutputStream());
-    		workbook.close();
-    	} catch (IOException e) {
-    		// TODO Auto-generated catch block
-    		e.printStackTrace();
+	    	XSSFWorkbook workbook = new XSSFWorkbook();
+	    	XSSFSheet sheet = workbook.createSheet();
+	    	createHeaderRow(sheet);
+	
+	    	// create data rows
+	    	int rowCount = 1;
+	
+	    	for (Target target : listTargets) 
+	    	{
+	    		XSSFRow aRow = sheet.createRow(rowCount++);
+	    		aRow.createCell(0).setCellValue(target.getCategory());
+	    		aRow.createCell(1).setCellValue(target.getCompletionPercent());
+	    		aRow.createCell(2).setCellValue(target.getLevel());
+	    		aRow.createCell(3).setCellValue(target.getTargetName());
+	    	}
+	    	response.setHeader("Content-disposition","attachment; filename=" + "LearnToGrow_Report.xlsx");
+	    		workbook.write(response.getOutputStream());
+	    		workbook.close();
+	    	return "redirect:userscreen_admin";
+    	} 
+    	catch (Exception e) 
+    	{
+    		return "hello";
     	}
     }
 
-	private void createHeaderRow(XSSFSheet sheet) {
+	private void createHeaderRow(XSSFSheet sheet) 
+	{
 		CellStyle cellStyle = sheet.getWorkbook().createCellStyle();
 	    Font font = sheet.getWorkbook().createFont();
 //	    font.setBold(true);
@@ -364,4 +371,9 @@ public class UserController
 	    cellRisk.setCellValue("Risk");
 	}
 	
+	@RequestMapping(value = "submit", method = RequestMethod.GET)
+	public String submitGet()
+	{
+		return "hello";
+	}
 }

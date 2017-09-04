@@ -8,12 +8,12 @@ import javax.servlet.http.HttpServletRequest;
 
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 
-import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.siemens.learn.model.Risk;
 import com.siemens.learn.service.DBService;
@@ -33,12 +33,18 @@ public class RiskController
 	}
 	
 	@RequestMapping(value = "/userscreen_admin", method = RequestMethod.GET)
-	public ModelAndView riskInit(ModelAndView model) 
+	public ModelAndView riskInit(ModelAndView model, @ModelAttribute("user") String user) 
 	{
 		try
 		{
+			if(null == user || user.isEmpty())
+			{
+				model.setViewName("hello");
+				return model;
+			}
 			currentRisks = riskService.getAllRisks();
 			model.addObject("risk", currentRisks);
+			model.addObject("user", user);
 			model.setViewName("userscreen_admin");
 			int currentMonth = Calendar.getInstance().get(Calendar.MONTH);
 			if(currentMonth > 9)
@@ -72,7 +78,7 @@ public class RiskController
 		}
 		catch(Exception e)
 		{
-			
+			model.setViewName("hello");
 		}
 		return model;
 	}
@@ -101,23 +107,14 @@ public class RiskController
 					quarters.add(quarter.split(";")[0]);
 			}
 			newRisk = riskService.calculateNewRisk(currentRisks, groupNames, quarters);
+			model.addAttribute("risk", newRisk);
+			ObjectMapper mapper = new ObjectMapper();
+			
+			return mapper.writeValueAsString(newRisk);
 		}
 		catch(Exception e)
 		{
-			
+			return "hello";
 		}
-		model.addAttribute("risk", newRisk);
-		ObjectMapper mapper = new ObjectMapper();
-		
-		String jsonInString = "";
-		try 
-		{
-			jsonInString = mapper.writeValueAsString(newRisk);
-		} 
-		catch (JsonProcessingException e) 
-		{
-			e.printStackTrace();
-		}
-		return jsonInString;
 	}
 }
