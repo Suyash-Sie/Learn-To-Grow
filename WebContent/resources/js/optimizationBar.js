@@ -14,7 +14,7 @@ var OptimizationBar = function() {
 	};
 	let domain = {
 			min: 0,
-			max: 100
+			max: 1
 	};
 	let svgX = 0;
 	let svgY = 0;
