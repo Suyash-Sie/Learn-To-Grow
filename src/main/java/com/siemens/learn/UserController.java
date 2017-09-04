@@ -7,15 +7,7 @@ import java.util.List;
 import java.util.Map;
 
 import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
 
-import org.apache.poi.ss.usermodel.Cell;
-import org.apache.poi.ss.usermodel.CellStyle;
-import org.apache.poi.ss.usermodel.Font;
-import org.apache.poi.ss.usermodel.Row;
-import org.apache.poi.xssf.usermodel.XSSFRow;
-import org.apache.poi.xssf.usermodel.XSSFSheet;
-import org.apache.poi.xssf.usermodel.XSSFWorkbook;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.ui.ModelMap;
@@ -295,85 +287,11 @@ public class UserController
 		}
 	}
 	
-	/**
-     * Handle request to download an Excel document
-     */
-    @RequestMapping(value = "/downloadExcel", method = RequestMethod.POST)
-    public @ResponseBody String downloadExcel(HttpServletRequest request, HttpServletResponse response) 
-    {
-    	List<Target> listTargets = new ArrayList<Target>();
-    	try 
-    	{
-    		listTargets = targetService.getTargetsForUser(user, "Quarter 1");
-	    	XSSFWorkbook workbook = new XSSFWorkbook();
-	    	XSSFSheet sheet = workbook.createSheet();
-	    	createHeaderRow(sheet);
-	
-	    	// create data rows
-	    	int rowCount = 1;
-	
-	    	for (Target target : listTargets) 
-	    	{
-	    		XSSFRow aRow = sheet.createRow(rowCount++);
-	    		aRow.createCell(0).setCellValue(target.getCategory());
-	    		aRow.createCell(1).setCellValue(target.getCompletionPercent());
-	    		aRow.createCell(2).setCellValue(target.getLevel());
-	    		aRow.createCell(3).setCellValue(target.getTargetName());
-	    	}
-	    	response.setHeader("Content-disposition","attachment; filename=" + "LearnToGrow_Report.xlsx");
-	    		workbook.write(response.getOutputStream());
-	    		workbook.close();
-	    	return "redirect:userscreen_admin";
-    	} 
-    	catch (Exception e) 
-    	{
-    		return "hello";
-    	}
-    }
-
-	private void createHeaderRow(XSSFSheet sheet) 
-	{
-		CellStyle cellStyle = sheet.getWorkbook().createCellStyle();
-	    Font font = sheet.getWorkbook().createFont();
-//	    font.setBold(true);
-	    font.setFontHeightInPoints((short) 15);
-	    font.setFontName("Cambria");
-	    cellStyle.setFont(font);
-	    cellStyle.setShrinkToFit(true);
-	 
-	    Row row = sheet.createRow(0);
-	    Cell cellSNo = row.createCell(0);
-	    cellSNo.setCellStyle(cellStyle);
-	    cellSNo.setCellValue("S.No.");
-
-	    Cell cellName = row.createCell(1);
-	    cellName.setCellStyle(cellStyle);
-	    cellName.setCellValue("Name");
-	 
-	    Cell cellGid = row.createCell(2);
-	    cellGid.setCellStyle(cellStyle);
-	    cellGid.setCellValue("GID");
-	 
-	    Cell cellDept = row.createCell(3);
-	    cellDept.setCellStyle(cellStyle);
-	    cellDept.setCellValue("Dept.");
-	    
-	    Cell cellQuarter = row.createCell(4);
-	    cellQuarter.setCellStyle(cellStyle);
-	    cellQuarter.setCellValue("Quarter");
-	    
-	    Cell cellTarget = row.createCell(5);
-	    cellTarget.setCellStyle(cellStyle);
-	    cellTarget.setCellValue("Target");
-	    
-	    Cell cellRisk = row.createCell(6);
-	    cellRisk.setCellStyle(cellStyle);
-	    cellRisk.setCellValue("Risk");
-	}
 	
 	@RequestMapping(value = "submit", method = RequestMethod.GET)
 	public String submitGet()
 	{
 		return "hello";
 	}
+
 }

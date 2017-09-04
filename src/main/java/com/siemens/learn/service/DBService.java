@@ -63,6 +63,25 @@ public class DBService
         System.out.println("GetItem succeeded: ");
         return outcome.getString("name");
     }
+	
+	public List<String> getUsersInGroup(String groupName)
+	{
+		List<String> users = new ArrayList<>();
+        ScanSpec scanSpec = new ScanSpec().withProjectionExpression("#gr, GID").withFilterExpression("#gr = :gname").withNameMap(new NameMap().with("#gr", "group"))
+	            .withValueMap(new ValueMap().withString(":gname", groupName));
+
+        System.out.println("Attempting to read the item...");
+        ItemCollection<ScanOutcome> items = table.scan(scanSpec);
+        Iterator<Item> iter = items.iterator();
+        while (iter.hasNext()) 
+        {
+            Item item = iter.next();
+            users.add(item.getString("GID"));
+        }
+        System.out.println("GetItem succeeded: ");
+        return users;
+    
+	}
 
 	public List<Map<String, String>> getTargets(String gid, String quarter) throws Exception
 	{
@@ -298,6 +317,8 @@ public class DBService
 				System.out.println(entry.getKey() + ": " + entry.getValue());
 			}
 		}
+		
+		System.out.println(dbService.getUsersInGroup("R8"));
 		
 	}
 }
