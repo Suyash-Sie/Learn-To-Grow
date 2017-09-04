@@ -279,7 +279,7 @@ function renderCore() {
 	var optimizationBarV4 = new OptimizationBar();
 	optimizationBarV4.setLeftLabel("HIGH RISK");
 	optimizationBarV4.setRightLabel("LOW RISK");
-	optimizationBarV4.setDomain(0,100);
+	optimizationBarV4.setDomain(100,0);
 	optimizationBarV4.setColors(["rgb(255,0,0)", "rgb(255,194,12)", "rgb(160,215,44)"]);
        
     // To control the layout of opti bar inside riskindicator.
@@ -291,12 +291,12 @@ function renderCore() {
 				completed += Float.parseFloat(target.getCompletionPercent());
 			}%> --%>
 <%--     var i = <%=completed / targets.size()%> --%>
-	var currRisk = <%=request.getAttribute("currentRisk")%>
+	var currRisk = <%=request.getAttribute("currentRisk")%>*100;
 	 try {
-			console.log(currRisk)
-				optimizationBarV4.setSliderPosition(currRisk);
-				 optimizationBarV4.setSliderText(currRisk+"%"); 
-				ri.setBottomText("YOU: "+currRisk);
+			console.log(currRisk.toFixed(2))
+				optimizationBarV4.setSliderPosition(currRisk.toFixed(2));
+				 optimizationBarV4.setSliderText(currRisk.toFixed(2)+"%"); 
+				//ri.setBottomText("YOU: "+currRisk);
 		} catch(err) {
 			optimizationBarV4.setSliderPosition(Number.NaN);
 			console.error(err);
@@ -344,15 +344,15 @@ function insertRow(id, contentId){
      	contentSec.getElementsByClassName('insertRow')[0].disabled = true;
      }
 }
-function validate(value) {
-    //var outputPercentageString = document.getElementById('completionPercent').value;
+/* function validate(value) {
+   //var outputPercentageString = document.getElementById('completionPercent').value;
     var outputPercentage = parseInt(value);
     if (outputPercentage < 0 || outputPercentage > 100) {
         alert("INVALID INPUT. Please enter the correct percentage.");
         return false;
     }
 }
-
+ */
 <%-- function tabChange(current){
 	console.log(current)
 	console.log(current.value)
@@ -414,7 +414,7 @@ function validate(value) {
 												readonly />
 										</div>
 										<div id="completionPercent" class="cell">
-											<input name="completion${count}" type="text" value="${target.completionPercent}" onblur="validate(value)"
+											<input name="completion${count}" type="number" value="${target.completionPercent}" min="0" max="100" required
 												style="text-align: left; height: 35px; width: calc(100% - 3px); background: #ADD8E6; opacity: 0.7;" ${currentQuarter=="Quarter 1" ? '' : 'readonly'}/>
 										</div>
 									</div>
@@ -518,7 +518,7 @@ function validate(value) {
 												readonly />
 										</div>
 										<div id="completionPercent" class="cell" style="width:15%">
-											<input name="completion${count}" type="text" value="${target.completionPercent}" onblur="return(validate(value))"
+											<input name="completion${count}" type="number" value="${target.completionPercent}" min="0" max="100" required
 												style="text-align: left; height: 35px; width: calc(100% - 3px); background: #ADD8E6; opacity: 0.7;" ${currentQuarter=="Quarter 2" ? '' : 'readonly'}/>
 										</div>
 									</div>
@@ -622,8 +622,7 @@ function validate(value) {
 												readonly />
 										</div>
 										<div id="completionPercent" class="cell">
-											<input name="completion${count}" type="text"
-												value="${target.completionPercent}" onblur="validate(value)"
+											<input name="completion${count}" type="number" value="${target.completionPercent}" min="0" max="100" required
 												style="text-align: left; height: 35px; width: calc(100% - 3px); background: #ADD8E6; opacity: 0.7;" ${currentQuarter=="Quarter 3" ? '' : 'readonly'} />
 										</div>
 									</div>
@@ -710,27 +709,26 @@ function validate(value) {
 							<c:forEach var="target" items="${q4}">
 								<div class="dls-comp-tableDataRow">
 									<div class="row" id="myRow">
-										<div id="targetName" class="cell">
+										<div id="targetName" class="cell" style="width:55%">
 											<input name="targetName${count}" type="text"
 												value="${target.targetName}"
 												style="text-align: left; height: 35px; width: calc(100% - 3px); background: #ADD8E6; opacity: 0.7;"
 												readonly />
 										</div>
-										<div id="category" class="cell">
+										<div id="category" class="cell" style="width:18%">
 											<input name="category${count}" type="text"
 												value="${target.category}"
 												style="text-align: left; height: 35px; width: calc(100% - 3px); background: #ADD8E6; opacity: 0.7;"
 												readonly />
 										</div>
-										<div id="level" class="cell">
+										<div id="level" class="cell" style="width:12%">
 											<input name="level${count}" type="text"
 												value="${target.level}"
 												style="text-align: left; height: 35px; width: calc(100% - 3px); background: #ADD8E6; opacity: 0.7;"
 												readonly />
 										</div>
-										<div id="completionPercent" class="cell">
-											<input name="completion${count}" type="text"
-												value="${target.completionPercent}" onblur="validate(value)"
+										<div id="completionPercent" class="cell" style="width:15%">
+											<input name="completion${count}" type="number" value="${target.completionPercent}" min="0" max="100" required
 												style="text-align: left; height: 35px; width: calc(100% - 3px); background: #ADD8E6; opacity: 0.7;" ${currentQuarter=="Quarter 4" ? '' : 'readonly'}/>
 										</div>
 									</div>
