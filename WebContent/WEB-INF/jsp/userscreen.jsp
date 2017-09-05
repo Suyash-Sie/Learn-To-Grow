@@ -291,7 +291,7 @@ function renderCore() {
 				completed += Float.parseFloat(target.getCompletionPercent());
 			}%> --%>
 <%--     var i = <%=completed / targets.size()%> --%>
-	var currRisk = <%=request.getAttribute("currentRisk")%>*100;
+	var currRisk = <%=request.getAttribute("currentRisk")%>;
 	 try {
 			console.log(currRisk.toFixed(2))
 				optimizationBarV4.setSliderPosition(currRisk.toFixed(2));

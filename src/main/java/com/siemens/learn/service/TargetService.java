@@ -68,7 +68,7 @@ public class TargetService
 	private String calculateRisk(List<Map<String, String>> targetsToBeAddded, String quarter) 
 	{
 		float risk = 0;
-		float remaining = 0;
+		float avgRiskForQuarter = 0;
 		for (Map<String, String> map : targetsToBeAddded) 
 		{
 			for (Entry<String, String> entry : map.entrySet()) 
@@ -76,7 +76,7 @@ public class TargetService
 				try
 				{
 					if(entry.getKey().equals("completed"))
-						remaining += 100 - Float.parseFloat(entry.getValue());
+						avgRiskForQuarter += Float.parseFloat(entry.getValue());
 				}
 				catch(NumberFormatException ex)
 				{
@@ -85,41 +85,41 @@ public class TargetService
 			}
 		}
 		
-		remaining /= targetsToBeAddded.size();
-		int noOfDaysLeftInQuarter = calculateDaysLeftInQuarter(quarter);
-		risk = remaining/noOfDaysLeftInQuarter;
-		if(risk > 1)
-			risk = 1;
+		avgRiskForQuarter /= targetsToBeAddded.size();
+		int noOfDaysPassedInQuarter = calculateDaysPassedInQuarter(quarter);
+		risk = 100 - ((avgRiskForQuarter * 90) / noOfDaysPassedInQuarter);
+		if(risk > 100)
+			risk = 100;
 		return String.valueOf(risk);
 	}
 
-	private int calculateDaysLeftInQuarter(String quarter) 
+	private int calculateDaysPassedInQuarter(String quarter) 
 	{
-		int noOfDaysLeftInQuarter = 0;
+		int noOfDaysPassedInQuarter = 0;
 		
 		DateTime currentDay = DateTime.now();
-		DateTime qEnd;
+		DateTime qStart;
 		if(quarter.equals("Quarter 1"))
 		{
-			qEnd = new DateTime(currentDay.getYear()+1, 1, 1, 0, 0, 0);
-			noOfDaysLeftInQuarter = Days.daysBetween(currentDay.toLocalDate(), qEnd.toLocalDate()).getDays();
+			qStart = new DateTime(currentDay.getYear(), 10, 1, 0, 0, 0);
+			noOfDaysPassedInQuarter = Days.daysBetween(qStart.toLocalDate(), currentDay.toLocalDate()).getDays();
 		}
 		else if(quarter.equals("Quarter 2"))
 		{
-			qEnd = new DateTime(currentDay.getYear(), 4, 1, 0, 0, 0);
-			noOfDaysLeftInQuarter = Days.daysBetween(currentDay.toLocalDate(), qEnd.toLocalDate()).getDays();
+			qStart = new DateTime(currentDay.getYear(), 1, 1, 0, 0, 0);
+			noOfDaysPassedInQuarter = Days.daysBetween(qStart.toLocalDate(), currentDay.toLocalDate()).getDays();
 		}
 		else if(quarter.equals("Quarter 3"))
 		{
-			qEnd = new DateTime(currentDay.getYear(), 7, 1, 0, 0, 0);
-			noOfDaysLeftInQuarter = Days.daysBetween(currentDay.toLocalDate(), qEnd.toLocalDate()).getDays();
+			qStart = new DateTime(currentDay.getYear(), 4, 1, 0, 0, 0);
+			noOfDaysPassedInQuarter = Days.daysBetween(qStart.toLocalDate(), currentDay.toLocalDate()).getDays();
 		}
 		else
 		{
-			qEnd = new DateTime(currentDay.getYear(), 10, 1, 0, 0, 0);
-			noOfDaysLeftInQuarter = Days.daysBetween(currentDay.toLocalDate(), qEnd.toLocalDate()).getDays();
+			qStart = new DateTime(currentDay.getYear(), 7, 1, 0, 0, 0);
+			noOfDaysPassedInQuarter = Days.daysBetween(qStart.toLocalDate(), currentDay.toLocalDate()).getDays();
 		}
-		return noOfDaysLeftInQuarter;
+		return noOfDaysPassedInQuarter;
 	}
 
 	public String getRiskForCurrentQuarter(String user, String quarter) throws Exception 
