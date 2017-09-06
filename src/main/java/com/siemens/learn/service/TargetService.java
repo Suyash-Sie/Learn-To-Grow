@@ -116,7 +116,7 @@ public class TargetService
 		}
 		else
 		{
-			qStart = new DateTime(currentDay.getYear(), 9, 6, 0, 0, 0);
+			qStart = new DateTime(currentDay.getYear(), 7, 1, 0, 0, 0);
 			noOfDaysPassedInQuarter = Days.daysBetween(qStart.toLocalDate(), currentDay.toLocalDate()).getDays();
 		}
 		if(noOfDaysPassedInQuarter == 0)
