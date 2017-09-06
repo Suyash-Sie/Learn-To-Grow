@@ -48,7 +48,7 @@ public class HelloController
  		return "hello";
 	}
 
-	@RequestMapping(value = "/login", method = RequestMethod.POST)
+	@RequestMapping(value = "login", method = RequestMethod.POST)
 	public String login(ModelMap model, HttpServletRequest request, final RedirectAttributes redirectAttributes) 
 	{
 		try

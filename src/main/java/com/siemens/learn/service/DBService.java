@@ -280,7 +280,7 @@ public class DBService
 
 	public void updatePassword(String gid, String encodedPassword) throws AmazonDynamoDBException
 	{
-		String updateExpr = "set upassword = :val1, pwdChanged = :val2";
+		String updateExpr = "set password = :val1, pwdChanged = :val2";
 		Map<String, Object> expressionAttributeValues = new HashMap<>();
 		expressionAttributeValues.put(":val1", encodedPassword);
 		expressionAttributeValues.put(":val2", "true");

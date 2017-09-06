@@ -78,7 +78,7 @@ filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#ffffff', end
 <body id="grad1">
   <div class="login">
 	<h1>Login</h1>
-    <form method="post" action="/LearnApp/login">
+    <form method="post" action="login">
     	<input type="text" style="color:black" name="gid" placeholder="Username" required="required" />
         <input type="password" style="color:black" name="password" placeholder="Password" required="required" />
         <button type="submit" class="btn btn-primary btn-block btn-large">Let me in.</button>

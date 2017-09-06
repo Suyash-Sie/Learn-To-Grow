@@ -73,7 +73,7 @@ filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#ffffff', end
 <body id="grad1">
   <div class="login">
 	<h1>You have been successfully logged out!</h1>
-	 <a style="color:blue" href="/LearnApp">Go-Back To Login Page</a>
+	 <a style="color:blue" href="/">Go-Back To Login Page</a>
 </div>
 </body>
 </html>

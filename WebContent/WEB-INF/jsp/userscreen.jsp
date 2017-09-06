@@ -264,7 +264,7 @@ filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#ffffff', end
 }
 </style>
 <body id="grad1">
-<form method="post" action="/LearnApp/logout">
+<form method="post" action="logout">
 <p style="margin-top:5px;margin-left:5px;margin-bottom:0px">Welcome, <%=request.getAttribute("name")%>
 <input type="submit" value="Logout" style="float: right;width:75px;height:25px;margin-top:5px;margin-right:5px" /></p>
 </form>
