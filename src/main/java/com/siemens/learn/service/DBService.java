@@ -9,6 +9,7 @@ import java.util.ListIterator;
 import java.util.Map;
 import java.util.Map.Entry;
 
+import com.amazonaws.ClientConfiguration;
 import com.amazonaws.client.builder.AwsClientBuilder;
 import com.amazonaws.services.dynamodbv2.AmazonDynamoDB;
 import com.amazonaws.services.dynamodbv2.AmazonDynamoDBClientBuilder;
@@ -34,7 +35,8 @@ public class DBService
 	public DBService()
 	{
 		AmazonDynamoDB client = AmazonDynamoDBClientBuilder.standard()
-				.withEndpointConfiguration(new AwsClientBuilder.EndpointConfiguration("http://localhost:8000", "us-west-2"))
+				.withEndpointConfiguration(new AwsClientBuilder.EndpointConfiguration("https://dynamodb.eu-central-1.amazonaws.com", "eu-central-1"))
+				.withClientConfiguration(new ClientConfiguration().withConnectionTimeout(501000).withSocketTimeout(501000))
 				.build();
 		
 		DynamoDB dynamoDB = new DynamoDB(client);
