@@ -88,8 +88,8 @@ public class TargetService
 		avgRiskForQuarter /= targetsToBeAddded.size();
 		int noOfDaysPassedInQuarter = calculateDaysPassedInQuarter(quarter);
 		risk = 100 - ((avgRiskForQuarter * 90) / noOfDaysPassedInQuarter);
-		if(risk > 100)
-			risk = 100;
+		if(risk < 0)
+			risk = 0;
 		return String.valueOf(risk);
 	}
 
@@ -116,9 +116,11 @@ public class TargetService
 		}
 		else
 		{
-			qStart = new DateTime(currentDay.getYear(), 7, 1, 0, 0, 0);
+			qStart = new DateTime(currentDay.getYear(), 9, 6, 0, 0, 0);
 			noOfDaysPassedInQuarter = Days.daysBetween(qStart.toLocalDate(), currentDay.toLocalDate()).getDays();
 		}
+		if(noOfDaysPassedInQuarter == 0)
+			return 1;
 		return noOfDaysPassedInQuarter;
 	}
 
