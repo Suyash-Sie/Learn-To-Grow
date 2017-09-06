@@ -26,6 +26,13 @@
 	width: calc(100% - 24px);
 }
 
+.application-header3 {
+  font-family: "Siemens Sans","Sans Serif";
+  font-size: 14px;
+  fill: rgb(0,0,0);
+  font-weight: bold;
+}
+
 .dls-comp-tableHeader {
 	display: table-header-group;
 	background-color: #39B7CD;
@@ -225,8 +232,10 @@ body {
   background: #e9e9e9;
 }
 .row1.header {
-  font-weight: 900;
-  color: #ffffff;
+  font-family: "Siemens Sans","Sans Serif";
+  font-size: 16px;
+  fill: rgb(0,0,0);
+  font-weight: bold;
   background: #ea6153;
 }
 .row1.green {
@@ -245,6 +254,7 @@ body {
 .cell {
   padding: 6px 12px;
   display: table-cell;
+  vertical-align: middle;
 }
 @media screen and (max-width: 580px) {
   .cell {
@@ -262,11 +272,20 @@ background: -ms-linear-gradient(left, rgba(255,255,255,1) 0%, rgba(237,237,237,1
 background: linear-gradient(to right, rgba(255,255,255,1) 0%, rgba(237,237,237,1) 0%, rgba(246,246,246,1) 47%, rgba(246,246,246,1) 100%);
 filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#ffffff', endColorstr='#f6f6f6', GradientType=1 );
 }
+.btn { display: inline-block; *display: inline; *zoom: 1; padding: 4px 10px 4px; margin-bottom: 0; font-size: 13px; line-height: 18px; color: #333333; text-align: center;text-shadow: 0 1px 1px rgba(255, 255, 255, 0.75); vertical-align: middle; background-color: #f5f5f5; background-image: -moz-linear-gradient(top, #ffffff, #e6e6e6); background-image: -ms-linear-gradient(top, #ffffff, #e6e6e6); background-image: -webkit-gradient(linear, 0 0, 0 100%, from(#ffffff), to(#e6e6e6)); background-image: -webkit-linear-gradient(top, #ffffff, #e6e6e6); background-image: -o-linear-gradient(top, #ffffff, #e6e6e6); background-image: linear-gradient(top, #ffffff, #e6e6e6); background-repeat: repeat-x; filter: progid:dximagetransform.microsoft.gradient(startColorstr=#ffffff, endColorstr=#e6e6e6, GradientType=0); border-color: #e6e6e6 #e6e6e6 #e6e6e6; border-color: rgba(0, 0, 0, 0.1) rgba(0, 0, 0, 0.1) rgba(0, 0, 0, 0.25); border: 1px solid #e6e6e6; -webkit-border-radius: 4px; -moz-border-radius: 4px; border-radius: 4px; -webkit-box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.2), 0 1px 2px rgba(0, 0, 0, 0.05); -moz-box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.2), 0 1px 2px rgba(0, 0, 0, 0.05); box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.2), 0 1px 2px rgba(0, 0, 0, 0.05); cursor: pointer; *margin-left: .3em; }
+.btn:hover, .btn:active, .btn.active, .btn.disabled, .btn[disabled] { background-color: #e6e6e6; }
+.btn-large { font-size: 14px; line-height: normal; -webkit-border-radius: 5px; -moz-border-radius: 5px; border-radius: 5px; }
+.btn:hover { color: #333333; text-decoration: none; background-color: #e6e6e6; background-position: 0 -15px; -webkit-transition: background-position 0.1s linear; -moz-transition: background-position 0.1s linear; -ms-transition: background-position 0.1s linear; -o-transition: background-position 0.1s linear; transition: background-position 0.1s linear; }
+.btn-primary, .btn-primary:hover { text-shadow: 0 -1px 0 rgba(0, 0, 0, 0.25); color: #ffffff; }
+.btn-primary.active { color: rgba(255, 255, 255, 0.75); }
+.btn-primary { background-color: #4a77d4; background-image: -moz-linear-gradient(top, #6eb6de, #4a77d4); background-image: -ms-linear-gradient(top, #6eb6de, #4a77d4); background-image: -webkit-gradient(linear, 0 0, 0 100%, from(#6eb6de), to(#4a77d4)); background-image: -webkit-linear-gradient(top, #6eb6de, #4a77d4); background-image: -o-linear-gradient(top, #6eb6de, #4a77d4); background-image: linear-gradient(top, #6eb6de, #4a77d4); background-repeat: repeat-x; filter: progid:dximagetransform.microsoft.gradient(startColorstr=#6eb6de, endColorstr=#4a77d4, GradientType=0);  border: 1px solid #3762bc; text-shadow: 1px 1px 1px rgba(0,0,0,0.4); box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.2), 0 1px 2px rgba(0, 0, 0, 0.5); }
+.btn-primary:hover, .btn-primary:active, .btn-primary.active, .btn-primary.disabled, .btn-primary[disabled] { filter: none; background-color: #4a77d4; }
+
 </style>
 <body id="grad1">
 <form method="post" action="logout">
 <p style="margin-top:5px;margin-left:5px;margin-bottom:0px">Welcome, <%=request.getAttribute("name")%>
-<input type="submit" value="Logout" style="float: right;width:75px;height:25px;margin-top:5px;margin-right:5px" /></p>
+<input type="submit" class="btn btn-primary btn-large" value="Logout" style="float: right;font-size: 12px;height:25px;margin-top:5px;margin-right:5px" /></p>
 </form>
 	<div style="position: relative; width: 75%; height: 35%; overflow: hidden;" id="js_chart" align="center"></div>
 	<script>
@@ -378,16 +397,16 @@ function insertRow(id, contentId){
 					<div class="table" id="myTable1">
 						<div class="row1 header blue">
 							<div class="cell">
-								<span style='color: black;'>Target</span>
+								<span style='color: white;'>Target</span>
 							</div>
 							<div class="cell">
-								<span style='color: black;'>Category</span>
+								<span style='color: white;'>Category</span>
 							</div>
 							<div class="cell">
-								<span style='color: black;'>Competency Level</span>
+								<span style='color: white;'>Competency Level</span>
 							</div>
 							<div class="cell">
-								<span style='color: black;'>%Completion</span>
+								<span style='color: white;'>%Completion</span>
 							</div>
 						</div>
 						<c:set var="count" value="0" />
@@ -398,24 +417,24 @@ function insertRow(id, contentId){
 										<div id="targetName" class="cell">
 											<input name="targetName${count}" type="text"
 												value="${target.targetName}"
-												style="text-align: left; height: 35px; width: calc(100% - 3px); background: #ADD8E6; opacity: 0.7;"
+												style="text-align: left; height: 35px; width: calc(100% - 3px); background: #ADD8E6; opacity: 0.7;font-weight: bold;font-family: "Siemens Sans","Sans Serif";font-weight:14px"
 												readonly />
 										</div>
 										<div id="category" class="cell">
 											<input name="category${count}" type="text"
 												value="${target.category}"
-												style="text-align: left; height: 35px; width: calc(100% - 3px); background: #ADD8E6; opacity: 0.7;"
+												style="text-align: left; height: 35px; width: calc(100% - 3px); background: #ADD8E6; opacity: 0.7;font-weight: bold;font-family: "Siemens Sans","Sans Serif";font-weight:14px"
 												readonly />
 										</div>
 										<div id="level" class="cell">
 											<input name="level${count}" type="text"
 												value="${target.level}"
-												style="text-align: left; height: 35px; width: calc(100% - 3px); background: #ADD8E6; opacity: 0.7;"
+												style="text-align: left; height: 35px; width: calc(100% - 3px); background: #ADD8E6; opacity: 0.7;font-weight: bold;font-family: "Siemens Sans","Sans Serif";font-weight:14px"
 												readonly />
 										</div>
 										<div id="completionPercent" class="cell">
 											<input name="completion${count}" type="number" value="${target.completionPercent}" min="0" max="100" required
-												style="text-align: left; height: 35px; width: calc(100% - 3px); background: #ADD8E6; opacity: 0.7;" ${currentQuarter=="Quarter 1" ? '' : 'readonly'}/>
+												style="text-align: left; height: 35px; width: calc(100% - 3px); background: #ADD8E6; opacity: 0.7;font-family: "Siemens Sans","Sans Serif";font-weight:14px" ${currentQuarter=="Quarter 1" ? '' : 'readonly'}/>
 										</div>
 									</div>
 								</div>
@@ -426,12 +445,12 @@ function insertRow(id, contentId){
 								<div class="row empty">
 									<div contenteditable="false" id="targetName" style="width:55%"
 										class="cell">
-										<input name="targetName3" type="text" style="height: 35px; width: calc(100% - 3px); background: #ADD8E6; opacity: 0.7;" ${currentQuarter=="Quarter 1" ? '' : 'readonly'}/>
+										<input name="targetName3" type="text" style="height: 35px; width: calc(100% - 3px); background: #ADD8E6; opacity: 0.7;font-weight: bold;font-family: "Siemens Sans","Sans Serif";font-weight:14px" ${currentQuarter=="Quarter 1" ? '' : 'readonly'}/>
 										<span style='margin: 5px; text-align: left'></span>
 									</div>
 									<div contenteditable="false" id="category" style="width:18%"
 										class="cell">
-										<select	style="height: 35px; width: calc(100% - 3px); background: #ADD8E6; opacity: 0.7;"
+										<select	style="height: 35px; width: calc(100% - 3px); background: #ADD8E6; opacity: 0.7;font-weight: bold;font-family: "Siemens Sans","Sans Serif";font-weight:14px"
 											id="Category_list" name="category3" ${currentQuarter=="Quarter 1" ? '' : 'disabled'}>
 											<option value="Tools">Tools</option>
 											<option value="Technology">Technology</option>
@@ -445,7 +464,7 @@ function insertRow(id, contentId){
 										class="cell">
 										<!-- <input style="height:35px; width: calc(100% - 3px);background: #ADD8E6;
 	opacity: 0.7;" id="Level_list" name="level3" type="text" list="Level" /> -->
-										<select	style="height: 35px; width: calc(100% - 3px); background: #ADD8E6; opacity: 0.7;"
+										<select	style="height: 35px; width: calc(100% - 3px); background: #ADD8E6; opacity: 0.7;font-weight: bold;font-family: "Siemens Sans","Sans Serif";font-weight:14px"
 											id="Level_list" name="level3" ${currentQuarter=="Quarter 1" ? '' : 'disabled'}>
 											<option value="Basic">Basic</option>
 											<option value="Intermediate">Intermediate</option>
@@ -455,7 +474,7 @@ function insertRow(id, contentId){
 									<div contenteditable="false" id="completionPercent" style="width:15%"
 										class="cell">
 										<input name="completion3" type="text"
-											style="height: 35px; width: calc(100% - 3px); background: #ADD8E6; opacity: 0.7;"
+											style="height: 35px; width: calc(100% - 3px); background: #ADD8E6; opacity: 0.7;font-weight: bold;font-family: "Siemens Sans","Sans Serif";font-weight:14px"
 											readonly /> <span style='margin: 5px; text-align: left'></span>
 									</div>
 								</div>
@@ -465,15 +484,15 @@ function insertRow(id, contentId){
 				</div>
 				<div style="text-align: center;margin-top: 5px;margin-bottom: 10px">
 				<c:if test="${fn:length(q1)==4}">
-					<button id="btnAdd" style="margin-top: 5px;text-align:center;" type="button"
+					<button class="btn btn-primary btn-large" id="btnAdd" style="margin-right: 5px;text-align:center;" type="button"
 						disabled="disabled">Add New Row</button>
 				</c:if>
 				<c:if test="${fn:length(q1)<4}">
-					<button id="btnAdd" class="insertRow" style="margin-right: 5px;"
+					<button class="btn btn-primary btn-large" id="btnAdd" class="insertRow" style="margin-right: 5px;"
 						type="button" onclick="insertRow('myTable1','content1');"  ${currentQuarter=="Quarter 1" ? '' : 'disabled'}>Add
 						New Row</button>
 				</c:if>
-				<input id="formSubmit" type="submit" name="add"	style="display: inline-block;" value="Submit New Targets" ${currentQuarter=="Quarter 1" ? '' : 'disabled'}/>
+				<input class="btn btn-primary btn-large" id="formSubmit" type="submit" name="add"	style="display: inline-block;" value="Update Targets" ${currentQuarter=="Quarter 1" ? '' : 'disabled'}/>
 			</div>
 			</section>
 			<section id="content2" ${currentQuarter=="Quarter 2" ? '' : 'readonly'}>
@@ -481,16 +500,16 @@ function insertRow(id, contentId){
 					<div class="table" id="myTable2">
 						<div class="row1 header blue">
 							<div class="cell">
-								<span style='color: black;'>Target</span>
+								<span style='color: white;'>Target</span>
 							</div>
 							<div class="cell">
-								<span style='color: black;'>Category</span>
+								<span style='color: white;'>Category</span>
 							</div>
 							<div class="cell">
-								<span style='color: black;'>Competency Level</span>
+								<span style='color: white;'>Competency Level</span>
 							</div>
 							<div class="cell">
-								<span style='color: black;'>%Completion</span>
+								<span style='color: white;'>%Completion</span>
 							</div>
 						</div>
 						<c:set var="count" value="4" />
@@ -502,24 +521,24 @@ function insertRow(id, contentId){
 										<div id="targetName" class="cell" style="width:55%">
 											<input name="targetName${count}" type="text"
 												value="${target.targetName}"
-												style="text-align: left; height: 35px; width: calc(100% - 3px); background: #ADD8E6; opacity: 0.7;"
+												style="text-align: left; height: 35px; width: calc(100% - 3px); background: #ADD8E6; opacity: 0.7;font-weight: bold;font-family: "Siemens Sans","Sans Serif";font-weight:14px"
 												readonly />
 										</div>
 										<div id="category" class="cell" style="width:18%">
 											<input name="category${count}" type="text"
 												value="${target.category}"
-												style="text-align: left; height: 35px; width: calc(100% - 3px); background: #ADD8E6; opacity: 0.7;"
+												style="text-align: left; height: 35px; width: calc(100% - 3px); background: #ADD8E6; opacity: 0.7;font-weight: bold;font-family: "Siemens Sans","Sans Serif";font-weight:14px"
 												readonly />
 										</div>
 										<div id="level" class="cell" style="width:12%">
 											<input name="level${count}" type="text"
 												value="${target.level}"
-												style="text-align: left; height: 35px; width: calc(100% - 3px); background: #ADD8E6; opacity: 0.7;"
+												style="text-align: left; height: 35px; width: calc(100% - 3px); background: #ADD8E6; opacity: 0.7;font-weight: bold;font-family: "Siemens Sans","Sans Serif";font-weight:14px"
 												readonly />
 										</div>
 										<div id="completionPercent" class="cell" style="width:15%">
 											<input name="completion${count}" type="number" value="${target.completionPercent}" min="0" max="100" required
-												style="text-align: left; height: 35px; width: calc(100% - 3px); background: #ADD8E6; opacity: 0.7;" ${currentQuarter=="Quarter 2" ? '' : 'readonly'}/>
+												style="text-align: left; height: 35px; width: calc(100% - 3px); background: #ADD8E6; opacity: 0.7;font-weight: bold;font-family: "Siemens Sans","Sans Serif";font-weight:14px;" ${currentQuarter=="Quarter 2" ? '' : 'readonly'}/>
 										</div>
 									</div>
 								</div>
@@ -531,12 +550,12 @@ function insertRow(id, contentId){
 								<div class="row empty">
 									<div contenteditable="false" id="targetName" class="cell" style="width:55%">
 										<input name="targetName7" type="text"
-											style="height: 35px; width: calc(100% - 3px); background: #ADD8E6; opacity: 0.7;" ${currentQuarter=="Quarter 2" ? '' : 'readonly'}/>
+											style="height: 35px; width: calc(100% - 3px); background: #ADD8E6; opacity: 0.7;font-weight: bold;font-family: "Siemens Sans","Sans Serif";font-weight:14px" ${currentQuarter=="Quarter 2" ? '' : 'readonly'}/>
 										<span style='margin: 5px; text-align: left'></span>
 									</div>
 									<div contenteditable="false" id="category" class="cell" style="width:18%">
 										<select
-											style="height: 35px; width: calc(100% - 3px); background: #ADD8E6; opacity: 0.7;"
+											style="height: 35px; width: calc(100% - 3px); background: #ADD8E6; opacity: 0.7;font-weight: bold;font-family: "Siemens Sans","Sans Serif";font-weight:14px"
 											id="Category_list" name="category7" ${currentQuarter=="Quarter 2" ? '' : 'disabled'}>
 											<option value="Tools">Tools</option>
 											<option value="Technology">Technology</option>
@@ -550,7 +569,7 @@ function insertRow(id, contentId){
 										<!-- <input style="height:35px; width: calc(100% - 3px);background: #ADD8E6;
 	opacity: 0.7;" id="Level_list" name="level3" type="text" list="Level" /> -->
 										<select
-											style="height: 35px; width: calc(100% - 3px); background: #ADD8E6; opacity: 0.7;"
+											style="height: 35px; width: calc(100% - 3px); background: #ADD8E6; opacity: 0.7;font-weight: bold;font-family: "Siemens Sans","Sans Serif";font-weight:14px"
 											id="Level_list" name="level7" ${currentQuarter=="Quarter 2" ? '' : 'disabled'}>
 											<option value="Basic">Basic</option>
 											<option value="Intermediate">Intermediate</option>
@@ -559,7 +578,7 @@ function insertRow(id, contentId){
 									</div>
 									<div contenteditable="false" id="completionPercent" style="width:15%" class="cell">
 										<input name="completion7" type="text"
-											style="height: 35px; width: calc(100% - 3px); background: #ADD8E6; opacity: 0.7;"
+											style="height: 35px; width: calc(100% - 3px); background: #ADD8E6; opacity: 0.7;font-weight: boldfont-family: "Siemens Sans","Sans Serif";font-weight:14px"
 											disabled /> <span style='margin: 5px; text-align: left'></span>
 									</div>
 								</div>
@@ -569,15 +588,15 @@ function insertRow(id, contentId){
 				</div>
 				<div style="text-align: center;margin-top: 5px;margin-bottom: 10px">
 				<c:if test="${fn:length(q2)==4}">
-					<button id="btnAdd" style="margin-right: 5px" type="button"
+					<button class="btn btn-primary btn-large" id="btnAdd" style="margin-right: 5px" type="button"
 						disabled="disabled">Add New Row</button>
 				</c:if>
 				<c:if test="${fn:length(q2)<4}">
-					<button id="btnAdd" class="insertRow" style="margin-right: 5px"
+					<button class="btn btn-primary btn-large" id="btnAdd" class="insertRow" style="margin-right: 5px"
 						type="button" onclick="insertRow('myTable2','content2');"  ${currentQuarter=="Quarter 2" ? '' : 'disabled'}>Add
 						New Row</button>
 				</c:if>
-				<input id="formSubmit" type="submit" name="add"	style="display: inline-block;"value="Submit New Targets" ${currentQuarter=="Quarter 2" ? '' : 'disabled'}/>
+				<input class="btn btn-primary btn-large" id="formSubmit" type="submit" name="add"	style="display: inline-block;"value="Update Targets" ${currentQuarter=="Quarter 2" ? '' : 'disabled'}/>
 			</div>
 			</section>
 			<section id="content3" ${currentQuarter=="Quarter 3" ? '' : 'readonly'}>
@@ -585,16 +604,16 @@ function insertRow(id, contentId){
 					<div class="table" id="myTable3">
 						<div class="row1 header blue">
 							<div class="cell">
-								<span style='color: black;'>Target</span>
+								<span style='color: white;'>Target</span>
 							</div>
 							<div class="cell">
-								<span style='color: black;'>Category</span>
+								<span style='color: white;'>Category</span>
 							</div>
 							<div class="cell">
-								<span style='color: black;'>Competency Level</span>
+								<span style='color: white;'>Competency Level</span>
 							</div>
 							<div class="cell">
-								<span style='color: black;'>%Completion</span>
+								<span style='color: white;'>%Completion</span>
 							</div>
 						</div>
 						<c:set var="count" value="8" />
@@ -606,24 +625,24 @@ function insertRow(id, contentId){
 										<div id="targetName" class="cell">
 											<input name="targetName${count}" type="text"
 												value="${target.targetName}"
-												style="text-align: left; height: 35px; width: calc(100% - 3px); background: #ADD8E6; opacity: 0.7;"
+												style="text-align: left; height: 35px; width: calc(100% - 3px); background: #ADD8E6; opacity: 0.7;font-weight: bold;font-family: "Siemens Sans","Sans Serif";font-weight:14px"
 												readonly />
 										</div>
 										<div id="category" class="cell">
 											<input name="category${count}" type="text"
 												value="${target.category}"
-												style="text-align: left; height: 35px; width: calc(100% - 3px); background: #ADD8E6; opacity: 0.7;"
+												style="text-align: left; height: 35px; width: calc(100% - 3px); background: #ADD8E6; opacity: 0.7;font-weight: bold;font-family: "Siemens Sans","Sans Serif";font-weight:14px"
 												readonly />
 										</div>
 										<div id="level" class="cell">
 											<input name="level${count}" type="text"
 												value="${target.level}"
-												style="text-align: left; height: 35px; width: calc(100% - 3px); background: #ADD8E6; opacity: 0.7;"
+												style="text-align: left; height: 35px; width: calc(100% - 3px); background: #ADD8E6; opacity: 0.7;font-weight: bold;font-family: "Siemens Sans","Sans Serif";font-weight:14px"
 												readonly />
 										</div>
 										<div id="completionPercent" class="cell">
 											<input name="completion${count}" type="number" value="${target.completionPercent}" min="0" max="100" required
-												style="text-align: left; height: 35px; width: calc(100% - 3px); background: #ADD8E6; opacity: 0.7;" ${currentQuarter=="Quarter 3" ? '' : 'readonly'} />
+												style="text-align: left; height: 35px; width: calc(100% - 3px); background: #ADD8E6; opacity: 0.7;font-weight: bold;font-family: "Siemens Sans","Sans Serif";font-weight:14px" ${currentQuarter=="Quarter 3" ? '' : 'readonly'} />
 										</div>
 									</div>
 								</div>
@@ -635,13 +654,13 @@ function insertRow(id, contentId){
 									<div contenteditable="false" id="targetName" style="width:55%"
 										class="cell">
 										<input name="targetName11" type="text"
-											style="height: 35px; width: calc(100% - 3px); background: #ADD8E6; opacity: 0.7;" ${currentQuarter=="Quarter 3" ? '' : 'readonly'}/>
+											style="height: 35px; width: calc(100% - 3px); background: #ADD8E6; opacity: 0.7;font-weight: bold;font-family: "Siemens Sans","Sans Serif";font-weight:14px" ${currentQuarter=="Quarter 3" ? '' : 'readonly'}/>
 										<span style='margin: 5px; text-align: left'></span>
 									</div>
 									<div contenteditable="false" id="category" style="width:18%"
 										class="cell">
 										<select
-											style="height: 35px; width: calc(100% - 3px); background: #ADD8E6; opacity: 0.7;"
+											style="height: 35px; width: calc(100% - 3px); background: #ADD8E6; opacity: 0.7;font-weight: bold;font-family: "Siemens Sans","Sans Serif";font-weight:14px"
 											id="Category_list" name="category11" ${currentQuarter=="Quarter 3" ? '' : 'disabled'}>
 											<option value="Tools">Tools</option>
 											<option value="Technology">Technology</option>
@@ -656,7 +675,7 @@ function insertRow(id, contentId){
 										<!-- <input style="height:35px; width: calc(100% - 3px);background: #ADD8E6;
 	opacity: 0.7;" id="Level_list" name="level3" type="text" list="Level" /> -->
 										<select
-											style="height: 35px; width: calc(100% - 3px); background: #ADD8E6; opacity: 0.7;"
+											style="height: 35px; width: calc(100% - 3px); background: #ADD8E6; opacity: 0.7;font-weight: bold;font-family: "Siemens Sans","Sans Serif";font-weight:14px"
 											id="Level_list" name="level11" ${currentQuarter=="Quarter 3" ? '' : 'disabled'}>
 											<option value="Basic">Basic</option>
 											<option value="Intermediate">Intermediate</option>
@@ -666,7 +685,7 @@ function insertRow(id, contentId){
 									<div contenteditable="false" id="completionPercent" style="width:15%"
 										class="cell">
 										<input name="completion11" type="text"
-											style="height: 35px; width: calc(100% - 3px); background: #ADD8E6; opacity: 0.7;"
+											style="height: 35px; width: calc(100% - 3px); background: #ADD8E6; opacity: 0.7;font-weight: bold;font-family: "Siemens Sans","Sans Serif";font-weight:14px"
 											disabled /> <span style='margin: 5px; text-align: left'></span>
 									</div>
 								</div>
@@ -676,15 +695,15 @@ function insertRow(id, contentId){
 				</div>
 				<div style="text-align: center;margin-top: 5px;margin-bottom: 10px">
 				<c:if test="${fn:length(q3)==4}">
-					<button id="btnAdd" style="margin-top: 5px;margin-right: 5px" type="button"
+					<button class="btn btn-primary btn-large" id="btnAdd" style="margin-right: 5px" type="button"
 						disabled="disabled">Add New Row</button>
 				</c:if>
 				<c:if test="${fn:length(q3)<4}">
-					<button id="btnAdd" class="insertRow" style="margin-top: 5px;margin-right: 5px"
+					<button class="btn btn-primary btn-large" id="btnAdd" class="insertRow" style="margin-right: 5px"
 						type="button" onclick="insertRow('myTable3', 'content3');" ${currentQuarter=="Quarter 3" ? '' : 'disabled'}>Add
 						New Row</button>
 				</c:if>
-				<input id="formSubmit" type="submit" name="add"	style="display: inline-block;" value="Submit New Targets" ${currentQuarter=="Quarter 3" ? '' : 'disabled'}/>
+				<input class="btn btn-primary btn-large" id="formSubmit" type="submit" name="add"	style="display: inline-block;" value="Update Targets" ${currentQuarter=="Quarter 3" ? '' : 'disabled'}/>
 			</div>
 			</section>
 			<section id="content4" ${currentQuarter=="Quarter 4" ? '' : 'readonly'}>
@@ -692,16 +711,16 @@ function insertRow(id, contentId){
 					<div class="table" id="myTable4">
 						<div class="row1 header blue">
 							<div class="cell">
-								<span style='color: black;'>Target</span>
+								<span style='color: white;'>Target</span>
 							</div>
 							<div class="cell">
-								<span style='color: black;'>Category</span>
+								<span style='color: white;'>Category</span>
 							</div>
 							<div class="cell">
-								<span style='color: black;'>Competency Level</span>
+								<span style='color: white;'>Competency Level</span>
 							</div>
 							<div class="cell">
-								<span style='color: black;'>%Completion</span>
+								<span style='color: white;'>%Completion</span>
 							</div>
 						</div>
 						<c:set var="count" value="12" />
@@ -712,24 +731,24 @@ function insertRow(id, contentId){
 										<div id="targetName" class="cell" style="width:55%">
 											<input name="targetName${count}" type="text"
 												value="${target.targetName}"
-												style="text-align: left; height: 35px; width: calc(100% - 3px); background: #ADD8E6; opacity: 0.7;"
+												style="text-align: left; height: 35px; width: calc(100% - 3px); background: #ADD8E6; opacity: 0.7;font-weight: bold;font-family: "Siemens Sans","Sans Serif";font-weight:14px"
 												readonly />
 										</div>
 										<div id="category" class="cell" style="width:18%">
 											<input name="category${count}" type="text"
 												value="${target.category}"
-												style="text-align: left; height: 35px; width: calc(100% - 3px); background: #ADD8E6; opacity: 0.7;"
+												style="text-align: left; height: 35px; width: calc(100% - 3px); background: #ADD8E6; opacity: 0.7;font-weight: bold;font-family: "Siemens Sans","Sans Serif";font-weight:14px"
 												readonly />
 										</div>
 										<div id="level" class="cell" style="width:12%">
 											<input name="level${count}" type="text"
 												value="${target.level}"
-												style="text-align: left; height: 35px; width: calc(100% - 3px); background: #ADD8E6; opacity: 0.7;"
+												style="text-align: left; height: 35px; width: calc(100% - 3px); background: #ADD8E6; opacity: 0.7;font-weight: bold;font-family: "Siemens Sans","Sans Serif";font-weight:14px"
 												readonly />
 										</div>
 										<div id="completionPercent" class="cell" style="width:15%">
 											<input name="completion${count}" type="number" value="${target.completionPercent}" min="0" max="100" required
-												style="text-align: left; height: 35px; width: calc(100% - 3px); background: #ADD8E6; opacity: 0.7;" ${currentQuarter=="Quarter 4" ? '' : 'readonly'}/>
+												style="text-align: left; height: 35px; width: calc(100% - 3px); background: #ADD8E6; opacity: 0.7;font-weight: bold;font-family: "Siemens Sans","Sans Serif";font-weight:14px" ${currentQuarter=="Quarter 4" ? '' : 'readonly'}/>
 										</div>
 									</div>
 								</div>
@@ -742,13 +761,13 @@ function insertRow(id, contentId){
 									<div contenteditable="false" id="targetName" style="width:55%"
 										class="cell">
 										<input name="targetName15" type="text"
-											style="height: 35px; width: calc(100% - 3px); background: #ADD8E6; opacity: 0.7;" ${currentQuarter=="Quarter 4" ? '' : 'readonly'} />
+											style="height: 35px; width: calc(100% - 3px); background: #ADD8E6; opacity: 0.7;font-weight: bold;font-family: "Siemens Sans","Sans Serif";font-weight:14px" ${currentQuarter=="Quarter 4" ? '' : 'readonly'} />
 										<span style='margin: 5px; text-align: left'></span>
 									</div>
 									<div contenteditable="false" id="category" style="width:18%"
 										class="cell">
 										<select
-											style="height: 35px; width: calc(100% - 3px); background: #ADD8E6; opacity: 0.7;"
+											style="height: 35px; width: calc(100% - 3px); background: #ADD8E6; opacity: 0.7;font-weight: bold;font-family: "Siemens Sans","Sans Serif";font-weight:14px"
 											id="Category_list" name="category15" ${currentQuarter=="Quarter 4" ? '' : 'disabled'}>
 											<option value="Tools">Tools</option>
 											<option value="Technology">Technology</option>
@@ -763,7 +782,7 @@ function insertRow(id, contentId){
 										<!-- <input style="height:35px; width: calc(100% - 3px);background: #ADD8E6;
 	opacity: 0.7;" id="Level_list" name="level3" type="text" list="Level" /> -->
 										<select
-											style="height: 35px; width: calc(100% - 3px); background: #ADD8E6; opacity: 0.7;"
+											style="height: 35px; width: calc(100% - 3px); background: #ADD8E6; opacity: 0.7;font-weight: bold;font-family: "Siemens Sans","Sans Serif";font-weight:14px"
 											id="Level_list" name="level15" ${currentQuarter=="Quarter 4" ? '' : 'disabled'}>
 											<option value="Basic">Basic</option>
 											<option value="Intermediate">Intermediate</option>
@@ -773,7 +792,7 @@ function insertRow(id, contentId){
 									<div contenteditable="false" id="completionPercent" style="width:15%"
 										class="cell">
 										<input name="completion15" type="text"
-											style="height: 35px; width: calc(100% - 3px); background: #ADD8E6; opacity: 0.7;"
+											style="height: 35px; width: calc(100% - 3px); background: #ADD8E6; opacity: 0.7;font-weight: bold;font-family: "Siemens Sans","Sans Serif";font-weight:14px"
 											disabled /> <span style='margin: 5px; text-align: left'></span>
 									</div>
 								</div>
@@ -783,15 +802,15 @@ function insertRow(id, contentId){
 				</div>
 				<div style="text-align: center;margin-top: 5px;margin-bottom: 10px">
 				<c:if test="${fn:length(q4)==4}">
-					<button id="btnAdd" style="margin-top: 5px;margin-right: 5px" type="button"
+					<button class="btn btn-primary btn-large" id="btnAdd" style="margin-right: 5px;display: inline-block;" type="button"
 						disabled="disabled">Add New Row</button>
 				</c:if>
 				<c:if test="${fn:length(q4)<4}">
-					<button id="btnAdd" class="insertRow" style="margin-top: 5px; margin-right: 5px"
+					<button class="btn btn-primary btn-large" id="btnAdd" class="insertRow" style="margin-right: 5px"
 						type="button" onclick="insertRow('myTable4', 'content4');" ${currentQuarter=="Quarter 4" ? '' : 'disabled'}>Add
 						New Row</button>
 				</c:if>
-				<input id="formSubmit" type="submit" name="add" style="display: inline-block;" value="Submit New Targets" ${currentQuarter=="Quarter 4" ? '' : 'disabled'}/>
+				<input id="formSubmit" class="btn btn-primary btn-large" type="submit" name="add" style="display: inline-block;" value="Update Targets" ${currentQuarter=="Quarter 4" ? '' : 'disabled'}/>
 			</div>
 			</section>
 			</main>
