@@ -1,5 +1,6 @@
 package com.siemens.learn;
 
+import java.awt.Color;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -11,8 +12,11 @@ import javax.servlet.http.HttpServletResponse;
 
 import org.apache.poi.ss.usermodel.Cell;
 import org.apache.poi.ss.usermodel.CellStyle;
+import org.apache.poi.ss.usermodel.FillPatternType;
 import org.apache.poi.ss.usermodel.Font;
 import org.apache.poi.ss.usermodel.Row;
+import org.apache.poi.xssf.usermodel.XSSFCellStyle;
+import org.apache.poi.xssf.usermodel.XSSFColor;
 import org.apache.poi.xssf.usermodel.XSSFRow;
 import org.apache.poi.xssf.usermodel.XSSFSheet;
 import org.apache.poi.xssf.usermodel.XSSFWorkbook;
@@ -184,7 +188,16 @@ public class RiskController
 						aRow.createCell(6).setCellValue(target.getCategory());
 						aRow.createCell(7).setCellValue(target.getLevel());
 						aRow.createCell(8).setCellValue(target.getCompletionPercent());
-						aRow.createCell(9).setCellValue(dbService.getRiskForQuarter(user, quarter));
+						float riskForQuarter = Float.parseFloat(dbService.getRiskForQuarter(user, quarter));
+						Color foregroundColor = new Color(255,0,0);
+						if(riskForQuarter <= 100/3F)
+							foregroundColor = new Color(160,215,44);
+						else if(riskForQuarter <= 200/3F)
+							foregroundColor = new Color(255,194,12);
+						XSSFCellStyle cellStyle = workbook.createCellStyle();
+						cellStyle.setFillForegroundColor(new XSSFColor(foregroundColor));
+						cellStyle.setFillPattern(FillPatternType.SOLID_FOREGROUND);
+						aRow.createCell(9).setCellStyle(cellStyle);
 					}
 				}
 			}
