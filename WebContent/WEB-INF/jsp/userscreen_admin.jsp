@@ -16,6 +16,14 @@ background: -ms-linear-gradient(left, rgba(255,255,255,1) 0%, rgba(237,237,237,1
 background: linear-gradient(to right, rgba(255,255,255,1) 0%, rgba(237,237,237,1) 0%, rgba(246,246,246,1) 47%, rgba(246,246,246,1) 100%);
 filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#ffffff', endColorstr='#f6f6f6', GradientType=1 );
 }
+.btn { display: inline-block; *display: inline; *zoom: 1; padding: 4px 10px 4px; margin-bottom: 0; font-size: 13px; line-height: 18px; color: #333333; text-align: center;text-shadow: 0 1px 1px rgba(255, 255, 255, 0.75); vertical-align: middle; background-color: #f5f5f5; background-image: -moz-linear-gradient(top, #ffffff, #e6e6e6); background-image: -ms-linear-gradient(top, #ffffff, #e6e6e6); background-image: -webkit-gradient(linear, 0 0, 0 100%, from(#ffffff), to(#e6e6e6)); background-image: -webkit-linear-gradient(top, #ffffff, #e6e6e6); background-image: -o-linear-gradient(top, #ffffff, #e6e6e6); background-image: linear-gradient(top, #ffffff, #e6e6e6); background-repeat: repeat-x; filter: progid:dximagetransform.microsoft.gradient(startColorstr=#ffffff, endColorstr=#e6e6e6, GradientType=0); border-color: #e6e6e6 #e6e6e6 #e6e6e6; border-color: rgba(0, 0, 0, 0.1) rgba(0, 0, 0, 0.1) rgba(0, 0, 0, 0.25); border: 1px solid #e6e6e6; -webkit-border-radius: 4px; -moz-border-radius: 4px; border-radius: 4px; -webkit-box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.2), 0 1px 2px rgba(0, 0, 0, 0.05); -moz-box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.2), 0 1px 2px rgba(0, 0, 0, 0.05); box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.2), 0 1px 2px rgba(0, 0, 0, 0.05); cursor: pointer; *margin-left: .3em; }
+.btn:hover, .btn:active, .btn.active, .btn.disabled, .btn[disabled] { background-color: #e6e6e6; }
+.btn-large { font-size: 14px; line-height: normal; -webkit-border-radius: 5px; -moz-border-radius: 5px; border-radius: 5px; }
+.btn:hover { color: #333333; text-decoration: none; background-color: #e6e6e6; background-position: 0 -15px; -webkit-transition: background-position 0.1s linear; -moz-transition: background-position 0.1s linear; -ms-transition: background-position 0.1s linear; -o-transition: background-position 0.1s linear; transition: background-position 0.1s linear; }
+.btn-primary, .btn-primary:hover { text-shadow: 0 -1px 0 rgba(0, 0, 0, 0.25); color: #ffffff; }
+.btn-primary.active { color: rgba(255, 255, 255, 0.75); }
+.btn-primary { background-color: #4a77d4; background-image: -moz-linear-gradient(top, #6eb6de, #4a77d4); background-image: -ms-linear-gradient(top, #6eb6de, #4a77d4); background-image: -webkit-gradient(linear, 0 0, 0 100%, from(#6eb6de), to(#4a77d4)); background-image: -webkit-linear-gradient(top, #6eb6de, #4a77d4); background-image: -o-linear-gradient(top, #6eb6de, #4a77d4); background-image: linear-gradient(top, #6eb6de, #4a77d4); background-repeat: repeat-x; filter: progid:dximagetransform.microsoft.gradient(startColorstr=#6eb6de, endColorstr=#4a77d4, GradientType=0);  border: 1px solid #3762bc; text-shadow: 1px 1px 1px rgba(0,0,0,0.4); box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.2), 0 1px 2px rgba(0, 0, 0, 0.5); }
+.btn-primary:hover, .btn-primary:active, .btn-primary.active, .btn-primary.disabled, .btn-primary[disabled] { filter: none; background-color: #4a77d4; }
 </style>
 <script src="https://d3js.org/d3.v4.min.js"></script>
 <script type="text/javascript" src="<c:url value="/resources/js/optimizationBar.js" />">
@@ -146,7 +154,7 @@ var checkClicked = function()
 </div>
 <div style="float: right; width: calc(25% - 1px); height: 25%; position: relative; border-left:1px solid black; border-bottom:1px solid black;">
 <form method="post" action="logout">
-<input type="submit" value="Logout" style="float: right;width:75px;height:25px" />
+<input type="submit" class="btn btn-primary btn-large" value="Logout" style="float: right;font-size: 12px;height:25px" />
 </form>
 <form action="">
 <div style="float:left; position: relative;margin-left:10px;margin-right: 10px">
@@ -169,25 +177,25 @@ var checkClicked = function()
 </form>
 </div>
 <div style="float: left; width: 75%; height: 75%; position: relative;">
-	<div style="float: left; position: relative; width: 48%; height: 24%; overflow: hidden;margin:2px;padding:2px"
+	<div style="float: left; position: relative; width: 48%; height: 23%; overflow: hidden;margin:2px;padding:2px"
 		id="userAdmin_riskIndicator1">
 	</div>
-	<div style="float: right; position: relative; width: 48%; height: 24%; overflow: hidden;margin:2px;padding:2px"
+	<div style="float: right; position: relative; width: 48%; height: 23%; overflow: hidden;margin:2px;padding:2px"
 		id="userAdmin_riskIndicator2">
 	</div>
-	<div style="float: left; position: relative; width: 48%; height: 24%; overflow: hidden;margin:2px;padding:2px"
+	<div style="float: left; position: relative; width: 48%; height: 23%; overflow: hidden;margin:2px;padding:2px"
 		id="userAdmin_riskIndicator3">
 	</div>
-	<div style="float: right; position: relative; width: 48%; height: 24%; overflow: hidden;margin:2px;padding:2px"
+	<div style="float: right; position: relative; width: 48%; height: 23%; overflow: hidden;margin:2px;padding:2px"
 		id="userAdmin_riskIndicator4">
 	</div>
-	<div style="float: left; position: relative; width: 48%; height: 24%; overflow: hidden;margin:2px;padding:2px"
+	<div style="float: left; position: relative; width: 48%; height: 23%; overflow: hidden;margin:2px;padding:2px"
 		id="userAdmin_riskIndicator5">
 	</div>
-	<div style="float: right; position: relative; width: 48%; height: 24%; overflow: hidden;margin:2px;padding:2px"
+	<div style="float: right; position: relative; width: 48%; height: 23%; overflow: hidden;margin:2px;padding:2px"
 		id="userAdmin_riskIndicator6">
 	</div>
-	<div style="float: left; position: relative; width: 48%; height: 24%; overflow: hidden;margin:2px;padding:2px"
+	<div style="float: left; position: relative; width: 48%; height: 23%; overflow: hidden;margin:2px;padding:2px"
 		id="userAdmin_riskIndicator7">
 	</div>
 </div>

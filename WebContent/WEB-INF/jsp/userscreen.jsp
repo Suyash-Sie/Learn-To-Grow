@@ -15,42 +15,11 @@
 	src="<c:url value="/resources/js/optimizationBar.js" />"></script>
 <script type="text/javascript"
 	src="<c:url value="/resources/js/jQuery.js" />"></script>
-<script type="text/javascript"
-	src="<c:url value="/resources/js/angular.min.js" />"></script>
 </head>
 <style>
-.dls-comp-table {
-	display: table;
-	cursor: default;
-	margin: 12px 12px 0px 12px;
-	width: calc(100% - 24px);
-}
-
-.application-header3 {
-  font-family: "Siemens Sans","Sans Serif";
-  font-size: 14px;
-  fill: rgb(0,0,0);
-  font-weight: bold;
-}
-
-.dls-comp-tableHeader {
-	display: table-header-group;
-	background-color: #39B7CD;
-}
-
-.dls-comp-tableHeaderCell {
-	display: table-cell;
-	width: 5%;
-	border-right: 1px solid #d4d4e2;
-	height: 35px;
-	vertical-align: middle;
-	font-weight: bold;
-}
-
 .dls-comp-tableDataRow {
 	display: table-row-group;
 }
-
 .dls-comp-tableDataCell {
 	display: table-cell;
 	vertical-align: middle;
@@ -62,57 +31,11 @@
 	max-width: 20px;
 	white-space: nowrap;
 }
-
-.dls-comp-table-row {
-	display: table-row;
-	vertical-align: top;
-	height: 35px;
-}
-
-.obs-comp-table {
-	display: table;
-	width: 100%;
-	cursor: default;
-}
-
-body {
-	font-family: "Lato", sans-serif;
-}
-
-@import
-	url('https://fonts.googleapis.com/css?family=Open+Sans:400,600,700');
-
-@import
-	url('https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css')
-	;
-
 *, *:before, *:after {
 	margin: 0;
 	padding: 0;
 	box-sizing: border-box;
 }
-
-html, body {
-	height: 100vh;
-}
-
-body {
-	font: 14px/1 'Open Sans', sans-serif;
-	color: #555;
-	background: #eee;
-}
-
-h1 {
-	padding: 50px 0;
-	font-weight: 400;
-	text-align: center;
-}
-
-p {
-	margin: 0 0 20px;
-	line-height: 1.5;
-}
-
 main {
 	width: 75%;
 	padding: 0px;
@@ -284,10 +207,10 @@ filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#ffffff', end
 </style>
 <body id="grad1">
 <form method="post" action="logout">
-<p style="margin-top:5px;margin-left:5px;margin-bottom:0px">Welcome, <%=request.getAttribute("name")%>
-<input type="submit" class="btn btn-primary btn-large" value="Logout" style="float: right;font-size: 12px;height:25px;margin-top:5px;margin-right:5px" /></p>
+<span style="margin-bottom:0px">Welcome, <%=request.getAttribute("name")%></span>
+<input type="submit" class="btn btn-primary btn-large" value="Logout" style="float: right;font-size: 12px;height:25px;margin-top:5px;margin-right:5px" />
 </form>
-	<div style="position: relative; width: 75%; height: 35%; overflow: hidden;" id="js_chart" align="center"></div>
+	<div style="position: relative; width: 75%; height: 31%; overflow: hidden;" id="js_chart" align="center"></div>
 	<script>
 renderCore();
 function renderCore() {
@@ -304,12 +227,6 @@ function renderCore() {
     // To control the layout of opti bar inside riskindicator.
     //optimizationBarV4.setMargin(0,0,0,0);
     var test = {};
-  <%--   <%List<Target> targets = ((List<Target>) request.getAttribute("targets"));
-			float completed = 0;
-			for (Target target : targets) {
-				completed += Float.parseFloat(target.getCompletionPercent());
-			}%> --%>
-<%--     var i = <%=completed / targets.size()%> --%>
 	var currRisk = <%=request.getAttribute("currentRisk")%>;
 	 try {
 			console.log(currRisk.toFixed(2))
@@ -325,18 +242,6 @@ function renderCore() {
 	    //Draws the risk indicator
 		ri.renderChart(optimizationBarV4,"js_chart");
 }
-
-<%-- function deleteRow(){
-	<%
-    String quarter = request.;
-    float completed = 0;
-    for(Target target: targets)
-    {
-    	completed+=Float.parseFloat(target.getCompletionPercent());
-    }
-    %>
-} --%>
-
 function insertRow(id, contentId){
 	var table = document.getElementById(id);
 	var row = table.getElementsByClassName("row");
@@ -354,8 +259,6 @@ function insertRow(id, contentId){
 			var row1 = $("#myTable4 .dls-comp-tableDataRow:last").clone(true).find('input:first').val('').end().insertAfter("#myTable4 .dls-comp-tableDataRow:last");
 		i++;
 		row1.id = "myRow" + i; // there can only be one element with an ID
-        //row[0].parentNode.appendChild(row1);
-		//$("#myTable2").append(row1);
     }
      if (i === max)
      {
@@ -363,28 +266,8 @@ function insertRow(id, contentId){
      	contentSec.getElementsByClassName('insertRow')[0].disabled = true;
      }
 }
-/* function validate(value) {
-   //var outputPercentageString = document.getElementById('completionPercent').value;
-    var outputPercentage = parseInt(value);
-    if (outputPercentage < 0 || outputPercentage > 100) {
-        alert("INVALID INPUT. Please enter the correct percentage.");
-        return false;
-    }
-}
- */
-<%-- function tabChange(current){
-	console.log(current)
-	console.log(current.value)
-	if(current.value != "<%=request.getAttribute("currentQuarter")%>")
-	{
-		$("#formSubmit")[0].disabled = true;
-	}else{
-		$("#formSubmit")[0].disabled = false;
-	}
-	
-}
- --%></script>
-	 <div style="overflow-y: hidden; overflow-x: hidden;">
+</script>
+	 <div>
 		<h3 style="text-align: left;margin-bottom:5px; margin-top:20px">Your Targets:</h3>
 		<form name="myForm" method="POST" action="submit">
 			<main>			
