@@ -354,7 +354,7 @@ function insertRow(id, contentId){
 											<option value="Advanced">Advanced</option>
 										</select> <span style='margin: 5px; text-align: left'></span>
 									</div>
-									<div contenteditable="false" id="completionPercent" style="width:15%"
+									<div contenteditable="false" id="completionPercent" style="width:13%"
 										class="cell">
 										<input name="completion3" type="text"
 											style="height: 35px; width: calc(100% - 3px); background: #ADD8E6; opacity: 0.7;font-weight: bold;font-family: "Siemens Sans","Sans Serif";font-weight:14px"
@@ -413,13 +413,13 @@ function insertRow(id, contentId){
 												style="text-align: left; height: 35px; width: calc(100% - 3px); background: #ADD8E6; opacity: 0.7;font-weight: bold;font-family: "Siemens Sans","Sans Serif";font-weight:14px"
 												readonly />
 										</div>
-										<div id="level" class="cell" style="width:12%">
+										<div id="level" class="cell" style="width:14%">
 											<input name="level${count}" type="text"
 												value="${target.level}"
 												style="text-align: left; height: 35px; width: calc(100% - 3px); background: #ADD8E6; opacity: 0.7;font-weight: bold;font-family: "Siemens Sans","Sans Serif";font-weight:14px"
 												readonly />
 										</div>
-										<div id="completionPercent" class="cell" style="width:15%">
+										<div id="completionPercent" class="cell" style="width:13%">
 											<input name="completion${count}" type="number" value="${target.completionPercent}" min="0" max="100" required
 												style="text-align: left; height: 35px; width: calc(100% - 3px); background: #ADD8E6; opacity: 0.7;font-weight: bold;font-family: "Siemens Sans","Sans Serif";font-weight:14px;" ${currentQuarter=="Quarter 2" ? '' : 'readonly'}/>
 										</div>
@@ -448,7 +448,7 @@ function insertRow(id, contentId){
 												Management</option>
 										</select> <span style='margin: 5px; text-align: left'></span>
 									</div>
-									<div contenteditable="false" id="level" style="width:12%" class="cell">
+									<div contenteditable="false" id="level" style="width:14%" class="cell">
 										<!-- <input style="height:35px; width: calc(100% - 3px);background: #ADD8E6;
 	opacity: 0.7;" id="Level_list" name="level3" type="text" list="Level" /> -->
 										<select
@@ -459,7 +459,7 @@ function insertRow(id, contentId){
 											<option value="Advanced">Advanced</option>
 										</select> <span style='margin: 5px; text-align: left'></span>
 									</div>
-									<div contenteditable="false" id="completionPercent" style="width:15%" class="cell">
+									<div contenteditable="false" id="completionPercent" style="width:13%" class="cell">
 										<input name="completion7" type="text"
 											style="height: 35px; width: calc(100% - 3px); background: #ADD8E6; opacity: 0.7;font-weight: boldfont-family: "Siemens Sans","Sans Serif";font-weight:14px"
 											disabled /> <span style='margin: 5px; text-align: left'></span>
@@ -553,7 +553,7 @@ function insertRow(id, contentId){
 												Management</option>
 										</select> <span style='margin: 5px; text-align: left'></span>
 									</div>
-									<div contenteditable="false" id="level" style="width:12%"
+									<div contenteditable="false" id="level" style="width:14%"
 										class="cell">
 										<!-- <input style="height:35px; width: calc(100% - 3px);background: #ADD8E6;
 	opacity: 0.7;" id="Level_list" name="level3" type="text" list="Level" /> -->
@@ -565,7 +565,7 @@ function insertRow(id, contentId){
 											<option value="Advanced">Advanced</option>
 										</select> <span style='margin: 5px; text-align: left'></span>
 									</div>
-									<div contenteditable="false" id="completionPercent" style="width:15%"
+									<div contenteditable="false" id="completionPercent" style="width:13%"
 										class="cell">
 										<input name="completion11" type="text"
 											style="height: 35px; width: calc(100% - 3px); background: #ADD8E6; opacity: 0.7;font-weight: bold;font-family: "Siemens Sans","Sans Serif";font-weight:14px"
@@ -623,13 +623,13 @@ function insertRow(id, contentId){
 												style="text-align: left; height: 35px; width: calc(100% - 3px); background: #ADD8E6; opacity: 0.7;font-weight: bold;font-family: "Siemens Sans","Sans Serif";font-weight:14px"
 												readonly />
 										</div>
-										<div id="level" class="cell" style="width:12%">
+										<div id="level" class="cell" style="width:14%">
 											<input name="level${count}" type="text"
 												value="${target.level}"
 												style="text-align: left; height: 35px; width: calc(100% - 3px); background: #ADD8E6; opacity: 0.7;font-weight: bold;font-family: "Siemens Sans","Sans Serif";font-weight:14px"
 												readonly />
 										</div>
-										<div id="completionPercent" class="cell" style="width:15%">
+										<div id="completionPercent" class="cell" style="width:13%">
 											<input name="completion${count}" type="number" value="${target.completionPercent}" min="0" max="100" required
 												style="text-align: left; height: 35px; width: calc(100% - 3px); background: #ADD8E6; opacity: 0.7;font-weight: bold;font-family: "Siemens Sans","Sans Serif";font-weight:14px" ${currentQuarter=="Quarter 4" ? '' : 'readonly'}/>
 										</div>
@@ -660,7 +660,7 @@ function insertRow(id, contentId){
 												Management</option>
 										</select> <span style='margin: 5px; text-align: left'></span>
 									</div>
-									<div contenteditable="false" id="level" style="width:12%"
+									<div contenteditable="false" id="level" style="width:14%"
 										class="cell">
 										<!-- <input style="height:35px; width: calc(100% - 3px);background: #ADD8E6;
 	opacity: 0.7;" id="Level_list" name="level3" type="text" list="Level" /> -->
@@ -672,7 +672,7 @@ function insertRow(id, contentId){
 											<option value="Advanced">Advanced</option>
 										</select> <span style='margin: 5px; text-align: left'></span>
 									</div>
-									<div contenteditable="false" id="completionPercent" style="width:15%"
+									<div contenteditable="false" id="completionPercent" style="width:13%"
 										class="cell">
 										<input name="completion15" type="text"
 											style="height: 35px; width: calc(100% - 3px); background: #ADD8E6; opacity: 0.7;font-weight: bold;font-family: "Siemens Sans","Sans Serif";font-weight:14px"
