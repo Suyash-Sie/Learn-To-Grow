@@ -219,8 +219,6 @@ function renderCore() {
 	ri.setTopText("Your Current Quarter Risk");
 	ri.setMargin(0,0,0,0);
 	var optimizationBarV4 = new OptimizationBar();
-	optimizationBarV4.setLeftLabel("HIGH RISK");
-	optimizationBarV4.setRightLabel("LOW RISK");
 	optimizationBarV4.setDomain(100,0);
 	optimizationBarV4.setColors(["rgb(255,0,0)", "rgb(255,194,12)", "rgb(160,215,44)"]);
        
@@ -366,7 +364,7 @@ function insertRow(id, contentId){
 					</div>
 				</div>
 				<div style="text-align: center;margin-top: 5px;margin-bottom: 10px">
-				<c:if test="${fn:length(q1)==4}">
+				<%-- <c:if test="${fn:length(q1)==4}">
 					<button class="btn btn-primary btn-large" id="btnAdd" style="margin-right: 5px;text-align:center;" type="button"
 						disabled="disabled">Add New Row</button>
 				</c:if>
@@ -374,7 +372,7 @@ function insertRow(id, contentId){
 					<button class="btn btn-primary btn-large" id="btnAdd" class="insertRow" style="margin-right: 5px;"
 						type="button" onclick="insertRow('myTable1','content1');"  ${currentQuarter=="Quarter 1" ? '' : 'disabled'}>Add
 						New Row</button>
-				</c:if>
+				</c:if> --%>
 				<input class="btn btn-primary btn-large" id="formSubmit" type="submit" name="add"	style="display: inline-block;" value="Update Targets" ${currentQuarter=="Quarter 1" ? '' : 'disabled'}/>
 			</div>
 			</section>
@@ -470,7 +468,7 @@ function insertRow(id, contentId){
 					</div>
 				</div>
 				<div style="text-align: center;margin-top: 5px;margin-bottom: 10px">
-				<c:if test="${fn:length(q2)==4}">
+				<%-- <c:if test="${fn:length(q2)==4}">
 					<button class="btn btn-primary btn-large" id="btnAdd" style="margin-right: 5px" type="button"
 						disabled="disabled">Add New Row</button>
 				</c:if>
@@ -478,7 +476,7 @@ function insertRow(id, contentId){
 					<button class="btn btn-primary btn-large" id="btnAdd" class="insertRow" style="margin-right: 5px"
 						type="button" onclick="insertRow('myTable2','content2');"  ${currentQuarter=="Quarter 2" ? '' : 'disabled'}>Add
 						New Row</button>
-				</c:if>
+				</c:if> --%>
 				<input class="btn btn-primary btn-large" id="formSubmit" type="submit" name="add"	style="display: inline-block;"value="Update Targets" ${currentQuarter=="Quarter 2" ? '' : 'disabled'}/>
 			</div>
 			</section>
@@ -577,7 +575,7 @@ function insertRow(id, contentId){
 					</div>
 				</div>
 				<div style="text-align: center;margin-top: 5px;margin-bottom: 10px">
-				<c:if test="${fn:length(q3)==4}">
+				<%-- <c:if test="${fn:length(q3)==4}">
 					<button class="btn btn-primary btn-large" id="btnAdd" style="margin-right: 5px" type="button"
 						disabled="disabled">Add New Row</button>
 				</c:if>
@@ -585,7 +583,7 @@ function insertRow(id, contentId){
 					<button class="btn btn-primary btn-large" id="btnAdd" class="insertRow" style="margin-right: 5px"
 						type="button" onclick="insertRow('myTable3', 'content3');" ${currentQuarter=="Quarter 3" ? '' : 'disabled'}>Add
 						New Row</button>
-				</c:if>
+				</c:if> --%>
 				<input class="btn btn-primary btn-large" id="formSubmit" type="submit" name="add"	style="display: inline-block;" value="Update Targets" ${currentQuarter=="Quarter 3" ? '' : 'disabled'}/>
 			</div>
 			</section>
@@ -684,7 +682,7 @@ function insertRow(id, contentId){
 					</div>
 				</div>
 				<div style="text-align: center;margin-top: 5px;margin-bottom: 10px">
-				<c:if test="${fn:length(q4)==4}">
+				<%-- <c:if test="${fn:length(q4)==4}">
 					<button class="btn btn-primary btn-large" id="btnAdd" style="margin-right: 5px;display: inline-block;" type="button"
 						disabled="disabled">Add New Row</button>
 				</c:if>
@@ -692,7 +690,7 @@ function insertRow(id, contentId){
 					<button class="btn btn-primary btn-large" id="btnAdd" class="insertRow" style="margin-right: 5px"
 						type="button" onclick="insertRow('myTable4', 'content4');" ${currentQuarter=="Quarter 4" ? '' : 'disabled'}>Add
 						New Row</button>
-				</c:if>
+				</c:if> --%>
 				<input id="formSubmit" class="btn btn-primary btn-large" type="submit" name="add" style="display: inline-block;" value="Update Targets" ${currentQuarter=="Quarter 4" ? '' : 'disabled'}/>
 			</div>
 			</section>

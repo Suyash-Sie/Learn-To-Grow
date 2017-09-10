@@ -61,7 +61,7 @@ function renderCore(idSelector, slider) {
 		optimizationBarV4.setSliderText("TE");
 	//Draws the risk indicator
 	optimizationBarV4.draw(idSelector);
-}
+	}
 
 var checkClicked = function()
 {
@@ -114,11 +114,14 @@ var checkClicked = function()
 	var riskJson = {"checked": checked, "quarter": quarter}
 	$.ajax({
 	   	type: 'GET',
-		url : 'checkbox',
+		url : '/checkbox',
 		contentType: 'application/json; charset=utf-8',
 	   	data: riskJson,
-	   	async: false,
-	   	beforeSend: function(x) 
+	   	async: true,
+	   	/* headers: {
+            'Access-Control-Allow-Origin': '*'
+        },
+ */	   	beforeSend: function(x) 
 	   	{
             if (x && x.overrideMimeType) 
             {
@@ -162,18 +165,18 @@ var checkClicked = function()
 <input type="checkbox" id="r8" name="r8" value="r8" onclick="checkClicked()" checked>APPS<br>
 <input type="checkbox" id="sit" name="sit" value="sit" onclick="checkClicked()" checked>SIT<br>
 </div>
-<div style="display:inline-block;">
+<div style="display:inline-block;position: relative">
 <input type="checkbox" id="sys" name="sys" value="sys" onclick="checkClicked()" checked>SYSTEC<br>
 <input type="checkbox" id="tdoc" name="tdoc" value="tdoc" onclick="checkClicked()" checked>TDOC<br>
 <input type="checkbox" id="prm" name="prm" value="prm" onclick="checkClicked()" checked>PRM<br>
 </div>
-<div style="display: inline;"><input type="checkbox" id="te" name="te" value="te" onclick="checkClicked()" checked>TE<br></div>
+<div style="display: inline;position: relative"><input type="checkbox" id="te" name="te" value="te" onclick="checkClicked()" checked>TE<br></div>
 <br>
 <div style="float:left; position:relative;margin-left:10px;margin-right: 10px"><input type="checkbox" id="q1" name="q1" value="q1" onclick="checkClicked()" checked="${checkq1}" readonly="${checkq1}">Q1<br></div>
 <div style="float:left; position: relative;margin-left:10px;margin-right: 10px"><input type="checkbox" id="q2" name="q2" value="q2" onclick="checkClicked()" checked="${checkq2}" readonly="${checkq2}">Q2<br></div>
 <div style="float:left; position: relative;margin-left:10px;margin-right: 10px"><input type="checkbox" id="q3" name="q3" value="q3" onclick="checkClicked()" checked="${checkq3}" readonly="${checkq3}">Q3<br></div>
 <div style="float:left; position: relative;margin-left:10px;margin-right: 10px"><input type="checkbox" id="q4" name="q4" value="q4" onclick="checkClicked()" checked="${checkq4}" readonly="${checkq4}">Q4<br></div>
-<a style="color:blue;float: left;height:25px;margin-left:10px;margin-top: 20px" href="/downloadExcel">Generate Report</a>
+<a style="color:blue;float: left;position:relative;height:25px;margin-left:10px;margin-top: 20px" href="/downloadExcel">Generate Report</a>
 </form>
 </div>
 <div style="float: left; width: 75%; height: 75%; position: relative;">
@@ -214,4 +217,10 @@ var checkClicked = function()
 	populateRisks();
 	</script>
 </body>
+<script>
+test();
+function test(){
+	d3.selectAll("image").attr("display","none");
+}
+</script>
 </html>
