@@ -181,13 +181,21 @@ public class RiskController
 					{
 						XSSFRow aRow = sheet.createRow(rowNum++);
 						aRow.createCell(1).setCellValue(name);
+						sheet.autoSizeColumn(1);
 						aRow.createCell(2).setCellValue(user);
+						sheet.autoSizeColumn(2);
 						aRow.createCell(3).setCellValue(group);
+						sheet.autoSizeColumn(3);
 						aRow.createCell(4).setCellValue(quarter);
+						sheet.autoSizeColumn(4);
 						aRow.createCell(5).setCellValue(target.getTargetName());
+						sheet.autoSizeColumn(5);
 						aRow.createCell(6).setCellValue(target.getCategory());
+						sheet.autoSizeColumn(6);
 						aRow.createCell(7).setCellValue(target.getLevel());
+						sheet.autoSizeColumn(7);
 						aRow.createCell(8).setCellValue(target.getCompletionPercent());
+						sheet.autoSizeColumn(8);
 						float riskForQuarter = Float.parseFloat(dbService.getRiskForQuarter(user, quarter));
 						Color foregroundColor = new Color(255,0,0);
 						if(riskForQuarter <= 100/3F)
@@ -198,6 +206,7 @@ public class RiskController
 						cellStyle.setFillForegroundColor(new XSSFColor(foregroundColor));
 						cellStyle.setFillPattern(FillPatternType.SOLID_FOREGROUND);
 						aRow.createCell(9).setCellStyle(cellStyle);
+						sheet.autoSizeColumn(9);
 					}
 				}
 			}
@@ -261,6 +270,6 @@ public class RiskController
 	    
 	    Cell cellRisk = row.createCell(9);
 	    cellRisk.setCellStyle(cellStyle);
-	    cellRisk.setCellValue("Risk");
+	    cellRisk.setCellValue("Learning Health Status");
 	}
 }

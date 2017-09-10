@@ -151,15 +151,15 @@ var checkClicked = function()
 </script>
 </head>
 <body id="grad1">
-<div style="float: left; width: 75%; height: 25%; position: relative;">
-<span style="margin-bottom:0px">Welcome, <%=request.getAttribute("name")%></span>
-<div style="float: left; position: relative; width: 100%; height: 100%; overflow: hidden; border-bottom:1px solid black;"
-		id="userAdmin_riskIndicatorLob">
-	</div>
+<div style="float: left; width: 75%; height: 23%; position: relative;">
+<h4 style="float: left; width: 75%;margin:0px;position: relative">Welcome, <%=request.getAttribute("name")%></h4>
+<h3 style="float: left; width: 100%;margin:0px;text-align: center;color: darkgreen;font-style: italic;">Learning is a treasure that will follow its owner everywhere!</h3>
+<div style="float: left; position: relative; width: 100%; height: 85.5%; overflow: hidden; border-bottom:1px solid black;" id="userAdmin_riskIndicatorLob">
 </div>
-<div style="float: right; width: calc(25% - 1px); height: 25%; position: relative; border-left:1px solid black; border-bottom:1px solid black;">
+</div>
+<div style="float: right; width: calc(25% - 1px); height: 25.8%; position: relative; border-left:1px solid black; border-bottom:1px solid black;">
 <form method="post" action="logout">
-<input type="submit" class="btn btn-primary btn-large" value="Logout" style="float: right;font-size: 12px;height:25px" />
+<input type="submit" class="btn btn-primary btn-large" value="Logout" style="float: right;margin:0px;font-size: 12px;height:25px" />
 </form>
 <form action="">
 <div style="float:left; position: relative;margin-left:10px;margin-right: 10px">

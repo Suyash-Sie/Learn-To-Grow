@@ -206,17 +206,18 @@ filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#ffffff', end
 
 </style>
 <body id="grad1">
+<h4 style="float:left;margin-top:2px;margin-bottom:0px">Welcome, <%=request.getAttribute("name")%></h4>
+<h3 style="float:left;width:76%;margin-top:10px;margin-bottom:2px;text-align: center;color: darkgreen;font-style: italic;">Learning is a treasure that will follow its owner everywhere!</h3>
 <form method="post" action="logout">
-<span style="margin-bottom:0px">Welcome, <%=request.getAttribute("name")%></span>
 <input type="submit" class="btn btn-primary btn-large" value="Logout" style="float: right;font-size: 12px;height:25px;margin-top:5px;margin-right:5px" />
 </form>
-	<div style="position: relative; width: 75%; height: 31%; overflow: hidden;" id="js_chart" align="center"></div>
-	<script>
+	<div style="position: relative; width: 76%; height: 28%; overflow: hidden;" id="js_chart" align="center"></div>
+<script>
 renderCore();
 function renderCore() {
 	"use strict";
 	var ri = new benchMark();
-	ri.setTopText("Your Current Quarter Risk");
+	ri.setTopText("Your Current Quarter Learning Health Status");
 	ri.setMargin(0,0,0,0);
 	var optimizationBarV4 = new OptimizationBar();
 	optimizationBarV4.setDomain(100,0);
