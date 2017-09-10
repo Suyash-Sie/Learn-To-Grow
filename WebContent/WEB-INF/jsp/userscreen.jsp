@@ -221,6 +221,7 @@ function renderCore() {
 	var optimizationBarV4 = new OptimizationBar();
 	optimizationBarV4.setDomain(100,0);
 	optimizationBarV4.setColors(["rgb(255,0,0)", "rgb(255,194,12)", "rgb(160,215,44)"]);
+	optimizationBarV4.setShowImage(true);
        
     // To control the layout of opti bar inside riskindicator.
     //optimizationBarV4.setMargin(0,0,0,0);
@@ -238,7 +239,7 @@ function renderCore() {
 		}
 		 
 	    //Draws the risk indicator
-		ri.renderChart(optimizationBarV4,"js_chart");
+		ri.renderChart(optimizationBarV4,"js_chart",true);
 }
 function insertRow(id, contentId){
 	var table = document.getElementById(id);

@@ -86,7 +86,7 @@ var benchMark = function() {
 		margin.left = lt;
 	};
 
-	benchmark.renderChart = function (chart,idSelector) {
+	benchmark.renderChart = function (chart,idSelector,showImage) {
 		innerChart = chart;
 		console.log('benchmark.js version: ' + version);
 		/*let _innerWidth = window.innerWidth - margin.left - margin.right;
@@ -114,7 +114,7 @@ var benchMark = function() {
 		// Draw inner chart
 		if (innerChart !== null && innerChart !== undefined) {
 			innerChart.setDimension(_innerHeight - (_bottomBorder + _topBorder), _innerWidth);
-			innerChart.draw('#obs_chartArea');
+			innerChart.draw('#obs_chartArea',showImage);
 		}
 		if (isDisabled)
 			{
