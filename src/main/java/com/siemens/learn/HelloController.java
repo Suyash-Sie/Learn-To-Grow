@@ -64,10 +64,10 @@ public class HelloController
 				return "change_password";
 			
 			redirectAttributes.addFlashAttribute("user", gid);
+			setRedirectAttributes(gid, redirectAttributes);
 			if(loginService.getUserRole(gid).equals("manager"))
 				return "redirect:userscreen_admin";
 			
-			setRedirectAttributes(gid, redirectAttributes);
 			
 			return "redirect:userscreen";
 		}

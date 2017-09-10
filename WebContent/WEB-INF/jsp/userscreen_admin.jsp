@@ -152,6 +152,7 @@ var checkClicked = function()
 </head>
 <body id="grad1">
 <div style="float: left; width: 75%; height: 25%; position: relative;">
+<span style="margin-bottom:0px">Welcome, <%=request.getAttribute("name")%></span>
 <div style="float: left; position: relative; width: 100%; height: 100%; overflow: hidden; border-bottom:1px solid black;"
 		id="userAdmin_riskIndicatorLob">
 	</div>

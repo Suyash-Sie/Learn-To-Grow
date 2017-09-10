@@ -42,4 +42,9 @@ public class LoginService
 		String encodedPassword = bCryptPasswordEncoder.encode(newPassword);
 		dbService.updatePassword(gid, encodedPassword);
 	}
+	
+	public static void main(String[] args) {
+		BCryptPasswordEncoder encoder = new BCryptPasswordEncoder();
+		System.out.println(encoder.encode("admin"));
+	}
 }
