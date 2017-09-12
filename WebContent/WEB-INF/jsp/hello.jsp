@@ -21,17 +21,17 @@
 
 html { width: 100%; height:100%; overflow:hidden; }
 
-body { 
+body {
+	background-image: url("/resources/image/GPG_2544.JPG"); 
 	width: 100%;
 	height:100%;
 	font-family: 'Open Sans', sans-serif;
-	background: #092756;
-	background: -moz-radial-gradient(0% 100%, ellipse cover, rgba(104,128,138,.4) 10%,rgba(138,114,76,0) 40%),-moz-linear-gradient(top,  rgba(57,173,219,.25) 0%, rgba(42,60,87,.4) 100%), -moz-linear-gradient(-45deg,  #670d10 0%, #092756 100%);
-	background: -webkit-radial-gradient(0% 100%, ellipse cover, rgba(104,128,138,.4) 10%,rgba(138,114,76,0) 40%), -webkit-linear-gradient(top,  rgba(57,173,219,.25) 0%,rgba(42,60,87,.4) 100%), -webkit-linear-gradient(-45deg,  #670d10 0%,#092756 100%);
-	background: -o-radial-gradient(0% 100%, ellipse cover, rgba(104,128,138,.4) 10%,rgba(138,114,76,0) 40%), -o-linear-gradient(top,  rgba(57,173,219,.25) 0%,rgba(42,60,87,.4) 100%), -o-linear-gradient(-45deg,  #670d10 0%,#092756 100%);
-	background: -ms-radial-gradient(0% 100%, ellipse cover, rgba(104,128,138,.4) 10%,rgba(138,114,76,0) 40%), -ms-linear-gradient(top,  rgba(57,173,219,.25) 0%,rgba(42,60,87,.4) 100%), -ms-linear-gradient(-45deg,  #670d10 0%,#092756 100%);
-	background: -webkit-radial-gradient(0% 100%, ellipse cover, rgba(104,128,138,.4) 10%,rgba(138,114,76,0) 40%), linear-gradient(to bottom,  rgba(57,173,219,.25) 0%,rgba(42,60,87,.4) 100%), linear-gradient(135deg,  #670d10 0%,#092756 100%);
-	filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#3E1D6D', endColorstr='#092756',GradientType=1 );
+	-moz-background-size: cover;
+-webkit-background-size: cover;
+background-size: cover;
+background-position: top center !important;
+background-repeat: no-repeat !important;
+background-attachment: fixed;
 }
 .login { 
 	position: absolute;
@@ -75,13 +75,20 @@ filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#ffffff', end
 }
 </style>
 </head>
-<body id="grad1">
-  <div class="login">
-	<h1>Login</h1>
-    <form method="post" action="login">
+<script>
+/* document.getElementById("btnId").addEventListener("click", myFunction);
+
+function myFunction() {
+    document.getElementById('btnId').disabled = true;
+} */
+</script>
+<body id="grad1" style="background-image: url(/LearnApp/resources/image/dci.jpg);background-size: cover;">
+  <div class="login" style="top: 20%">
+	<h1 style="color: white">Login</h1>
+    <form name="myForm" method="post" action="login">
     	<input type="text" style="color:black" name="gid" placeholder="Username" required="required" />
         <input type="password" style="color:black" name="password" placeholder="Password" required="required" />
-        <button type="submit" class="btn btn-primary btn-block btn-large">Let me in.</button>
+        <button id="btnId" type="submit" class="btn btn-primary btn-block btn-large">Let me in.</button>
         <%if(request.getAttribute("message") != null)
         	{	
         %>

@@ -70,9 +70,9 @@ filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#ffffff', end
 }
 </style>
 </head>
-<body id="grad1">
+<body id="grad1" style="background-image: url(/LearnApp/resources/image/dci.jpg);background-size: cover;">
   <div class="login">
-	<h1>You have been successfully logged out!</h1>
+	<h1 style="color: white">You have been successfully logged out!</h1>
 	 <a style="color:blue" href="/">Go-Back To Login Page</a>
 </div>
 </body>

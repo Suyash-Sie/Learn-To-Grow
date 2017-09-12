@@ -205,9 +205,9 @@ filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#ffffff', end
 .btn-primary:hover, .btn-primary:active, .btn-primary.active, .btn-primary.disabled, .btn-primary[disabled] { filter: none; background-color: #4a77d4; }
 
 </style>
-<body id="grad1">
-<h4 style="float:left;margin-top:2px;margin-bottom:0px">Welcome, <%=request.getAttribute("name")%></h4>
-<h3 style="float:left;width:76%;margin-top:10px;margin-bottom:2px;text-align: center;color: darkgreen;font-style: italic;">Learning is a treasure that will follow its owner everywhere!</h3>
+<body id="grad1" style="background: lightgray">
+<h4 style="float:left;margin-top:2px;margin-bottom:0px;">Welcome, <%=request.getAttribute("name")%></h4>
+<h3 style="float:left;width:76%;margin-top:10px;margin-bottom:2px;text-align: center;color: royalblue;font-style: italic;">"Learning is a treasure that will follow its owner everywhere!"</h3>
 <form method="post" action="logout">
 <input type="submit" class="btn btn-primary btn-large" value="Logout" style="float: right;font-size: 12px;height:25px;margin-top:5px;margin-right:5px" />
 </form>

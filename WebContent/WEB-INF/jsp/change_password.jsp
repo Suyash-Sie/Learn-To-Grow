@@ -75,9 +75,9 @@ filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#ffffff', end
 }
 </style>
 </head>
-<body id="grad1">
-  <div class="login">
-	<h2>Please change your password before proceeding...</h2>
+<body id="grad1" style="background-image: url(/LearnApp/resources/image/dci.jpg);background-size: cover;">
+  <div class="login" style="top:20%">
+	<h2 style="color: white">Please change your password before proceeding...</h2>
     <form method="post" action="change">
     	<input type="password" name="old" placeholder="Old Password" required="required" />
         <input type="password" name="new" placeholder="New Password" required="required" />
