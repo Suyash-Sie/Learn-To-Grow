@@ -150,7 +150,7 @@ var checkClicked = function()
 };
 </script>
 </head>
-<body id="grad1" style="background: lightgray">
+<body id="grad1">
 <div style="float: left; width: 75%; height: 23%; position: relative;">
 <h4 style="float: left; width: 75%;margin:0px;position: relative">Welcome, <%=request.getAttribute("name")%></h4>
 <h3 style="float: left; width: 100%;margin:0px;text-align: center;color: royalblue;font-style: italic;">"Learning is a treasure that will follow its owner everywhere!"</h3>

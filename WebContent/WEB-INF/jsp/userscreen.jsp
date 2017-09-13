@@ -205,7 +205,7 @@ filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#ffffff', end
 .btn-primary:hover, .btn-primary:active, .btn-primary.active, .btn-primary.disabled, .btn-primary[disabled] { filter: none; background-color: #4a77d4; }
 
 </style>
-<body id="grad1" style="background: lightgray">
+<body id="grad1">
 <h4 style="float:left;margin-top:2px;margin-bottom:0px;">Welcome, <%=request.getAttribute("name")%></h4>
 <h3 style="float:left;width:76%;margin-top:10px;margin-bottom:2px;text-align: center;color: royalblue;font-style: italic;">"Learning is a treasure that will follow its owner everywhere!"</h3>
 <form method="post" action="logout">
@@ -697,7 +697,9 @@ function insertRow(id, contentId){
 			</div>
 			</section>
 			</main>
+			<div style="position:relative;overflow:hidden; background-image: url(/LearnApp/resources/image/learn.png);float:right;background-repeat: no-repeat;width:25%;height:20%;margin:0px;background-position: 100%;display: inline;">
+			</div>
 		</form>
 		</div>
-</body>
+	</body>
 </html>
