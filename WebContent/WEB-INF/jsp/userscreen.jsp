@@ -697,7 +697,8 @@ function insertRow(id, contentId){
 			</div>
 			</section>
 			</main>
-			<div style="position:relative;overflow:hidden; background-image: url(/LearnApp/resources/image/learn.png);float:right;background-repeat: no-repeat;width:25%;height:20%;margin:0px;background-position: 100%;display: inline;">
+			<div style="position:fixed;right:0px;bottom:0px;overflow:hidden; background-image: url(/LearnApp/resources/image/learn.png);float:right;
+			background-repeat: no-repeat;width:25%;height:12%;margin:0px;background-position: 100%;display: inline;">
 			</div>
 		</form>
 		</div>

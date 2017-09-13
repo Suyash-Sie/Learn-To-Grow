@@ -204,6 +204,8 @@ var checkClicked = function()
 		id="userAdmin_riskIndicator7">
 	</div>
 </div>
+<div style="position:fixed;right:0px;bottom:0px;overflow:hidden; background-image: url(/LearnApp/resources/image/learn.png);float:right;
+background-repeat: no-repeat;width:25%;height:12%;margin:0px;background-position: 100%;display: inline;"></div>
 	<script>
 	function populateRisks()
 	{
