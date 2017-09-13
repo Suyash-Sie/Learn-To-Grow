@@ -85,7 +85,7 @@ filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#ffffff', end
         <%if(request.getAttribute("message") != null)
         	{	
         %>
-        		<p style="color:red">${message}</p>
+        		<p style="color:white">${message}</p>
         <%} %>
         
         
