@@ -4,6 +4,7 @@
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <title>Login Form</title>
+<link rel="shortcut icon" type="image/x-icon" href="/LearnApp/resources/icon/siemensicon.ico" />
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/normalize/5.0.0/normalize.min.css">
  <style>
  @import url(https://fonts.googleapis.com/css?family=Open+Sans);
@@ -34,7 +35,7 @@ background-repeat: no-repeat !important;
 background-attachment: fixed;
 }
 .login { 
-	position: absolute;
+	position: relative;
 	top: 50%;
 	left: 50%;
 	margin: -150px 0 0 -150px;
@@ -42,6 +43,12 @@ background-attachment: fixed;
 	height:300px;
 }
 .login h1 { color: black;letter-spacing:1px; text-align:center; }
+.img {
+	margin-top: 10px;
+ 	margin-right: auto;
+ 	margin-bottom: 0;
+ 	margin-left: 20px;
+}
 
 input { 
 	width: 100%; 
@@ -83,18 +90,21 @@ function myFunction() {
 } */
 </script>
 <body id="grad1" style="background-image: url(/LearnApp/resources/image/dci.jpg);background-size: cover;">
-  <div class="login" style="top: 20%">
-	<h1 style="color: white">Login</h1>
-    <form name="myForm" method="post" action="login">
-    	<input type="text" style="color:black" name="gid" placeholder="Username" required="required" />
-        <input type="password" style="color:black" name="password" placeholder="Password" required="required" />
-        <button id="btnId" type="submit" class="btn btn-primary btn-block btn-large">Let me in.</button>
-        <%if(request.getAttribute("message") != null)
+	<div class="img">
+		<img src="/LearnApp/resources/image/logo.png" />
+	</div>
+	<div class="login" style="top: 20%">
+		<h1 style="color: white">Login</h1>
+    	<form name="myForm" method="post" action="login">
+    		<input type="text" style="color:black" name="gid" placeholder="Username" required="required" />
+        	<input type="password" style="color:black" name="password" placeholder="Password" required="required" />
+        	<button id="btnId" type="submit" class="btn btn-primary btn-block btn-large">Let me in.</button>
+        	<%if(request.getAttribute("message") != null)
         	{	
-        %>
+        	%>
         		<p style="color:red">${message}</p>
-        <%} %>
-    </form>
-</div>
+        	<%} %>
+    	</form>
+	</div>
 </body>
 </html>

@@ -8,6 +8,7 @@
 <html>
 <head>
 <title>Welcome</title>
+<link rel="shortcut icon" type="image/x-icon" href="/LearnApp/resources/icon/siemensicon.ico" />
 <script src="https://d3js.org/d3.v4.min.js"></script>
 <script type="text/javascript"
 	src="<c:url value="/resources/js/benchmark.js" />"></script>

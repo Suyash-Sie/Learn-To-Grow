@@ -5,6 +5,7 @@
 <html>
 <head>
 <title>Welcome</title>
+<link rel="shortcut icon" type="image/x-icon" href="/LearnApp/resources/icon/siemensicon.ico" />
 <style>
 #grad1 {
 background: rgba(255,255,255,1);

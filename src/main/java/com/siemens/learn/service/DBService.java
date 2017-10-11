@@ -39,6 +39,10 @@ public class DBService
 				.withClientConfiguration(new ClientConfiguration().withConnectionTimeout(501000).withSocketTimeout(501000))
 				.build();
 		
+//		AmazonDynamoDB client = AmazonDynamoDBClientBuilder.standard()
+//				.withEndpointConfiguration(new AwsClientBuilder.EndpointConfiguration("http://localhost:8000", "us-west-2"))
+//				.build();
+		
 		DynamoDB dynamoDB = new DynamoDB(client);
 		table = dynamoDB.getTable(USERS);
 	}
