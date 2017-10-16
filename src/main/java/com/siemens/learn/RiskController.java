@@ -14,8 +14,10 @@ import org.apache.poi.ss.usermodel.Cell;
 import org.apache.poi.ss.usermodel.CellStyle;
 import org.apache.poi.ss.usermodel.FillPatternType;
 import org.apache.poi.ss.usermodel.Font;
+import org.apache.poi.ss.usermodel.IndexedColors;
 import org.apache.poi.ss.usermodel.Row;
 import org.apache.poi.ss.util.CellRangeAddress;
+import org.apache.poi.ss.util.RegionUtil;
 import org.apache.poi.xssf.usermodel.XSSFCellStyle;
 import org.apache.poi.xssf.usermodel.XSSFColor;
 import org.apache.poi.xssf.usermodel.XSSFRow;
@@ -163,6 +165,7 @@ public class RiskController
     public @ResponseBody void downloadExcel(Model model, HttpServletRequest request, HttpServletResponse response) throws Exception {
     	XSSFWorkbook workbook = new XSSFWorkbook();
     	XSSFSheet sheet = workbook.createSheet();
+    	XSSFCellStyle xssfCellStyle = workbook.createCellStyle();
     	createHeaderRow(sheet);
     	System.out.println(request.getParameter("checked"));
     	System.out.println(request.getParameter("quarter"));
@@ -184,20 +187,28 @@ public class RiskController
 					{
 						XSSFRow aRow = sheet.createRow(rowNum++);
 						aRow.createCell(1).setCellValue(name);
+				        //aRow.getCell(1).setCellStyle(cellStyle);
 						sheet.autoSizeColumn(1);
 						aRow.createCell(2).setCellValue(user);
+						//aRow.getCell(2).setCellStyle(cellStyle);
 						sheet.autoSizeColumn(2);
 						aRow.createCell(3).setCellValue(group);
+						//aRow.getCell(3).setCellStyle(cellStyle);
 						sheet.autoSizeColumn(3);
 						aRow.createCell(4).setCellValue(quarter);
+						//aRow.getCell(4).setCellStyle(cellStyle);
 						sheet.autoSizeColumn(4);
 						aRow.createCell(5).setCellValue(target.getTargetName());
+						//aRow.getCell(5).setCellStyle(cellStyle);
 						sheet.autoSizeColumn(5);
 						aRow.createCell(6).setCellValue(target.getCategory());
+						//aRow.getCell(6).setCellStyle(cellStyle);
 						sheet.autoSizeColumn(6);
 						aRow.createCell(7).setCellValue(target.getLevel());
+						//aRow.getCell(7).setCellStyle(cellStyle);
 						sheet.autoSizeColumn(7);
 						aRow.createCell(8).setCellValue(target.getCompletionPercent());
+						//aRow.getCell(8).setCellStyle(cellStyle);
 						sheet.autoSizeColumn(8);
 						float riskForQuarter = Float.parseFloat(dbService.getRiskForQuarter(user.toUpperCase(), quarter));
 						Color foregroundColor = new Color(255,0,0);
@@ -205,15 +216,17 @@ public class RiskController
 							foregroundColor = new Color(160,215,44);
 						else if(riskForQuarter <= 200/3F)
 							foregroundColor = new Color(255,194,12);
-						XSSFCellStyle cellStyle = workbook.createCellStyle();
-						cellStyle.setFillForegroundColor(new XSSFColor(foregroundColor));
-						cellStyle.setFillPattern(FillPatternType.SOLID_FOREGROUND);
-						aRow.createCell(9).setCellStyle(cellStyle);
+						xssfCellStyle.setFillForegroundColor(new XSSFColor(foregroundColor));
+						xssfCellStyle.setFillPattern(FillPatternType.SOLID_FOREGROUND);
+						xssfCellStyle.setBorderBottom(xssfCellStyle.BORDER_MEDIUM);
+						xssfCellStyle.setBorderRight(xssfCellStyle.BORDER_MEDIUM);
+						xssfCellStyle.setBorderTop(xssfCellStyle.BORDER_MEDIUM);
+						aRow.createCell(9).setCellStyle(xssfCellStyle);
 						sheet.autoSizeColumn(9);
 					}
 					if(rowNum - quarterStartIndex > 1)
 					{
-						int quarterEndIndex = rowNum - 1;
+						int quarterEndIndex = rowNum - 1;						
 						sheet.addMergedRegion(new CellRangeAddress(quarterStartIndex, quarterEndIndex, 4, 4));
 						sheet.addMergedRegion(new CellRangeAddress(quarterStartIndex, quarterEndIndex, 9, 9));
 					}
@@ -221,9 +234,14 @@ public class RiskController
 				if(rowNum - nameStartIndex > 1)
 				{
 					int nameEndIndex = rowNum -1;
+					CellRangeAddress rangeAddress = new CellRangeAddress(nameStartIndex, nameEndIndex, 1, 9);
 					sheet.addMergedRegion(new CellRangeAddress(nameStartIndex, nameEndIndex, 1, 1));
 					sheet.addMergedRegion(new CellRangeAddress(nameStartIndex, nameEndIndex, 2, 2));
 					sheet.addMergedRegion(new CellRangeAddress(nameStartIndex, nameEndIndex, 3, 3));
+                    RegionUtil.setBorderTop(CellStyle.BORDER_MEDIUM, rangeAddress, sheet);
+                    RegionUtil.setBorderRight(CellStyle.BORDER_MEDIUM, rangeAddress, sheet);
+                    RegionUtil.setBorderLeft(CellStyle.BORDER_MEDIUM, rangeAddress, sheet);
+                    RegionUtil.setBorderBottom(CellStyle.BORDER_MEDIUM, rangeAddress, sheet);
 				}
 			}
 		}
@@ -242,9 +260,12 @@ public class RiskController
 		CellStyle cellStyle = sheet.getWorkbook().createCellStyle();
 	    Font font = sheet.getWorkbook().createFont();
 //	    font.setBold(true);
+	    font.setColor(IndexedColors.WHITE.getIndex());
 	    font.setFontHeightInPoints((short) 15);
 	    font.setFontName("Cambria");
 	    cellStyle.setFont(font);
+	    cellStyle.setFillBackgroundColor(IndexedColors.BLACK.getIndex());
+	    cellStyle.setFillPattern(CellStyle.SOLID_FOREGROUND);
 //	    cellStyle.setShrinkToFit(true);
 	 
 	    Row row = sheet.createRow(0);

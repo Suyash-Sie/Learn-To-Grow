@@ -152,13 +152,16 @@ var checkClicked = function()
 </script>
 </head>
 <body id="grad1">
-<div style="float: left; width: 75%; height: 23%; position: relative;">
+<div style="height:40px;overflow: hidden">
 <h4 style="float: left; width: 75%;margin:0px;position: relative">Welcome, <%=request.getAttribute("name")%></h4>
 <h3 style="float: left; width: 100%;margin:0px;text-align: center;color: royalblue;font-style: italic;">"Learning is a treasure that will follow its owner everywhere!"</h3>
-<div style="float: left; position: relative; width: 100%; height: 85.5%; overflow: hidden; border-bottom:1px solid black;" id="userAdmin_riskIndicatorLob">
+</div>
+<div style="height:22%">
+<div style="float: left; width: 75%; height: 100%; position: relative;overflow: hidden">
+<div style="float: left; position: relative; width: 100%; height: calc(100% - 1px); overflow: hidden; border-bottom:1px solid black;" id="userAdmin_riskIndicatorLob">
 </div>
 </div>
-<div style="float: right; width: calc(25% - 1px); height: 25.8%; position: relative; border-left:1px solid black; border-bottom:1px solid black;">
+<div style="float: right; width: calc(25% - 1px); height: 100%; position: relative; border-left:1px solid black; border-bottom:1px solid black;overflow: hidden">
 <form method="post" action="logout">
 <input type="submit" class="btn btn-primary btn-large" value="Logout" style="float: right;margin:0px;font-size: 12px;height:25px" />
 </form>
@@ -179,10 +182,12 @@ var checkClicked = function()
 <div style="float:left; position: relative;margin-left:10px;margin-right: 10px"><input type="checkbox" id="q2" name="q2" value="q2" onclick="checkClicked()" checked="${checkq2}" readonly="${checkq2}">Q2<br></div>
 <div style="float:left; position: relative;margin-left:10px;margin-right: 10px"><input type="checkbox" id="q3" name="q3" value="q3" onclick="checkClicked()" checked="${checkq3}" readonly="${checkq3}">Q3<br></div>
 <div style="float:left; position: relative;margin-left:10px;margin-right: 10px"><input type="checkbox" id="q4" name="q4" value="q4" onclick="checkClicked()" checked="${checkq4}" readonly="${checkq4}">Q4<br></div>
-<a style="color:blue;float: left;position:relative;height:25px;margin-left:10px;margin-top: 20px" href="/LearnApp/downloadExcel">Generate Report</a>
+<br>
+<div style="position:absolute"><a style="color:blue;float: left;position:relative;height:25px;margin-left:10px;margin-top: 20px" href="/LearnApp/downloadExcel">Generate Report</a></div>
 </form>
 </div>
-<div style="float: left; width: 75%; height: 75%; position: relative;">
+</div>
+<div style="float: left; width: 75%; height: calc(75% - 40px); position: relative;">
 	<div style="float: left; position: relative; width: 48%; height: 23%; overflow: hidden;margin:2px;padding:2px"
 		id="userAdmin_riskIndicator1">
 	</div>
