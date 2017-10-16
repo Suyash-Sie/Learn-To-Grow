@@ -65,7 +65,7 @@ public class Dynamo
         	List<Map<String, String>> targets1 = new ArrayList<>();
         	List<Map<String, String>> targets2 = new ArrayList<>();
 
-            table.putItem(new Item().withPrimaryKey("GID", "z0024dzv")
+            table.putItem(new Item().withPrimaryKey("GID", "Z0024DZV")
             		.withString("name", "Suyash")
             		.withString("password", "$2a$10$2YRbg8zznLOLrKaLotq56uXCp1M8SS3rQLy3UYDOGF8UrJ9KDicHS")
             		.withString("pwdChanged", "false")
@@ -81,7 +81,7 @@ public class Dynamo
 		            .withList("q4targets", targets1));
             System.out.println("First PutItem succeeded: ");
 
-            table.putItem(new Item().withPrimaryKey("GID", "z003cv8z")
+            table.putItem(new Item().withPrimaryKey("GID", "Z003CV8Z")
             		.withString("name", "KC")
             		.withString("password", "$2a$10$m7xN4LloEj4dMbWFCj.lteLTbCn4D8hFJO0cW4SP0RsbQgdUs3zt.")
             		.withString("pwdChanged", "false")

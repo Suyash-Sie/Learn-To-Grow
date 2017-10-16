@@ -174,7 +174,7 @@ public class RiskController
 			for(String user : users)
 			{
 				int nameStartIndex = rowNum;
-				String name = dbService.getName(user);
+				String name = dbService.getName(user.toUpperCase());
 //			String quarter = "Quarter 1";
 				for(String quarter : selectedQuarters)
 				{
@@ -199,7 +199,7 @@ public class RiskController
 						sheet.autoSizeColumn(7);
 						aRow.createCell(8).setCellValue(target.getCompletionPercent());
 						sheet.autoSizeColumn(8);
-						float riskForQuarter = Float.parseFloat(dbService.getRiskForQuarter(user, quarter));
+						float riskForQuarter = Float.parseFloat(dbService.getRiskForQuarter(user.toUpperCase(), quarter));
 						Color foregroundColor = new Color(255,0,0);
 						if(riskForQuarter <= 100/3F)
 							foregroundColor = new Color(160,215,44);

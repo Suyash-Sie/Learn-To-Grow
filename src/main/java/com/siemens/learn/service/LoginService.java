@@ -15,7 +15,7 @@ public class LoginService
 	
 	public boolean userValidated(String gid, String password) throws Exception
 	{
-		String passInDb = dbService.getPassword(gid);
+		String passInDb = dbService.getPassword(gid.toUpperCase());
 		if(null != passInDb && bCryptPasswordEncoder.matches(password, passInDb))
 			return true;
 		return false;
@@ -23,28 +23,29 @@ public class LoginService
 	
 	public String getUserName(String gid) throws Exception
 	{
-		return dbService.getName(gid);
+		return dbService.getName(gid.toUpperCase());
 	}
 	
 	public String getUserRole(String gid) throws Exception
 	{
-		return dbService.getRole(gid);
+		return dbService.getRole(gid.toUpperCase());
 	}
 
 	public boolean hasUserChangedPassword(String gid) throws Exception 
 	{
-		String passwordChanged = dbService.getPasswordChanged(gid);
+		String passwordChanged = dbService.getPasswordChanged(gid.toUpperCase());
 		return Boolean.valueOf(passwordChanged);
 	}
 
 	public void updatePassword(String gid, String newPassword) throws Exception 
 	{
 		String encodedPassword = bCryptPasswordEncoder.encode(newPassword);
-		dbService.updatePassword(gid, encodedPassword);
+		dbService.updatePassword(gid.toUpperCase(), encodedPassword);
 	}
 	
-	public static void main(String[] args) {
+	public static void main(String[] args) 
+	{
 		BCryptPasswordEncoder encoder = new BCryptPasswordEncoder();
-		System.out.println(encoder.encode("admin"));
+		System.out.println(encoder.encode("guest"));
 	}
 }

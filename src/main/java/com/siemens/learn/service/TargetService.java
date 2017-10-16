@@ -23,7 +23,7 @@ public class TargetService
 	public List<Target> getTargetsForUser(String gid, String quarter) throws Exception
 	{
 		List<Target> targets = new ArrayList<>();
-		List<Map<String, String>> targetsFromDb = dbService.getTargets(gid, quarter);
+		List<Map<String, String>> targetsFromDb = dbService.getTargets(gid.toUpperCase(), quarter);
 		
 		for (Map<String, String> map : targetsFromDb) 
 		{
@@ -61,8 +61,8 @@ public class TargetService
 		}
 		
 		String risk = calculateRisk(targetsToBeUpdated, quarter);
-		dbService.updateTargets(gid, new ArrayList<>(), "0", quarter);
-		dbService.updateTargets(gid, targetsToBeUpdated, risk, quarter);
+		dbService.updateTargets(gid.toUpperCase(), new ArrayList<>(), "0", quarter);
+		dbService.updateTargets(gid.toUpperCase(), targetsToBeUpdated, risk, quarter);
 	}
 
 	private String calculateRisk(List<Map<String, String>> targetsToBeAddded, String quarter) 
@@ -126,6 +126,6 @@ public class TargetService
 
 	public String getRiskForCurrentQuarter(String user, String quarter) throws Exception 
 	{
-		return dbService.getRiskForQuarter(user, quarter);
+		return dbService.getRiskForQuarter(user.toUpperCase(), quarter);
 	}
 }
