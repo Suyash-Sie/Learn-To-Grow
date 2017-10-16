@@ -118,11 +118,11 @@ public class HelloController
 			}
 			loginService.updatePassword(gid, newPassword);
 			
+			setRedirectAttributes(gid, redirectAttributes);
 			redirectAttributes.addFlashAttribute("user", gid);
 			if(loginService.getUserRole(gid).equals("manager"))
 				return "redirect:userscreen_admin";
 			
-			setRedirectAttributes(gid, redirectAttributes);
 			
 			return "redirect:userscreen";
 		}

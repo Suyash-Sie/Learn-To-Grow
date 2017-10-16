@@ -264,7 +264,7 @@ public class RiskController
 	    font.setFontHeightInPoints((short) 15);
 	    font.setFontName("Cambria");
 	    cellStyle.setFont(font);
-	    cellStyle.setFillBackgroundColor(IndexedColors.BLACK.getIndex());
+	    cellStyle.setFillBackgroundColor(IndexedColors.BLUE.getIndex());
 	    cellStyle.setFillPattern(CellStyle.SOLID_FOREGROUND);
 //	    cellStyle.setShrinkToFit(true);
 	 
