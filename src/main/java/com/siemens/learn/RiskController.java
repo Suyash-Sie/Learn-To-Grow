@@ -15,6 +15,7 @@ import org.apache.poi.ss.usermodel.CellStyle;
 import org.apache.poi.ss.usermodel.FillPatternType;
 import org.apache.poi.ss.usermodel.Font;
 import org.apache.poi.ss.usermodel.Row;
+import org.apache.poi.ss.util.CellRangeAddress;
 import org.apache.poi.xssf.usermodel.XSSFCellStyle;
 import org.apache.poi.xssf.usermodel.XSSFColor;
 import org.apache.poi.xssf.usermodel.XSSFRow;
@@ -172,10 +173,12 @@ public class RiskController
 			List<String> users = dbService.getUsersInGroup(group);
 			for(String user : users)
 			{
+				int nameStartIndex = rowNum;
 				String name = dbService.getName(user);
 //			String quarter = "Quarter 1";
 				for(String quarter : selectedQuarters)
 				{
+					int quarterStartIndex = rowNum;
 					List<Target> targetsForUser = targetService.getTargetsForUser(user, quarter);
 					for(Target target : targetsForUser)
 					{
@@ -208,6 +211,19 @@ public class RiskController
 						aRow.createCell(9).setCellStyle(cellStyle);
 						sheet.autoSizeColumn(9);
 					}
+					if(rowNum - quarterStartIndex > 1)
+					{
+						int quarterEndIndex = rowNum - 1;
+						sheet.addMergedRegion(new CellRangeAddress(quarterStartIndex, quarterEndIndex, 4, 4));
+						sheet.addMergedRegion(new CellRangeAddress(quarterStartIndex, quarterEndIndex, 9, 9));
+					}
+				}
+				if(rowNum - nameStartIndex > 1)
+				{
+					int nameEndIndex = rowNum -1;
+					sheet.addMergedRegion(new CellRangeAddress(nameStartIndex, nameEndIndex, 1, 1));
+					sheet.addMergedRegion(new CellRangeAddress(nameStartIndex, nameEndIndex, 2, 2));
+					sheet.addMergedRegion(new CellRangeAddress(nameStartIndex, nameEndIndex, 3, 3));
 				}
 			}
 		}

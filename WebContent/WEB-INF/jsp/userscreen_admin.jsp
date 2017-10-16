@@ -179,7 +179,7 @@ var checkClicked = function()
 <div style="float:left; position: relative;margin-left:10px;margin-right: 10px"><input type="checkbox" id="q2" name="q2" value="q2" onclick="checkClicked()" checked="${checkq2}" readonly="${checkq2}">Q2<br></div>
 <div style="float:left; position: relative;margin-left:10px;margin-right: 10px"><input type="checkbox" id="q3" name="q3" value="q3" onclick="checkClicked()" checked="${checkq3}" readonly="${checkq3}">Q3<br></div>
 <div style="float:left; position: relative;margin-left:10px;margin-right: 10px"><input type="checkbox" id="q4" name="q4" value="q4" onclick="checkClicked()" checked="${checkq4}" readonly="${checkq4}">Q4<br></div>
-<a style="color:blue;float: left;position:relative;height:25px;margin-left:10px;margin-top: 20px" href="/downloadExcel">Generate Report</a>
+<a style="color:blue;float: left;position:relative;height:25px;margin-left:10px;margin-top: 20px" href="/LearnApp/downloadExcel">Generate Report</a>
 </form>
 </div>
 <div style="float: left; width: 75%; height: 75%; position: relative;">

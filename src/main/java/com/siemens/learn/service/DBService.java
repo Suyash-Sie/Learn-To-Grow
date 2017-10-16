@@ -34,14 +34,14 @@ public class DBService
 	
 	public DBService()
 	{
-		AmazonDynamoDB client = AmazonDynamoDBClientBuilder.standard()
-				.withEndpointConfiguration(new AwsClientBuilder.EndpointConfiguration("https://dynamodb.eu-central-1.amazonaws.com", "eu-central-1"))
-				.withClientConfiguration(new ClientConfiguration().withConnectionTimeout(501000).withSocketTimeout(501000))
-				.build();
-		
 //		AmazonDynamoDB client = AmazonDynamoDBClientBuilder.standard()
-//				.withEndpointConfiguration(new AwsClientBuilder.EndpointConfiguration("http://localhost:8000", "us-west-2"))
+//				.withEndpointConfiguration(new AwsClientBuilder.EndpointConfiguration("https://dynamodb.eu-central-1.amazonaws.com", "eu-central-1"))
+//				.withClientConfiguration(new ClientConfiguration().withConnectionTimeout(501000).withSocketTimeout(501000))
 //				.build();
+		
+		AmazonDynamoDB client = AmazonDynamoDBClientBuilder.standard()
+				.withEndpointConfiguration(new AwsClientBuilder.EndpointConfiguration("http://localhost:8000", "us-west-2"))
+				.build();
 		
 		DynamoDB dynamoDB = new DynamoDB(client);
 		table = dynamoDB.getTable(USERS);
