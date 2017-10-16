@@ -243,6 +243,14 @@ public class RiskController
                     RegionUtil.setBorderLeft(CellStyle.BORDER_MEDIUM, rangeAddress, sheet);
                     RegionUtil.setBorderBottom(CellStyle.BORDER_MEDIUM, rangeAddress, sheet);
 				}
+				/*else
+				{
+				    CellRangeAddress rangeAddress = new CellRangeAddress(1, 1, 1, 9);
+				    RegionUtil.setBorderTop(CellStyle.BORDER_MEDIUM, rangeAddress, sheet);
+                    RegionUtil.setBorderRight(CellStyle.BORDER_MEDIUM, rangeAddress, sheet);
+                    RegionUtil.setBorderLeft(CellStyle.BORDER_MEDIUM, rangeAddress, sheet);
+                    RegionUtil.setBorderBottom(CellStyle.BORDER_MEDIUM, rangeAddress, sheet);
+				}*/
 			}
 		}
 	
@@ -264,7 +272,7 @@ public class RiskController
 	    font.setFontHeightInPoints((short) 15);
 	    font.setFontName("Cambria");
 	    cellStyle.setFont(font);
-	    cellStyle.setFillBackgroundColor(IndexedColors.BLUE.getIndex());
+	    cellStyle.setFillForegroundColor(IndexedColors.DARK_BLUE.getIndex());
 	    cellStyle.setFillPattern(CellStyle.SOLID_FOREGROUND);
 //	    cellStyle.setShrinkToFit(true);
 	 
