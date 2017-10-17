@@ -152,8 +152,11 @@ var checkClicked = function()
 </script>
 </head>
 <body id="grad1">
-<div style="height:40px;overflow: hidden">
+<div style="height:60px;overflow: hidden">
 <h4 style="float: left; width: 75%;margin:0px;position: relative">Welcome, <%=request.getAttribute("name")%></h4>
+<form method="post" action="logout">
+<input type="submit" class="btn btn-primary btn-large" value="Logout" style="float: right;margin:0px;font-size: 12px;height:25px" />
+</form>
 <h3 style="float: left; width: 100%;margin:0px;text-align: center;color: royalblue;font-style: italic;">"Learning is a treasure that will follow its owner everywhere!"</h3>
 </div>
 <div style="height:22%">
@@ -161,10 +164,7 @@ var checkClicked = function()
 <div style="float: left; position: relative; width: 100%; height: calc(100% - 1px); overflow: hidden; border-bottom:1px solid black;" id="userAdmin_riskIndicatorLob">
 </div>
 </div>
-<div style="float: right; width: calc(25% - 1px); height: 100%; position: relative; border-left:1px solid black; border-bottom:1px solid black;overflow: hidden">
-<form method="post" action="logout">
-<input type="submit" class="btn btn-primary btn-large" value="Logout" style="float: right;margin:0px;font-size: 12px;height:25px" />
-</form>
+<div style="float: right; width: calc(25% - 1px); height: calc(100% - 1px); position: relative; border-left:1px solid black; border-bottom:1px solid black;overflow: hidden">
 <form action="">
 <div style="float:left; position: relative;margin-left:10px;margin-right: 10px">
 <input type="checkbox" id="r7" name="r7" value="r7" onclick="checkClicked()" checked>R7<br>
@@ -187,7 +187,7 @@ var checkClicked = function()
 </form>
 </div>
 </div>
-<div style="float: left; width: 75%; height: calc(75% - 40px); position: relative;">
+<div style="float: left; width: 75%; height: calc(75% - 60px); position: relative;">
 	<div style="float: left; position: relative; width: 48%; height: 23%; overflow: hidden;margin:2px;padding:2px"
 		id="userAdmin_riskIndicator1">
 	</div>
