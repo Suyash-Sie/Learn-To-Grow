@@ -152,12 +152,14 @@ var checkClicked = function()
 </script>
 </head>
 <body id="grad1">
-<div style="height:60px;overflow: hidden">
-<h4 style="float: left; width: 75%;margin:0px;position: relative">Welcome, <%=request.getAttribute("name")%></h4>
+<div style="height:60px;width: 100%;overflow: hidden">
 <form method="post" action="logout">
 <input type="submit" class="btn btn-primary btn-large" value="Logout" style="float: right;margin:0px;font-size: 12px;height:25px" />
-</form>
+<h4 style="float: left; width: 75%;margin:0px;position: relative">Welcome, <%=request.getAttribute("name")%></h4>
 <h3 style="float: left; width: 100%;margin:0px;text-align: center;color: royalblue;font-style: italic;">"Learning is a treasure that will follow its owner everywhere!"</h3>
+<div style="width: 75%;height:80px;border-right:1px solid black;">
+</div>
+</form>
 </div>
 <div style="height:22%">
 <div style="float: left; width: 75%; height: 100%; position: relative;overflow: hidden">
