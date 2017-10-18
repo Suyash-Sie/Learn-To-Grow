@@ -102,7 +102,7 @@ function myFunction() {
         	<%if(request.getAttribute("message") != null)
         	{	
         	%>
-        		<p style="color:red">${message}</p>
+        		<p style="color:white">${message}</p>
         	<%} %>
     	</form>
 	</div>
