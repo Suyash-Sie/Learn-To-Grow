@@ -104,8 +104,8 @@ var OptimizationBar = function() {
 		.attr('id', 'oBarRightImage')
 		.attr('dy', '.35em').classed('diagramLabel', true);
 		hTextWidth = Math.max(_lImage.node().getBBox().width, _rImage.node().getBBox().width) + _barTextMargin;
-		_lImage.attr('x', 0).attr('y', (ht * rectYMultiplier/1.25));
-		_rImage.attr('x', wt - hTextWidth + _barTextMargin).attr('y', (ht * rectYMultiplier/1.25));
+		_lImage.attr('x', 0).attr('y', (ht * rectYMultiplier));
+		_rImage.attr('x', wt - hTextWidth + _barTextMargin).attr('y', (ht * rectYMultiplier));
 	}
 	
 	function drawBarLabels(wt, ht) {
@@ -121,8 +121,8 @@ var OptimizationBar = function() {
 	.attr('id', 'oBarRightText')
 	.attr('dy', '.35em').classed('diagramLabel', true).text(rightText);
 	hTextWidth = Math.max(_lText.node().getBBox().width, _rText.node().getBBox().width) + _barTextMargin;
-	_lText.attr('x', 0).attr('y', (ht * rectYMultiplier) + (ht * rectHtMultiplier / 2));
-	_rText.attr('x', wt - hTextWidth + _barTextMargin).attr('y', (ht * rectYMultiplier) + (ht * rectHtMultiplier / 2));
+	_lText.attr('x', 0).attr('y', (ht * rectYMultiplier) + (ht * rectHtMultiplier / 1.15));
+	_rText.attr('x', wt - hTextWidth + _barTextMargin).attr('y', (ht * rectYMultiplier) + (ht * rectHtMultiplier / 1.15));
 }
 
 	function drawStrokeLine(x1, y1, x2, y2, color, wt, id) {
