@@ -205,15 +205,28 @@ filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#ffffff', end
 .btn-primary.active { color: rgba(255, 255, 255, 0.75); }
 .btn-primary { background-color: #4a77d4; background-image: -moz-linear-gradient(top, #6eb6de, #4a77d4); background-image: -ms-linear-gradient(top, #6eb6de, #4a77d4); background-image: -webkit-gradient(linear, 0 0, 0 100%, from(#6eb6de), to(#4a77d4)); background-image: -webkit-linear-gradient(top, #6eb6de, #4a77d4); background-image: -o-linear-gradient(top, #6eb6de, #4a77d4); background-image: linear-gradient(top, #6eb6de, #4a77d4); background-repeat: repeat-x; filter: progid:dximagetransform.microsoft.gradient(startColorstr=#6eb6de, endColorstr=#4a77d4, GradientType=0);  border: 1px solid #3762bc; text-shadow: 1px 1px 1px rgba(0,0,0,0.4); box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.2), 0 1px 2px rgba(0, 0, 0, 0.5); }
 .btn-primary:hover, .btn-primary:active, .btn-primary.active, .btn-primary.disabled, .btn-primary[disabled] { filter: none; background-color: #4a77d4; }
+.img {
+	float: right;
+	margin-top: 0;
+ 	margin-right: 20px;
+ 	margin-bottom: 0;
+}
 
 </style>
 <body id="grad1">
 <h4 style="float:left;margin-top:2px;margin-bottom:0px;">Welcome, <%=request.getAttribute("name")%></h4>
-<h3 style="float:left;width:76%;margin-top:10px;margin-bottom:2px;text-align: center;color: royalblue;font-style: italic;">"Learning is a treasure that will follow its owner everywhere!"</h3>
-<form method="post" action="logout">
-<input type="submit" class="btn btn-primary btn-large" value="Logout" style="float: right;font-size: 12px;height:25px;margin-top:5px;margin-right:5px" />
-</form>
-	<div style="position: relative; width: 76%; height: 28%; overflow: hidden;" id="js_chart" align="center"></div>
+<h3 style="float:left;width:73%;margin-top:10px;margin-bottom:2px;text-align: center;color: royalblue;font-style: italic;">"Learning is a treasure that will follow its owner everywhere!"</h3>
+<div class="img">
+	<img src="/LearnApp/resources/image/logo.png" />
+</div>
+<div style = "width: 100%">
+	<div style="float:left;position: relative; width: 76%; height: 28%; overflow: hidden;" id="js_chart" align="center"></div>
+	<div style="float: right; width:calc(23% - 20px); margin-right:20px;">
+		<form method="post" action="logout">
+			<input type="submit" class="btn btn-primary btn-large" value="Logout" style="float: right;font-size: 12px;height:25px;margin-top:5px;margin-right:5px" />
+		</form>
+	</div>
+</div>
 <script>
 renderCore();
 function renderCore() {
@@ -269,7 +282,7 @@ function insertRow(id, contentId){
      }
 }
 </script>
-	 <div>
+	 <div style="display:inline-block;">
 		<h3 style="text-align: left;margin-bottom:5px; margin-top:20px">Your Targets:</h3>
 		<form name="myForm" method="POST" action="submit">
 			<main>			
