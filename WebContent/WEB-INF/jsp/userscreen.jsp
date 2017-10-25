@@ -213,7 +213,7 @@ filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#ffffff', end
 <form method="post" action="logout">
 <input type="submit" class="btn btn-primary btn-large" value="Logout" style="float: right;font-size: 12px;height:25px;margin-top:5px;margin-right:5px" />
 </form>
-	<div style="position: relative; width: 76%; height: 28%; overflow: hidden;" id="js_chart" align="center"></div>
+	<div style="position: relative; width: 76%; height: 24%; overflow: hidden;" id="js_chart" align="center"></div>
 <script>
 renderCore();
 function renderCore() {
